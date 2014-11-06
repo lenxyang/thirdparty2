@@ -31,7 +31,8 @@ static_library("preprocessor") {
 }
 
 config("angle_config") {
-  include_dirs = ["include"]
+  gendir = rebase_path(target_gen_dir, ".")
+  include_dirs = ["include", gendir]
 }
 
 config("translator_config") {
@@ -40,9 +41,10 @@ config("translator_config") {
 }
 
 action("commit_id") {
+  gendir = rebase_path(target_gen_dir, root_build_dir)
   script = "src/commit_id.py"
-  outputs = ["${target_gen_dir}/commit.h"]
-  args = ["${target_gen_dir}/commit.h"]
+  outputs = ["$target_gen_dir/commit.h"]
+  args = ["$gendir/commit.h"]
 }
 
 static_library("translator") {
@@ -173,12 +175,6 @@ static_library("translator") {
 config("angle_libGLESv2_config") {
   pchdir = rebase_path("$target_gen_dir", "$root_build_dir", ".")
   include_dirs = ["$pchdir", "include", "src"]
-}
-
-precompile("libGLESv2_precompile") {
-  precpp = "src/libGLESv2/precompiled.cpp"
-  prehpp = "precompiled.h"
-  direct_dependent_configs = [":angle_libGLESv2_config"]
 }
 
 source_set("angle_common") {
@@ -352,17 +348,17 @@ shared_library("libGLESv2") {
   output_name = "libAGL"
   sources = libGLESv2_sources
   sources += ["src/libGLESv2/azer.cc"]
-  deps = [":translator", ":commit_id", ":libGLESv2_precompile", ":angle_common"]
+  deps = [":translator", ":commit_id", ":angle_common"]
   defines = ["ANGLE_ENABLE_D3D11=1", "ANGLE_ENABLE_D3D9EX=0"]
   if(is_debug) { defines += ["ANGLE_ENABLE_PREF"]}
   gendir = rebase_path("$target_gen_dir", "$root_build_dir", ".")
   include_dirs = ["src", "include", "$gendir", "src/libGLESv2"]
   direct_dependent_configs = [":angle_config"]
-  deffile = rebase_path("src/libGLESv2/libGLESv2.def", ".", "$root_build_dir")
+  deffile = rebase_path("src/libGLESv2/libGLESv2.def", "$root_build_dir")
   ldflags = ["/DEF:$deffile"]
   configs += [
-    "//azer/build/config/win:d3d11",
-    "//azer/build/config/win:d3d9",
+    "//azer/build/config:d3d11",
+    "//azer/build/config:d3d9",
     ":angle_libGLESv2_config",
   ]
 }
@@ -382,7 +378,6 @@ shared_library("libEGL") {
     "src/libEGL/resource.h",
     "src/libEGL/Surface.cpp",
     "src/libEGL/Surface.h",
-    "src/libEGL/libEGL.def",
   ]
 
   direct_dependent_configs = [":angle_config"]
@@ -393,7 +388,7 @@ shared_library("libEGL") {
   gendir = rebase_path("$target_gen_dir", "$root_build_dir", ".")
   include_dirs = ["src/libGLESv2", "$gendir", "src/libEGL", "src"]
   deps = [":libGLESv2", ":commit_id", ":angle_common"]
-  deffile = rebase_path("src/libEGL/libEGL.def", ".", "$root_build_dir")
+  deffile = rebase_path("src/libEGL/libEGL.def", "$root_build_dir")
   ldflags = ["/DEF:$deffile"]
 }
 
