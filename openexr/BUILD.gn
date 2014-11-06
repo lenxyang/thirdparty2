@@ -30,7 +30,7 @@ executable("elut") {
 }
 
 action("gen_tofloat_h") {
-  script = "//build/tools/shell/run2.py"
+  script = "//build/gn_run_binary.py"
   outputs = ["$target_gen_dir/Half/toFloat.h"]
   args = [
     rebase_path("$root_out_dir/toFloat.exe", root_out_dir, "."),
@@ -42,7 +42,7 @@ action("gen_tofloat_h") {
 
 
 action("gen_elut_h") {
-  script = "//build/tools/shell/run2.py"
+  script = "//build/gn_run_binary.py"
   outputs = ["$target_gen_dir/Half/elut.h"]
   args = [
     rebase_path("$root_out_dir/elut.exe", root_out_dir, "."),
@@ -63,6 +63,8 @@ component("ilmhalf") {
   defines = ["HALF_EXPORTS"]
   direct_dependent_configs = [":ilmbase-config"]
   deps = [":gen_tofloat_h", ":gen_elut_h"]
+  configs -= [ "//build/config/compiler:chromium_code" ]
+  configs += [ "//build/config/compiler:no_chromium_code" ]
 }
 
 component("ilmiex") {
@@ -79,6 +81,8 @@ component("ilmiex") {
 
   defines = ["IEX_EXPORTS"]
   direct_dependent_configs = [":ilmbase-config"]
+  configs -= [ "//build/config/compiler:chromium_code" ]
+  configs += [ "//build/config/compiler:no_chromium_code" ]
 }
 
 component("ilmthread") {
@@ -103,6 +107,8 @@ component("ilmthread") {
   deps = [":ilmiex"]
   defines = ["ILMTHREAD_EXPORTS"]
   direct_dependent_configs = [":ilmbase-config"]
+  configs -= [ "//build/config/compiler:chromium_code" ]
+  configs += [ "//build/config/compiler:no_chromium_code" ]
 }
 
 component("ilmmath") {
@@ -149,6 +155,8 @@ component("ilmmath") {
   deps = [":ilmiex"]
   defines = ["IMATH_EXPORTS"]
   direct_dependent_configs = [":ilmbase-config"]
+  configs -= [ "//build/config/compiler:chromium_code" ]
+  configs += [ "//build/config/compiler:no_chromium_code" ]
 }
 
 component("ilmimf") {
@@ -357,6 +365,8 @@ component("ilmimf") {
     ":ilmmath",
     "//third_party/zlib:zlib",
   ]
+  configs -= [ "//build/config/compiler:chromium_code" ]
+  configs += [ "//build/config/compiler:no_chromium_code" ]
 }
 
 test("ilmhalftest") {
