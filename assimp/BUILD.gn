@@ -409,8 +409,8 @@ executable("assimp_view") {
   deps = [":assimp"]
   include_dirs = ["src/code"]
   configs -= ["//build/config/win:unicode" ]
-  configs += ["//build/config/win:d3d9"]
   configs += ["//build/config/win:windowed"]
+  configs += ["//azer/build/config:d3d9"]
   libs = [ "comctl32.lib"]
 }
 
