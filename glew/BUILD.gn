@@ -1,0 +1,35 @@
+
+config("glew-config") {
+  include_dirs = [
+    "//third_party/glew/src/include",
+  ]
+}
+
+shared_library("glew") {
+  sources = [
+    "src/src/glew.c",
+    "src/src/glew.h",
+    "src/build/glew.rc",
+    "src/src/wglew.h",
+  ]
+
+  direct_dependent_configs = [":glew-config"]
+  defines = ["GLEW_BUILD", "VC_EXTRALEAN"]
+  configs += ["//azer/config:opengl"]
+}
+
+executable("glewinfo") {
+  sources  = [
+    "src/src/glewinfo.c",
+    "src/build/glewinfo.rc",
+  ]
+  deps = [":glew"]
+}
+
+executable("visualinfo") {
+  sources  = [
+    "src/src/visualinfo.c",
+    "src/build/visualinfo.rc",
+  ]
+  deps = [":glew"]
+}
