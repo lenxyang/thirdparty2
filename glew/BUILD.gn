@@ -1,8 +1,6 @@
 
 config("glew-config") {
-  include_dirs = [
-    "//third_party/glew/src/include",
-  ]
+  include_dirs = ["//azer/third_party/glew/src/include"]
 }
 
 shared_library("glew") {
@@ -15,7 +13,8 @@ shared_library("glew") {
 
   direct_dependent_configs = [":glew-config"]
   defines = ["GLEW_BUILD", "VC_EXTRALEAN"]
-  configs += ["//azer/config:opengl"]
+  configs += ["//azer/build/config:opengl"]
+  configs -= ["//build/config/compiler:chromium_code"]
 }
 
 executable("glewinfo") {
