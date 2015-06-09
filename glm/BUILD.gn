@@ -8,7 +8,7 @@ config("glm-config") {
 static_library("glm") {
   sources = [
     "src/glm/common.hpp",
-    "src/glm/detail/dummy.cpp",
+    # "src/glm/detail/dummy.cpp",
     "src/glm/detail/func_common.hpp",
     "src/glm/detail/func_common.inl",
     "src/glm/detail/func_exponential.hpp",
