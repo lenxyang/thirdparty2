@@ -1,0 +1,13 @@
+
+
+config("etwpackage") {
+  if (is_win) {
+    include_dirs = [ "include",]
+    lib_dirs = ["lib/"]
+    if (cpu_arch == "x86") {
+      libs = ["ETWProviders.lib"]
+    } else if (cpu_arch == "x64") {
+      libs = ["ETWProviders64.lib"]
+    }
+  }
+}
