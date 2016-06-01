@@ -1,3 +1,5 @@
+import("//testing/test.gni")
+
 config("assimp-config") {
   include_dirs = [
     "src/include/",
@@ -57,7 +59,7 @@ static_library("assimp_contrib") {
     "src/contrib/zlib/zutil.h",
   ]
 
-  direct_dependent_configs = [":assimp-config"]
+  public_configs = [":assimp-config"]
 
   include_dirs = [
     "src/contrib/unzip"
@@ -367,8 +369,7 @@ static_library("assimp") {
     "src/code/XGLLoader.h",
   ]
 
-  deps = [":assimp_contrib"]
-  forward_dependent_configs_from = deps
+  public_deps = [":assimp_contrib"]
 }
 
 executable("assimp_view") {
