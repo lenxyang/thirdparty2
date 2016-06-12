@@ -33,13 +33,13 @@ namespace crnlib
          dds_texture*               m_pInput_tex;
          dds_texture                m_output_tex;
 
-         uint64                     m_input_file_size;
+         uint64_t                     m_input_file_size;
          uint                       m_total_input_pixels;
 
-         uint64                     m_output_file_size;
+         uint64_t                     m_output_file_size;
          uint                       m_total_output_pixels;
 
-         uint64                     m_output_comp_file_size;
+         uint64_t                     m_output_comp_file_size;
       };
 
       class convert_params

@@ -87,8 +87,8 @@ namespace crnlib
          uint                 m_table_max_code;
          uint                 m_decode_start_code_size;
 
-         uint8                m_min_code_size;
-         uint8                m_max_code_size;
+         uint8_t                m_min_code_size;
+         uint8_t                m_max_code_size;
 
          uint                 m_max_codes[cMaxExpectedCodeSize + 1];
          int                  m_val_ptrs[cMaxExpectedCodeSize + 1];

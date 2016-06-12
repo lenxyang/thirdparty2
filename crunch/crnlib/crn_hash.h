@@ -4,10 +4,10 @@
 
 namespace crnlib
 {
-   uint32 fast_hash (const void* p, int len);
+   uint32_t fast_hash (const void* p, int len);
    
    // 4-byte integer hash, full avalanche
-   inline uint32 bitmix32c(uint32 a)
+   inline uint32_t bitmix32c(uint32_t a)
    {
       a = (a+0x7ed55d16) + (a<<12);
       a = (a^0xc761c23c) ^ (a>>19);
@@ -19,7 +19,7 @@ namespace crnlib
    }
    
    // 4-byte integer hash, full avalanche, no constants
-   inline uint32 bitmix32(uint32 a)
+   inline uint32_t bitmix32(uint32_t a)
    {
       a -= (a<<6);
       a ^= (a>>17);

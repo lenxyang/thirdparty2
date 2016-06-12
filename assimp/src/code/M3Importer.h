@@ -278,23 +278,23 @@ void rotate(float x0, float y0, float *x, float *y, float angle)
 
 struct Reference 
 {
-	uint32 nEntries;	// Code 0x00
-	uint32 ref;			// Code 0x04
+	uint32_t nEntries;	// Code 0x00
+	uint32_t ref;			// Code 0x04
 };
 
 struct ReferenceEntry
 {
 	char id[ 4 ];		// Code 0x00
-	uint32 offset;		// Code 0x04
-	uint32 nEntries;	// Code 0x08
-	uint32 type;		// Code 0x0C
+	uint32_t offset;		// Code 0x04
+	uint32_t nEntries;	// Code 0x08
+	uint32_t type;		// Code 0x0C
 };
 
 struct MD33
 {
 	char id[4];			// Code 0x00
-	uint32 ofsRefs;		// Code 0x04
-	uint32 nRefs;		// Code 0x08
+	uint32_t ofsRefs;		// Code 0x04
+	uint32_t nRefs;		// Code 0x08
 	Reference MODL;		// Code 0x0C
 };
 
@@ -313,17 +313,17 @@ enum VertexFormat
 struct MODL23
 {
 	Reference name;				// Code 0x00
-	uint32 version;				// Code 0x08
+	uint32_t version;				// Code 0x08
 	Reference sequenceHeader;	// Code 0x0C
 	Reference sequenceData;		// Code 0x14
 	Reference sequenceLookup;	// Code 0x1C
-	uint32 d2;					// Code 0x24
-	uint32 d3;					// Code 0x28
-	uint32 d4;					// Code 0x2C
+	uint32_t d2;					// Code 0x24
+	uint32_t d3;					// Code 0x28
+	uint32_t d4;					// Code 0x2C
 	Reference STS;				// Code 0x30
 	Reference bones;			// Code 0x38
-	uint32 d5;					// Code 0x40
-	uint32 flags;				// Code 0x44
+	uint32_t d5;					// Code 0x40
+	uint32_t flags;				// Code 0x44
 	Reference vertexData;		// Code 0x48
 	Reference views;			// Code 0x50
 	Reference B;				// Code 0x58
@@ -331,19 +331,19 @@ struct MODL23
 	Vec3D extents[2];			// Code 0x60
 	float radius;				// Code 0x78
 
-	uint32 d7;					// Code 0x7C
-	uint32 d8;					// Code 0x80
-	uint32 d9;					// Code 0x84
-	uint32 d10;					// Code 0x88
-	uint32 d11;					// Code 0x8C
-	uint32 d12;					// Code 0x90
-	uint32 d13;					// Code 0x94
-	uint32 d14;					// Code 0x98
-	uint32 d15;					// Code 0x9C
-	uint32 d16;					// Code 0xA0
-	uint32 d17;					// Code 0xA4
-	uint32 d18;					// Code 0xA8
-	uint32 d19;					// Code 0xAC
+	uint32_t d7;					// Code 0x7C
+	uint32_t d8;					// Code 0x80
+	uint32_t d9;					// Code 0x84
+	uint32_t d10;					// Code 0x88
+	uint32_t d11;					// Code 0x8C
+	uint32_t d12;					// Code 0x90
+	uint32_t d13;					// Code 0x94
+	uint32_t d14;					// Code 0x98
+	uint32_t d15;					// Code 0x9C
+	uint32_t d16;					// Code 0xA0
+	uint32_t d17;					// Code 0xA4
+	uint32_t d18;					// Code 0xA8
+	uint32_t d19;					// Code 0xAC
 
 	Reference attachments;		// Code 0xB0
 	Reference attachmentLookup;	// Code 0xB8
@@ -358,8 +358,8 @@ struct MODL23
 
 	Reference TER;				// Code 0x10
 	Reference VOL;				// Code 0x10
-	uint32 d21;					// Code 0x11
-	uint32 d22;					// Code 0x11
+	uint32_t d21;					// Code 0x11
+	uint32_t d22;					// Code 0x11
 	Reference CREP;				// Code 0x11
 	Reference PAR;				// Code 0x12
 	Reference PARC;				// Code 0x12
@@ -367,18 +367,18 @@ struct MODL23
 	Reference PROJ;				// Code 0x13
 	Reference FOR;				// Code 0x14
 	Reference WRP;				// Code 0x14
-	uint32 d24;					// Code 0x15
-	uint32 d25;					// Code 0x15
+	uint32_t d24;					// Code 0x15
+	uint32_t d25;					// Code 0x15
 	Reference PHRB;				// Code 0x15
-	uint32 d27;					// Code 0x16
-	uint32 d28;					// Code 0x16
-	uint32 d29;					// Code 0x16
-	uint32 d30;					// Code 0x16
-	uint32 d32;					// Code 0x17
-	uint32 d33;					// Code 0x17
+	uint32_t d27;					// Code 0x16
+	uint32_t d28;					// Code 0x16
+	uint32_t d29;					// Code 0x16
+	uint32_t d30;					// Code 0x16
+	uint32_t d32;					// Code 0x17
+	uint32_t d33;					// Code 0x17
 	Reference IKJT;				// Code 0x17
-	uint32 d35;					// Code 0x18
-	uint32 d36;					// Code 0x18
+	uint32_t d35;					// Code 0x18
+	uint32_t d36;					// Code 0x18
 	Reference PATU;				// Code 0x18
 	Reference TRGD;				// Code 0x19
 	Reference IREF;				// Code 0x19
@@ -388,30 +388,30 @@ struct MODL23
 	float rad;					// Code 0x20
 	Reference SSGS;				// Code 0x20
 	Reference ATVL;				// Code 0x20
-	uint32 d61;					// Code 0x21
+	uint32_t d61;					// Code 0x21
 	Reference F;				// uint16, Code6 0x21
 	Reference G;				// uint16, Code 0x21
 	Reference BBSC;				// Code 0x22
 	Reference TMD;				// Code 0x22
-	uint32 d62;					// Code 0x23
-	uint32 d63;					// Code 0x23
-	uint32 d64;					// Code 0x23
+	uint32_t d62;					// Code 0x23
+	uint32_t d63;					// Code 0x23
+	uint32_t d64;					// Code 0x23
 };
 
 struct MODL20
 {
 	Reference name;				// Code 0x00
-	uint32 version;				// Code 0x08
+	uint32_t version;				// Code 0x08
 	Reference sequenceHeader;	// Code 0x0C
 	Reference sequenceData;		// Code 0x14
 	Reference sequenceLookup;	// Code 0x1C
-	uint32 d2;					// Code 0x24
-	uint32 d3;					// Code 0x28
-	uint32 d4;					// Code 0x2C
+	uint32_t d2;					// Code 0x24
+	uint32_t d3;					// Code 0x28
+	uint32_t d4;					// Code 0x2C
 	Reference STS;				// Code 0x30
 	Reference bones;			// Code 0x38
-	uint32 d5;					// Code 0x44
-	uint32 flags;				// Code 0x44
+	uint32_t d5;					// Code 0x44
+	uint32_t flags;				// Code 0x44
 	Reference vertexData;		// uint8, Code 0x48
 	Reference views;			// Code 0x50
 	Reference B;				// uint16, Code 0x58
@@ -419,19 +419,19 @@ struct MODL20
 	Vec3D extents[2];			// Code 0x60
 	float radius;				// Code 0x78
 
-	uint32 d7;					// Code 0x7C
-	uint32 d8;					// Code 0x80
-	uint32 d9;					// Code 0x84
-	uint32 d10;					// Code 0x88
-	uint32 d11;					// Code 0x8C
-	uint32 d12;					// Code 0x90
-	uint32 d13;					// Code 0x94
-	uint32 d14;					// Code 0x98
-	uint32 d15;					// Code 0x9C
-	uint32 d16;					// Code 0xA0
-	uint32 d17;					// Code 0xA4
-	uint32 d18;					// Code 0xA8
-	uint32 d19;					// Code 0xAC
+	uint32_t d7;					// Code 0x7C
+	uint32_t d8;					// Code 0x80
+	uint32_t d9;					// Code 0x84
+	uint32_t d10;					// Code 0x88
+	uint32_t d11;					// Code 0x8C
+	uint32_t d12;					// Code 0x90
+	uint32_t d13;					// Code 0x94
+	uint32_t d14;					// Code 0x98
+	uint32_t d15;					// Code 0x9C
+	uint32_t d16;					// Code 0xA0
+	uint32_t d17;					// Code 0xA4
+	uint32_t d18;					// Code 0xA8
+	uint32_t d19;					// Code 0xAC
 
 	Reference attachments;		// Code 0xB0
 	Reference attachmentLookup; // uint16, Code 0xB8
@@ -444,30 +444,30 @@ struct MODL20
 	Reference CMP;				// Code 0xF0
 	Reference TER;				// Code 0xF8
 
-	uint32 d20;					// Code 0x10
-	uint32 d21;					// Code 0x10
-	uint32 d22;					// Code 0x10
-	uint32 d23;					// Code 0x10
+	uint32_t d20;					// Code 0x10
+	uint32_t d21;					// Code 0x10
+	uint32_t d22;					// Code 0x10
+	uint32_t d23;					// Code 0x10
 	Reference CREP;				// Code 0x11
 	Reference PAR;				// Code 0x11
 	Reference PARC;				// Code 0x12
 	Reference RIB;				// Code 0x12
 	Reference PROJ;				// Code 0x13
 	Reference FOR;				// Code 0x13
-	uint32 d25;					// Code 0x14
-	uint32 d26;					// Code 0x14
-	uint32 d27;					// Code 0x14
-	uint32 d28;					// Code 0x14
+	uint32_t d25;					// Code 0x14
+	uint32_t d26;					// Code 0x14
+	uint32_t d27;					// Code 0x14
+	uint32_t d28;					// Code 0x14
 	Reference PHRB;				// Code 0x15
-	uint32 d30;					// Code 0x15
-	uint32 d31;					// Code 0x15
-	uint32 d32;					// Code 0x16
-	uint32 d33;					// Code 0x16
-	uint32 d34;					// Code 0x16
-	uint32 d35;					// Code 0x16
+	uint32_t d30;					// Code 0x15
+	uint32_t d31;					// Code 0x15
+	uint32_t d32;					// Code 0x16
+	uint32_t d33;					// Code 0x16
+	uint32_t d34;					// Code 0x16
+	uint32_t d35;					// Code 0x16
 	Reference IKJT;				// Code 0x17
-	uint32 d36;					// Code 0x17
-	uint32 d37;					// Code 0x17
+	uint32_t d36;					// Code 0x17
+	uint32_t d37;					// Code 0x17
 	Reference PATU;				// Code 0x18
 	Reference TRGD;				// Code 0x18
 	Reference IREF;				// Code 0x19
@@ -478,24 +478,24 @@ struct MODL20
 	 float rad;					// Code 0x1F
 
 	 Reference SSGS;			// Code 0x1F
-	 uint32 d38;				// Code 0x20
-	 uint32 d39;				// Code 0x20
+	 uint32_t d38;				// Code 0x20
+	 uint32_t d39;				// Code 0x20
 	 Reference BBSC;			// Code 0x20
 
-	 uint32 d40;				// Code 0x21
-	 uint32 d41;				// Code 0x21
-	 uint32 d42;				// Code 0x21
-	 uint32 d43;				// Code 0x22
-	 uint32 d44;				// Code 0x22
+	 uint32_t d40;				// Code 0x21
+	 uint32_t d41;				// Code 0x21
+	 uint32_t d42;				// Code 0x21
+	 uint32_t d43;				// Code 0x22
+	 uint32_t d44;				// Code 0x22
 };
 
 struct BONE
 {
-	int32 d1; // Keybone?
+	int32_t d1; // Keybone?
 	Reference name;
-	uint32 flags;
-	int16 parent;
-	int16 s1;
+	uint32_t flags;
+	int16_t parent;
+	int16_t s1;
 
 	float floats[ 34 ];
 };
@@ -503,28 +503,28 @@ struct BONE
 struct VertexExt // 36 byte
 {
 	Vec3D pos;
-	uint8 boneWeight[ 4 ];
-	uint8 boneIndex[ 4 ];
-	uint8 normal[ 4 ];  //normal_x = (float)normal[0]/255.0f...
-	int16 uv[ 2 ];
-	uint32 d1;
-	uint8 tangent[ 4 ];
+	uint8_t boneWeight[ 4 ];
+	uint8_t boneIndex[ 4 ];
+	uint8_t normal[ 4 ];  //normal_x = (float)normal[0]/255.0f...
+	int16_t uv[ 2 ];
+	uint32_t d1;
+	uint8_t tangent[ 4 ];
 };
 
 struct Vertex // 32 byte
 {
 	Vec3D pos;
-	uint8 boneWeight[4];
-	uint8 boneIndex[4];
-	uint8 normal[4];  //normal_x = (float)normal[0]/255.0f...
-	int16 uv[2];
-	uint8 tangent[4];
+	uint8_t boneWeight[4];
+	uint8_t boneIndex[4];
+	uint8_t normal[4];  //normal_x = (float)normal[0]/255.0f...
+	int16_t uv[2];
+	uint8_t tangent[4];
 };
 
 struct MATM
 {
-	uint32 d1;
-	uint32 d2; // Index into MAT-table?
+	uint32_t d1;
+	uint32_t d2; // Index into MAT-table?
 };
 
 struct MAT
@@ -553,35 +553,35 @@ struct DIV
 
 struct Region 
 {
-	uint32 unk;
-	uint16 ofsVertices;
-	uint16 nVertices;
-	uint32 ofsIndices;
-	uint32 nIndices; // reference into DIV.faces
-	uint8 unknown[12];
+	uint32_t unk;
+	uint16_t ofsVertices;
+	uint16_t nVertices;
+	uint32_t ofsIndices;
+	uint32_t nIndices; // reference into DIV.faces
+	uint8_t unknown[12];
 };
 
 struct CAM
 {
-	int32 d1;		// Code 0x00
+	int32_t d1;		// Code 0x00
 	Reference name;	// Code 0x04
-	uint16 flags1;	// Code 0x0C
-	uint16 flags2;	// Code 0x0E
+	uint16_t flags1;	// Code 0x0C
+	uint16_t flags2;	// Code 0x0E
 };
 
 struct EVNT
 {
 	Reference name;		// Code 0x00
-	int16 unk1[4];		// Code 0x08
+	int16_t unk1[4];		// Code 0x08
 	float matrix[4][4];	// Code 0x10
-	int32 unk2[4];		// Code 0x50
+	int32_t unk2[4];		// Code 0x50
 };
 
 struct ATT
 {
-	int32 unk;		// Code 0x00
+	int32_t unk;		// Code 0x00
 	Reference name;	// Code 0x04
-	int32 bone;		// Code 0x0C
+	int32_t bone;		// Code 0x0C
 };
 
 struct PHSH
@@ -595,30 +595,30 @@ struct PHSH
 
 struct SEQS
 {
-	int32 d1;	// Code 0x00
-	int32 d2;	// Code 0x04
+	int32_t d1;	// Code 0x00
+	int32_t d2;	// Code 0x04
 	Reference name;	// Code 0x08
-	int32 d3;	// Code 0x10
-	uint32 length;	// Code 0x14
-	int32 d4;	// Code 0x18
-	uint32 flags;	// Code 0x1C
-	int32 unk[5];	// Code 0x20
+	int32_t d3;	// Code 0x10
+	uint32_t length;	// Code 0x14
+	int32_t d4;	// Code 0x18
+	uint32_t flags;	// Code 0x1C
+	int32_t unk[5];	// Code 0x20
 	Vec3D extents[2];	// Code 0x34
 	float radius;	// Code 0x4C
-	int32 d5;	// Code 0x50
-	int32 d6;	// Code 0x54
+	int32_t d5;	// Code 0x50
+	int32_t d6;	// Code 0x54
 };
 
 struct STC
 {
 	Reference name;		// Code 0x00
-	uint16 s1;			// Code 0x08
-	uint16 s2;			// Code 0x0A
-	uint16 s3;			// Code 0x0C
-	uint16 s4;			// Code 0x0E
+	uint16_t s1;			// Code 0x08
+	uint16_t s2;			// Code 0x0A
+	uint16_t s3;			// Code 0x0C
+	uint16_t s4;			// Code 0x0E
 	Reference unk2;		// uint32	// Code 0x12
 	Reference unk3;		// uint32	// Code 0x1A
-	uint32 d3;			// Code 0x22
+	uint32_t d3;			// Code 0x22
 	Reference evt;		// Code 0x24
 	Reference unk4[11]; // Seems to be transformation data	// Code 0x2C
 	Reference bnds;		// Code 0x84
@@ -627,9 +627,9 @@ struct STC
 struct STS
 {
 	Reference unk1; // uint32	// Code 0x00
-	int32 unk[3];	// Code 0x08
-	int16 s1;		// Code 0x14
-	int16 s2;		// Code 0x16
+	int32_t unk[3];	// Code 0x08
+	int16_t s1;		// Code 0x14
+	int16_t s2;		// Code 0x16
 };
 
 struct STG
@@ -641,8 +641,8 @@ struct STG
 struct SD
 {
 	Reference timeline;	// Code 0x00
-	uint32 flags;		// Code 0x08
-	uint32 length;		// Code 0x0C
+	uint32_t flags;		// Code 0x08
+	uint32_t length;		// Code 0x0C
 	Reference data;		// Code 0x10
 };
 
@@ -696,7 +696,7 @@ public:
 private:
 	const aiImporterDesc* GetInfo () const;
 	void InternReadFile( const std::string& pFile, aiScene* pScene, IOSystem* pIOHandler );
-	void convertToAssimp( const std::string& pFile, aiScene* pScene, DIV *pViews, Region *pRegions, uint16 *pFaces, 
+	void convertToAssimp( const std::string& pFile, aiScene* pScene, DIV *pViews, Region *pRegions, uint16_t *pFaces, 
 		const std::vector<aiVector3D> &vertices, const std::vector<aiVector3D> &uvCoords, const std::vector<aiVector3D> &normals );
 	void createVertexData( aiMesh *pMesh, const std::vector<aiVector3D> &vertices, const std::vector<aiVector3D> &uvCoords,
 		const std::vector<aiVector3D> &normals  );

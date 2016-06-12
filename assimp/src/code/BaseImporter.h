@@ -60,7 +60,7 @@ class BaseProcess;
 class SharedPostProcessInfo;
 class IOStream;
 
-// utility to do char4 to uint32 in a portable manner
+// utility to do char4 to uint32_t in a portable manner
 #define AI_MAKE_MAGIC(string) ((uint32_t)((string[0] << 24) + \
 	(string[1] << 16) + (string[2] << 8) + string[3]))
 

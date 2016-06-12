@@ -141,15 +141,15 @@ namespace crnlib
          chunk_encoding() { utils::zero_object(*this); };
 
          // Index into g_chunk_encodings.
-         uint8 m_encoding_index;
+         uint8_t m_encoding_index;
 
          // Number of tiles, endpoint indices.
-         uint8 m_num_tiles;
+         uint8_t m_num_tiles;
 
          // Color, alpha0, alpha1
          enum { cColorIndex = 0, cAlpha0Index = 1, cAlpha1Index = 2 };
-         uint16 m_endpoint_indices[3][cChunkMaxTiles];
-         uint16 m_selector_indices[3][cChunkBlockHeight][cChunkBlockWidth];   // [block_y][block_x]
+         uint16_t m_endpoint_indices[3][cChunkMaxTiles];
+         uint16_t m_selector_indices[3][cChunkBlockHeight][cChunkBlockWidth];   // [block_y][block_x]
       };
 
       typedef crnlib::vector<chunk_encoding> chunk_encoding_vec;
@@ -161,9 +161,9 @@ namespace crnlib
       {
          selectors() { utils::zero_object(*this); }
 
-         uint8 m_selectors[cBlockPixelHeight][cBlockPixelWidth];
+         uint8_t m_selectors[cBlockPixelHeight][cBlockPixelWidth];
 
-         uint8 get_by_index(uint i) const { CRNLIB_ASSERT(i < (cBlockPixelWidth * cBlockPixelHeight)); return *(&m_selectors[0][0] + i); }
+         uint8_t get_by_index(uint i) const { CRNLIB_ASSERT(i < (cBlockPixelWidth * cBlockPixelHeight)); return *(&m_selectors[0][0] + i); }
          void set_by_index(uint i, uint v) { CRNLIB_ASSERT(i < (cBlockPixelWidth * cBlockPixelHeight)); *(&m_selectors[0][0] + i) = static_cast<uint8>(v); }
       };
       typedef crnlib::vector<selectors> selectors_vec;
@@ -224,7 +224,7 @@ namespace crnlib
          uint m_first_endpoint;
          uint m_second_endpoint;
 
-         uint8 m_selectors[cChunkPixelWidth * cChunkPixelHeight];
+         uint8_t m_selectors[cChunkPixelWidth * cChunkPixelHeight];
 
          void set_selector(uint x, uint y, uint s)
          {
@@ -238,10 +238,10 @@ namespace crnlib
             return m_selectors[x + y * m_pixel_width];
          }
 
-         uint8 m_pixel_width;
-         uint8 m_pixel_height;
+         uint8_t m_pixel_width;
+         uint8_t m_pixel_height;
 
-         uint8 m_layout_index;
+         uint8_t m_layout_index;
 
          bool m_alpha_encoding;
       };
@@ -250,15 +250,15 @@ namespace crnlib
       {
          compressed_chunk() { utils::zero_object(*this); }
 
-         uint8 m_encoding_index;
+         uint8_t m_encoding_index;
 
-         uint8 m_num_tiles;
+         uint8_t m_num_tiles;
 
          compressed_tile m_tiles[cChunkMaxTiles];
          compressed_tile m_quantized_tiles[cChunkMaxTiles];
 
-         uint16 m_endpoint_cluster_index[cChunkMaxTiles];
-         uint16 m_selector_cluster_index[cChunkBlockHeight][cChunkBlockWidth];
+         uint16_t m_endpoint_cluster_index[cChunkMaxTiles];
+         uint16_t m_selector_cluster_index[cChunkBlockHeight][cChunkBlockWidth];
       };
 
       typedef crnlib::vector<compressed_chunk> compressed_chunk_vec;
@@ -272,9 +272,9 @@ namespace crnlib
       };
       compressed_chunk_vec m_compressed_chunks[cNumCompressedChunkVecs];
 
-      int32 m_encoding_hist[cNumChunkEncodings];
+      int32_t m_encoding_hist[cNumChunkEncodings];
 
-      int32 m_total_tiles;
+      int32_t m_total_tiles;
 
       void compress_dxt1_block(
          dxt1_endpoint_optimizer::results& results,
@@ -286,7 +286,7 @@ namespace crnlib
          uint chunk_index, const image_u8& chunk, uint x_ofs, uint y_ofs, uint width, uint height, uint component_index,
          uint8* pAlpha_selectors);
 
-      void determine_compressed_chunks_task(uint64 data, void* pData_ptr);
+      void determine_compressed_chunks_task(uint64_t data, void* pData_ptr);
       bool determine_compressed_chunks();
 
       struct tile_cluster
@@ -299,7 +299,7 @@ namespace crnlib
 
          uint m_first_endpoint;
          uint m_second_endpoint;
-         uint64 m_error;
+         uint64_t m_error;
 
          bool m_alpha_encoding;
       };
@@ -321,10 +321,10 @@ namespace crnlib
             m_chunk_index(chunk_index), m_alpha_index((uint8)alpha_index), m_tile_index((uint8)tile_index), m_block_x((uint8)block_x), m_block_y((uint8)block_y) { }
 
          uint m_chunk_index;
-         uint8 m_alpha_index;
-         uint8 m_tile_index;
-         uint8 m_block_x;
-         uint8 m_block_y;
+         uint8_t m_alpha_index;
+         uint8_t m_tile_index;
+         uint8_t m_block_x;
+         uint8_t m_block_y;
       };
 
       typedef crnlib::vector< crnlib::vector< block_id > > chunk_blocks_using_selectors_vec;
@@ -350,7 +350,7 @@ namespace crnlib
 
       pixel_chunk_vec m_dbg_chunk_pixels_final;
 
-      uint32 m_main_thread_id;
+      uint32_t m_main_thread_id;
       bool m_canceled;
       task_pool* m_pTask_pool;
 
@@ -400,7 +400,7 @@ namespace crnlib
          mutable spinlock                    m_chunk_blocks_using_selectors_lock;
       };
 
-      void assign_color_endpoint_clusters_task(uint64 data, void* pData_ptr);
+      void assign_color_endpoint_clusters_task(uint64_t data, void* pData_ptr);
       bool determine_color_endpoint_clusters();
 
       struct determine_alpha_endpoint_clusters_state
@@ -409,18 +409,18 @@ namespace crnlib
          crnlib::vector< crnlib::vector<vec2F> > m_training_vecs[2];
       };
 
-      void determine_alpha_endpoint_clusters_task(uint64 data, void* pData_ptr);
+      void determine_alpha_endpoint_clusters_task(uint64_t data, void* pData_ptr);
       bool determine_alpha_endpoint_clusters();
 
-      void determine_color_endpoint_codebook_task(uint64 data, void* pData_ptr);
+      void determine_color_endpoint_codebook_task(uint64_t data, void* pData_ptr);
       bool determine_color_endpoint_codebook();
 
-      void determine_alpha_endpoint_codebook_task(uint64 data, void* pData_ptr);
+      void determine_alpha_endpoint_codebook_task(uint64_t data, void* pData_ptr);
       bool determine_alpha_endpoint_codebook();
 
       void create_quantized_debug_images();
 
-      void create_selector_codebook_task(uint64 data, void* pData_ptr);
+      void create_selector_codebook_task(uint64_t data, void* pData_ptr);
       bool create_selector_codebook(bool alpha_blocks);
 
       bool refine_quantized_color_endpoints();

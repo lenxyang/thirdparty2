@@ -53,21 +53,21 @@ namespace crnlib
    const float cDXT5InvMaxLinearValue = 1.0f/7.0f;
    
    // Converts DXT1 raw color selector index to a linear value.
-   extern const uint8 g_dxt1_to_linear[cDXT1SelectorValues];
+   extern const uint8_t g_dxt1_to_linear[cDXT1SelectorValues];
    
    // Converts DXT5 raw alpha selector index to a linear value.
-   extern const uint8 g_dxt5_to_linear[cDXT5SelectorValues];
+   extern const uint8_t g_dxt5_to_linear[cDXT5SelectorValues];
 
    // Converts DXT1 linear color selector index to a raw value (inverse of g_dxt1_to_linear).
-   extern const uint8 g_dxt1_from_linear[cDXT1SelectorValues];
+   extern const uint8_t g_dxt1_from_linear[cDXT1SelectorValues];
 
    // Converts DXT5 linear alpha selector index to a raw value (inverse of g_dxt5_to_linear).
-   extern const uint8 g_dxt5_from_linear[cDXT5SelectorValues];
+   extern const uint8_t g_dxt5_from_linear[cDXT5SelectorValues];
    
-   extern const uint8 g_dxt5_alpha6_to_linear[cDXT5SelectorValues];
+   extern const uint8_t g_dxt5_alpha6_to_linear[cDXT5SelectorValues];
    
-   extern const uint8 g_six_alpha_invert_table[cDXT5SelectorValues];
-   extern const uint8 g_eight_alpha_invert_table[cDXT5SelectorValues];
+   extern const uint8_t g_six_alpha_invert_table[cDXT5SelectorValues];
+   extern const uint8_t g_eight_alpha_invert_table[cDXT5SelectorValues];
    
    const wchar_t* get_dxt_format_string(dxt_format fmt);
    uint get_dxt_format_bits_per_pixel(dxt_format fmt);
@@ -79,11 +79,11 @@ namespace crnlib
    
    struct dxt1_block
    {
-      uint8 m_low_color[2];
-      uint8 m_high_color[2];
+      uint8_t m_low_color[2];
+      uint8_t m_high_color[2];
       
       enum { cNumSelectorBytes = 4 };
-      uint8 m_selectors[cNumSelectorBytes];
+      uint8_t m_selectors[cNumSelectorBytes];
       
       inline void clear()
       {
@@ -101,13 +101,13 @@ namespace crnlib
          return m_high_color[0] | (m_high_color[1] << 8U);
       }
      
-      inline void set_low_color(uint16 c)      
+      inline void set_low_color(uint16_t c)      
       {
          m_low_color[0] = static_cast<uint8>(c & 0xFF);
          m_low_color[1] = static_cast<uint8>((c >> 8) & 0xFF);
       }
        
-      inline void set_high_color(uint16 c)
+      inline void set_high_color(uint16_t c)
       {
          m_high_color[0] = static_cast<uint8>(c & 0xFF);
          m_high_color[1] = static_cast<uint8>((c >> 8) & 0xFF);
@@ -131,27 +131,27 @@ namespace crnlib
          m_selectors[y] |= (val << (x * cDXT1SelectorBits));
       }
       
-      static uint16        pack_color(const color_quad_u8& color, bool scaled, uint bias = 127U);
-      static uint16        pack_color(uint r, uint g, uint b, bool scaled, uint bias = 127U);
+      static uint16_t        pack_color(const color_quad_u8& color, bool scaled, uint bias = 127U);
+      static uint16_t        pack_color(uint r, uint g, uint b, bool scaled, uint bias = 127U);
             
-      static color_quad_u8 unpack_color(uint16 packed_color, bool scaled, uint alpha = 255U);
-      static void          unpack_color(uint& r, uint& g, uint& b, uint16 packed_color, bool scaled);
+      static color_quad_u8 unpack_color(uint16_t packed_color, bool scaled, uint alpha = 255U);
+      static void          unpack_color(uint& r, uint& g, uint& b, uint16_t packed_color, bool scaled);
             
-      static uint          get_block_colors3(color_quad_u8* pDst, uint16 color0, uint16 color1);
-      static uint          get_block_colors3_round(color_quad_u8* pDst, uint16 color0, uint16 color1);
+      static uint          get_block_colors3(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
+      static uint          get_block_colors3_round(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
       
-      static uint          get_block_colors4(color_quad_u8* pDst, uint16 color0, uint16 color1);
-      static uint          get_block_colors4_round(color_quad_u8* pDst, uint16 color0, uint16 color1);
+      static uint          get_block_colors4(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
+      static uint          get_block_colors4_round(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
       
       // pDst must point to an array at least cDXT1SelectorValues long.
-      static uint          get_block_colors(color_quad_u8* pDst, uint16 color0, uint16 color1);
+      static uint          get_block_colors(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
       
-      static uint          get_block_colors_round(color_quad_u8* pDst, uint16 color0, uint16 color1);
+      static uint          get_block_colors_round(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
       
-      static color_quad_u8 unpack_endpoint(uint32 endpoints, uint index, bool scaled, uint alpha = 255U);
+      static color_quad_u8 unpack_endpoint(uint32_t endpoints, uint index, bool scaled, uint alpha = 255U);
       static uint          pack_endpoints(uint lo, uint hi);
    
-      static void          get_block_colors_NV5x(color_quad_u8* pDst, uint16 packed_col0, uint16 packed_col1, bool color4);
+      static void          get_block_colors_NV5x(color_quad_u8* pDst, uint16_t packed_col0, uint16_t packed_col1, bool color4);
    };
    
    CRNLIB_DEFINE_BITWISE_COPYABLE(dxt1_block);
@@ -159,7 +159,7 @@ namespace crnlib
    struct dxt3_block
    {
       enum { cNumAlphaBytes = 8 };
-      uint8 m_alpha[cNumAlphaBytes];
+      uint8_t m_alpha[cNumAlphaBytes];
       
       void set_alpha(uint x, uint y, uint value, bool scaled);
       uint get_alpha(uint x, uint y, bool scaled) const;
@@ -169,10 +169,10 @@ namespace crnlib
    
    struct dxt5_block
    {
-      uint8 m_endpoints[2];
+      uint8_t m_endpoints[2];
 
       enum { cNumSelectorBytes = 6 };
-      uint8 m_selectors[cNumSelectorBytes];
+      uint8_t m_selectors[cNumSelectorBytes];
 
       inline void clear()
       {

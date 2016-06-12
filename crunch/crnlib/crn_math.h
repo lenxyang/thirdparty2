@@ -5,7 +5,7 @@
 #if defined(_M_IX86) && defined(_MSC_VER)
    #include <intrin.h>
    #pragma intrinsic(__emulu)
-   unsigned __int64 __emulu(unsigned int a,unsigned int b );
+   unsigned __int64_t __emulu(unsigned int a,unsigned int b );
 #endif
 
 namespace crnlib
@@ -56,8 +56,8 @@ namespace crnlib
 
       template<typename T> inline T square(T value) { return value * value; }
 
-      inline bool is_power_of_2(uint32 x) { return x && ((x & (x - 1U)) == 0U); }
-      inline bool is_power_of_2(uint64 x) { return x && ((x & (x - 1U)) == 0U); }
+      inline bool is_power_of_2(uint32_t x) { return x && ((x & (x - 1U)) == 0U); }
+      inline bool is_power_of_2(uint64_t x) { return x && ((x & (x - 1U)) == 0U); }
 
       template<typename T> inline T align_up_value(T x, uint alignment)
       {
@@ -81,7 +81,7 @@ namespace crnlib
       }
 		      
 		// From "Hackers Delight"
-      inline uint32 next_pow2(uint32 val)
+      inline uint32_t next_pow2(uint32_t val)
       {
          val--;
          val |= val >> 16;
@@ -92,7 +92,7 @@ namespace crnlib
          return val + 1;
       }
 
-      inline uint64 next_pow2(uint64 val)
+      inline uint64_t next_pow2(uint64_t val)
       {
          val--;
          val |= val >> 32;
@@ -203,7 +203,7 @@ namespace crnlib
          return result;
       }
 
-      inline uint64 emulu(uint32 a, uint32 b)
+      inline uint64_t emulu(uint32_t a, uint32_t b)
       {
 #if defined(_M_IX86) && defined(_MSC_VER)
          return __emulu(a, b);

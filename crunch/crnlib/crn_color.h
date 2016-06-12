@@ -140,7 +140,7 @@ namespace crnlib
 
          component_type c[cNumComps];
 
-         uint32 m_u32;
+         uint32_t m_u32;
       };
 
       inline color_quad()
@@ -326,14 +326,14 @@ namespace crnlib
       }
 
       // Beware of endianness!
-      inline uint32 get_uint32() const
+      inline uint32_t get_uint32() const
       {
          CRNLIB_ASSERT(sizeof(*this) == sizeof(uint32));
          return *reinterpret_cast<const uint32*>(this);
       }
 
       // Beware of endianness!
-      inline uint64 get_uint64() const
+      inline uint64_t get_uint64() const
       {
          CRNLIB_ASSERT(sizeof(*this) == sizeof(uint64));
          return *reinterpret_cast<const uint64*>(this);
@@ -627,7 +627,7 @@ namespace crnlib
          b = tmp - co;
       }
 
-      static inline uint8 clamp_component(int i) { if (static_cast<uint>(i) > 255U) { if (i < 0) i = 0; else if (i > 255) i = 255; } return static_cast<uint8>(i); }
+      static inline uint8_t clamp_component(int i) { if (static_cast<uint>(i) > 255U) { if (i < 0) i = 0; else if (i > 255) i = 255; } return static_cast<uint8>(i); }
 
       // RGB->YCbCr constants, scaled by 2^16
       const int YR = 19595, YG = 38470, YB = 7471, CB_R = -11059, CB_G = -21709, CB_B = 32768, CR_R = 32768, CR_G = -27439, CR_B = -5329;

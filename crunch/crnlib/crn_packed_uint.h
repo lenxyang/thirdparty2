@@ -85,7 +85,7 @@ namespace crnlib
          return *this;
       }            
    private:
-      uint8 m_bytes[sizeof(T)];
+      uint8_t m_bytes[sizeof(T)];
    };
 } // namespace crnlib
    

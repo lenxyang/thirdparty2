@@ -26,8 +26,8 @@ namespace crnlib
       virtual       crnlib::vector<uint8>& get_comp_data() = 0;
    };
 
-   bool create_compressed_texture(const crn_comp_params &params, crnlib::vector<uint8> &comp_data, uint32 *pActual_quality_level, float *pActual_bitrate);
+   bool create_compressed_texture(const crn_comp_params &params, crnlib::vector<uint8> &comp_data, uint32_t *pActual_quality_level, float *pActual_bitrate);
    bool create_texture_mipmaps(dds_texture &work_tex, const crn_comp_params &params, const crn_mipmap_params &mipmap_params, bool generate_mipmaps);
-   bool create_compressed_texture(const crn_comp_params &params, const crn_mipmap_params &mipmap_params, crnlib::vector<uint8> &comp_data, uint32 *pActual_quality_level, float *pActual_bitrate);
+   bool create_compressed_texture(const crn_comp_params &params, const crn_mipmap_params &mipmap_params, crnlib::vector<uint8> &comp_data, uint32_t *pActual_quality_level, float *pActual_bitrate);
 
 } // namespace crnlib

@@ -92,7 +92,7 @@ namespace crnlib
 
    private:
       task_pool*           m_pTask_pool;
-      uint32               m_main_thread_id;
+      uint32_t               m_main_thread_id;
       bool                 m_canceled;
 
       uint                 m_progress_start;
@@ -176,8 +176,8 @@ namespace crnlib
       static bool generate_codebook_dummy_progress_callback(uint percentage_completed, void* pData);
       static bool generate_codebook_progress_callback(uint percentage_completed, void* pData);
       bool update_progress(uint value, uint max_value);
-      void pack_endpoints_task(uint64 data, void* pData_ptr);
-      void optimize_selectors_task(uint64 data, void* pData_ptr);
+      void pack_endpoints_task(uint64_t data, void* pData_ptr);
+      void optimize_selectors_task(uint64_t data, void* pData_ptr);
       bool create_selector_clusters(uint max_selector_clusters, crnlib::vector< crnlib::vector<uint> >& selector_cluster_indices);
 
       inline dxt5_block& get_block(uint index) const { return m_pDst_elements[index * m_elements_per_block]; }

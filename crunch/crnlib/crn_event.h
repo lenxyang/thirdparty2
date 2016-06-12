@@ -17,7 +17,7 @@ namespace crnlib
       void set(void);
       void reset(void);
       void pulse(void);
-      bool wait(uint32 milliseconds = UINT32_MAX);
+      bool wait(uint32_t milliseconds = UINT32_MAX);
      
    private:
       void *m_handle;

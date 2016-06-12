@@ -11,8 +11,8 @@ namespace crnlib
       cDataStreamSeekable = 4
    };
    
-   const int64 DATA_STREAM_SIZE_UNKNOWN = INT64_MAX;
-   const int64 DATA_STREAM_SIZE_INFINITE = UINT64_MAX;
+   const int64_t DATA_STREAM_SIZE_UNKNOWN = INT64_MAX;
+   const int64_t DATA_STREAM_SIZE_INFINITE = UINT64_MAX;
    
    class data_stream
    {
@@ -29,7 +29,7 @@ namespace crnlib
       
       virtual bool close() { m_opened = false; m_error = false; m_got_cr = false; return true; }
 
-      typedef uint16 attribs_t;                              
+      typedef uint16_t attribs_t;                              
       inline attribs_t get_attribs() const { return m_attribs; }
       
       inline bool is_opened() const { return m_opened; }
@@ -44,7 +44,7 @@ namespace crnlib
       inline void set_name(const wchar_t* pName) { m_name.set(pName); }
                               
       virtual uint read(void* pBuf, uint len) = 0;
-      virtual uint64 skip(uint64 len);
+      virtual uint64_t skip(uint64_t len);
       
       virtual uint write(const void* pBuf, uint len) = 0;
       virtual bool flush() = 0;
@@ -52,23 +52,23 @@ namespace crnlib
       virtual bool is_size_known() const { return true; }
       
       // Returns DATA_STREAM_SIZE_UNKNOWN if size hasn't been determined yet, or DATA_STREAM_SIZE_INFINITE for infinite streams.
-      virtual uint64 get_size() = 0;
-      virtual uint64 get_remaining() = 0;
+      virtual uint64_t get_size() = 0;
+      virtual uint64_t get_remaining() = 0;
             
-      virtual uint64 get_ofs() = 0;
-      virtual bool seek(int64 ofs, bool relative) = 0;
+      virtual uint64_t get_ofs() = 0;
+      virtual bool seek(int64_t ofs, bool relative) = 0;
       
       virtual const void* get_ptr() const { return NULL; }
       
-      inline int read_byte() { uint8 c; if (read(&c, 1) != 1) return -1; return c; }
-      inline bool write_byte(uint8 c) { return write(&c, 1) == 1; }
+      inline int read_byte() { uint8_t c; if (read(&c, 1) != 1) return -1; return c; }
+      inline bool write_byte(uint8_t c) { return write(&c, 1) == 1; }
       
       bool read_line(dynamic_string& str);
       bool printf(const char* p, ...);
       bool printf(const wchar_t* p, ...);
       bool write_line(const dynamic_string& str);
       bool write_line(const dynamic_wstring& str);
-      bool write_bom() { uint16 bom = 0xFEFF; return write(&bom, sizeof(bom)) == sizeof(bom); }
+      bool write_bom() { uint16_t bom = 0xFEFF; return write(&bom, sizeof(bom)) == sizeof(bom); }
       
       bool read_array(vector<uint8>& buf);
       bool write_array(const vector<uint8>& buf);

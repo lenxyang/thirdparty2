@@ -136,7 +136,7 @@ namespace crnlib
    private:
       task_pool* m_pTask_pool;
 
-      uint32 m_main_thread_id;
+      uint32_t m_main_thread_id;
 
       struct create_clusters_task_state
       {
@@ -307,7 +307,7 @@ namespace crnlib
          return true;
       }
 
-      void create_clusters_task(uint64 data, void* pData_ptr)
+      void create_clusters_task(uint64_t data, void* pData_ptr)
       {
          if (m_canceled)
             return;

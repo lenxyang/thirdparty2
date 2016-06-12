@@ -44,9 +44,9 @@ namespace crnlib
       {
          enum { cSig = 'L' | ('0' << 8), cChecksumSkipBytes = 3 };
          packed_uint<2> m_sig;
-         uint8          m_checksum;
+         uint8_t          m_checksum;
 
-         uint8          m_lzma_props[cLZMAPropsSize];
+         uint8_t          m_lzma_props[cLZMAPropsSize];
 
          packed_uint<4> m_comp_size;
          packed_uint<4> m_uncomp_size;

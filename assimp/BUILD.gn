@@ -5,6 +5,10 @@ config("assimp-config") {
     "src/include/",
     "src/code/BoostWorkaround",
   ]
+
+  if (is_win) {
+    cflags = ["/EHsc",]
+  }
 }
 
 static_library("assimp_contrib") {
@@ -60,7 +64,7 @@ static_library("assimp_contrib") {
   ]
 
   public_configs = [":assimp-config"]
-
+  configs -= ["//build/config/compiler:chromium_code"]
   include_dirs = [
     "src/contrib/unzip"
   ]
@@ -370,6 +374,7 @@ static_library("assimp") {
   ]
 
   public_deps = [":assimp_contrib"]
+  configs -= ["//build/config/compiler:chromium_code"]
 }
 
 executable("assimp_view") {
@@ -412,6 +417,7 @@ executable("assimp_view") {
   configs -= ["//build/config/win:unicode" ]
   configs += ["//build/config/win:windowed"]
   configs += ["//azer/build/config:d3d9"]
+  configs -= ["//build/config/compiler:chromium_code"]
   libs = [ "comctl32.lib"]
 }
 

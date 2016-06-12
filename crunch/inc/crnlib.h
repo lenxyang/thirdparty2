@@ -173,7 +173,7 @@ enum crn_dxt_compressor_type
 // Compression will stop prematurely (and fail) if the callback returns false.
 // phase_index, total_phases - high level progress
 // subphase_index, total_subphases - progress within current phase
-typedef crn_bool (*crn_progress_callback_func)(crn_uint32 phase_index, crn_uint32 total_phases, crn_uint32 subphase_index, crn_uint32 total_subphases, void* pUser_data_ptr);
+typedef crn_bool (*crn_progress_callback_func)(crn_uint32_t phase_index, crn_uint32_t total_phases, crn_uint32_t subphase_index, crn_uint32_t total_subphases, void* pUser_data_ptr);
 
 // CRN/DDS compression parameters struct.
 struct crn_comp_params
@@ -191,8 +191,8 @@ struct crn_comp_params
       m_format = cCRNFmtDXT1;
       m_flags = cCRNCompFlagPerceptual | cCRNCompFlagHierarchical | cCRNCompFlagUseBothBlockTypes;
 
-      for (crn_uint32 f = 0; f < cCRNMaxFaces; f++)
-         for (crn_uint32 l = 0; l < cCRNMaxLevels; l++)
+      for (crn_uint32_t f = 0; f < cCRNMaxFaces; f++)
+         for (crn_uint32_t l = 0; l < cCRNMaxLevels; l++)
             m_pImages[f][l] = NULL;
 
       m_target_bitrate = 0.0f;
@@ -245,18 +245,18 @@ struct crn_comp_params
    inline bool get_flag(crn_comp_flags flag) const { return (m_flags & flag) != 0; }
    inline void set_flag(crn_comp_flags flag, bool val) { m_flags &= ~flag; if (val) m_flags |= flag; }
    
-   crn_uint32                 m_size_of_obj;
+   crn_uint32_t                 m_size_of_obj;
       
    crn_file_type              m_file_type;               // Output file type: cCRNFileTypeCRN or cCRNFileTypeDDS.
 
-   crn_uint32                 m_faces;                   // 1 (2D map) or 6 (cubemap)
-   crn_uint32                 m_width;                   // [1,cCRNMaxLevelResolution], non-power of 2 OK, non-square OK
-   crn_uint32                 m_height;                  // [1,cCRNMaxLevelResolution], non-power of 2 OK, non-square OK
-   crn_uint32                 m_levels;                  // [1,cCRNMaxLevelResolution], non-power of 2 OK, non-square OK
+   crn_uint32_t                 m_faces;                   // 1 (2D map) or 6 (cubemap)
+   crn_uint32_t                 m_width;                   // [1,cCRNMaxLevelResolution], non-power of 2 OK, non-square OK
+   crn_uint32_t                 m_height;                  // [1,cCRNMaxLevelResolution], non-power of 2 OK, non-square OK
+   crn_uint32_t                 m_levels;                  // [1,cCRNMaxLevelResolution], non-power of 2 OK, non-square OK
    
    crn_format                 m_format;                  // Output pixel format.
 
-   crn_uint32                 m_flags;                   // see crn_comp_flags enum
+   crn_uint32_t                 m_flags;                   // see crn_comp_flags enum
 
    // Array of pointers to 32bpp input images.
    const crn_uint32*          m_pImages[cCRNMaxFaces][cCRNMaxLevels];
@@ -268,32 +268,32 @@ struct crn_comp_params
    
    // Desired quality level. 
    // Currently, CRN and DDS quality levels are not compatible with eachother from an image quality standpoint.
-   crn_uint32                 m_quality_level;           // [cCRNMinQualityLevel, cCRNMaxQualityLevel]
+   crn_uint32_t                 m_quality_level;           // [cCRNMinQualityLevel, cCRNMaxQualityLevel]
    
    // DXTn compression parameters.
-   crn_uint32                 m_dxt1a_alpha_threshold;
+   crn_uint32_t                 m_dxt1a_alpha_threshold;
    crn_dxt_quality            m_dxt_quality;
    crn_dxt_compressor_type    m_dxt_compressor_type;
    
    // Alpha channel's component. Defaults to 3.
-   crn_uint32                 m_alpha_component;
+   crn_uint32_t                 m_alpha_component;
 
    // Various low-level CRN specific parameters.
    float                      m_crn_adaptive_tile_color_psnr_derating;
    float                      m_crn_adaptive_tile_alpha_psnr_derating;
 
-   crn_uint32                 m_crn_color_endpoint_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
-   crn_uint32                 m_crn_color_selector_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
+   crn_uint32_t                 m_crn_color_endpoint_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
+   crn_uint32_t                 m_crn_color_selector_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
 
-   crn_uint32                 m_crn_alpha_endpoint_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
-   crn_uint32                 m_crn_alpha_selector_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
+   crn_uint32_t                 m_crn_alpha_endpoint_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
+   crn_uint32_t                 m_crn_alpha_selector_palette_size;  // [cCRNMinPaletteSize,cCRNMaxPaletteSize]
 
    // Number of helper threads to create to assist the compressor. 0=no threading.
-   crn_uint32                 m_num_helper_threads;
+   crn_uint32_t                 m_num_helper_threads;
 
    // CRN userdata0 and userdata1 members, which are written directly to the header of the output file.
-   crn_uint32                 m_userdata0;
-   crn_uint32                 m_userdata1;
+   crn_uint32_t                 m_userdata0;
+   crn_uint32_t                 m_userdata1;
 
    // User provided progress callback.
    crn_progress_callback_func m_pProgress_func;
@@ -383,7 +383,7 @@ struct crn_mipmap_params
 
    inline bool check() const { return true; }
 
-   crn_uint32     m_size_of_obj;
+   crn_uint32_t     m_size_of_obj;
    
    crn_mip_mode   m_mode;
    crn_mip_filter m_filter;
@@ -393,8 +393,8 @@ struct crn_mipmap_params
    
    float          m_blurriness;
    
-   crn_uint32     m_max_levels;
-   crn_uint32     m_min_mip_size;
+   crn_uint32_t     m_max_levels;
+   crn_uint32_t     m_min_mip_size;
       
    crn_bool       m_renormalize;
    crn_bool       m_tiled;
@@ -403,14 +403,14 @@ struct crn_mipmap_params
    float          m_scale_x;
    float          m_scale_y;
 
-   crn_uint32     m_window_left;
-   crn_uint32     m_window_top;
-   crn_uint32     m_window_right;
-   crn_uint32     m_window_bottom;
+   crn_uint32_t     m_window_left;
+   crn_uint32_t     m_window_top;
+   crn_uint32_t     m_window_right;
+   crn_uint32_t     m_window_bottom;
 
    crn_bool       m_clamp_scale;
-   crn_uint32     m_clamp_width;
-   crn_uint32     m_clamp_height;
+   crn_uint32_t     m_clamp_width;
+   crn_uint32_t     m_clamp_height;
 };
 
 // -------- High-level helper function definitions for CDN/DDS compression.
@@ -446,45 +446,45 @@ void crn_free_block(void *pBlock);
 //  Mipmap levels are simple 32-bit 2D images with a pitch of width*sizeof(uint32), arranged in the usual raster order (top scanline first).
 //  The image pixels may be grayscale (YYYX), grayscale/alpha (YYYA), 24-bit RGBX, or 32-bit RGBA colors (where "X"=don't care).
 //  RGB color data is generally assumed to be in the sRGB colorspace. If not, be sure to clear the "cCRNCompFlagPerceptual" in the crn_comp_params struct!
-void *crn_compress(const crn_comp_params &comp_params, crn_uint32 &compressed_size, crn_uint32 *pActual_quality_level = NULL, float *pActual_bitrate = NULL);
+void *crn_compress(const crn_comp_params &comp_params, crn_uint32_t &compressed_size, crn_uint32_t *pActual_quality_level = NULL, float *pActual_bitrate = NULL);
 
 // Like the above function, except this function can also do things like generate mipmaps, and resize or crop the input texture before compression.
 // The actual operations performed are controlled by the crn_mipmap_params struct members.
 // Be sure to set the "m_gamma_filtering" member of crn_mipmap_params to false if the input texture is not sRGB.
-void *crn_compress(const crn_comp_params &comp_params, const crn_mipmap_params &mip_params, crn_uint32 &compressed_size, crn_uint32 *pActual_quality_level = NULL, float *pActual_bitrate = NULL);
+void *crn_compress(const crn_comp_params &comp_params, const crn_mipmap_params &mip_params, crn_uint32_t &compressed_size, crn_uint32_t *pActual_quality_level = NULL, float *pActual_bitrate = NULL);
 
 // Transcodes an entire CRN file to DDS using the crn_decomp.h header file library to do most of the heavy lifting. 
 // The output DDS file's format is guaranteed to be one of the DXTn formats in the crn_format enum.
 // This is a fast operation, because the CRN format is explicitly designed to be efficiently transcodable to DXTn.
 // For more control over decompression, see the lower-level helper functions in crn_decomp.h, which do not depend at all on crnlib.
-void *crn_decompress_crn_to_dds(const void *pCRN_file_data, crn_uint32 &file_size);
+void *crn_decompress_crn_to_dds(const void *pCRN_file_data, crn_uint32_t &file_size);
 
 // Decompresses an entire DDS file in any supported format to uncompressed 32-bit/pixel image(s).
 // See the crnlib::pixel_format in inc/dds_defs.h for a list of the supported DDS formats.
 // You are responsible for freeing each image, either by calling crn_free_all_images() or manually calling crn_free_block() on each image pointer.
 struct crn_texture_desc
 {
-   crn_uint32 m_faces;
-   crn_uint32 m_width;
-   crn_uint32 m_height;
-   crn_uint32 m_levels;
-   crn_uint32 m_fmt_fourcc; // Same as crnlib::pixel_format
+   crn_uint32_t m_faces;
+   crn_uint32_t m_width;
+   crn_uint32_t m_height;
+   crn_uint32_t m_levels;
+   crn_uint32_t m_fmt_fourcc; // Same as crnlib::pixel_format
 };
-bool crn_decompress_dds_to_images(const void *pDDS_file_data, crn_uint32 dds_file_size, crn_uint32 **ppImages, crn_texture_desc &tex_desc);
+bool crn_decompress_dds_to_images(const void *pDDS_file_data, crn_uint32_t dds_file_size, crn_uint32_t **ppImages, crn_texture_desc &tex_desc);
 
 // Frees all images allocated by crn_decompress_dds_to_images().
-void crn_free_all_images(crn_uint32 **ppImages, const crn_texture_desc &desc);
+void crn_free_all_images(crn_uint32_t **ppImages, const crn_texture_desc &desc);
 
 // -------- crn_format related helpers functions.
 
 // Returns the FOURCC format equivalent to the specified crn_format.
-crn_uint32 crn_get_format_fourcc(crn_format fmt);
+crn_uint32_t crn_get_format_fourcc(crn_format fmt);
 
 // Returns the crn_format's bits per texel.
-crn_uint32 crn_get_format_bits_per_texel(crn_format fmt);
+crn_uint32_t crn_get_format_bits_per_texel(crn_format fmt);
 
 // Returns the crn_format's number of bytes per block.
-crn_uint32 crn_get_bytes_per_dxt_block(crn_format fmt);
+crn_uint32_t crn_get_bytes_per_dxt_block(crn_format fmt);
 
 // Returns the non-swizzled, basic DXTn version of the specified crn_format.
 // This is the format you would supply D3D or OpenGL.
@@ -517,7 +517,7 @@ crn_block_compressor_context_t crn_create_block_compressor(const crn_comp_params
 
 // Compresses a block of 16 pixels to the destination DXTn block.
 // pDst_block should be 8 (for DXT1/DXT5A) or 16 bytes (all the others).
-void crn_compress_block(crn_block_compressor_context_t pContext, const crn_uint32 *pPixels, void *pDst_block);
+void crn_compress_block(crn_block_compressor_context_t pContext, const crn_uint32_t *pPixels, void *pDst_block);
 
 // Frees a DXTn block compressor.
 void crn_free_block_compressor(crn_block_compressor_context_t pContext);

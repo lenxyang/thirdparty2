@@ -105,7 +105,7 @@ namespace crnlib
          return (pGroup[bit_ofs >> 5] & bit) != 0;
       }
       
-      inline uint32 get_uint32(uint index) const
+      inline uint32_t get_uint32(uint index) const
       {
          uint group_index = index >> cBitsPerGroupShift;
          CRNLIB_ASSERT(group_index < m_num_groups);
@@ -119,7 +119,7 @@ namespace crnlib
          return pGroup[bit_ofs >> 5];
       }
       
-      inline void set_uint32(uint index, uint32 value) const
+      inline void set_uint32(uint index, uint32_t value) const
       {
          uint group_index = index >> cBitsPerGroupShift;
          CRNLIB_ASSERT(group_index < m_num_groups);

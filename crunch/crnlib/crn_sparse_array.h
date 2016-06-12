@@ -351,7 +351,7 @@ namespace crnlib
 
       crnlib::vector<T*> m_groups;
 
-      uint64            m_default[(sizeof(T) + sizeof(uint64) - 1) / sizeof(uint64)];
+      uint64_t            m_default[(sizeof(T) + sizeof(uint64) - 1) / sizeof(uint64)];
 
       inline T* alloc_group(bool nofail = false)
       {

@@ -127,11 +127,11 @@ namespace crnlib
          return true;
       }
 
-      inline bool write_val(uint8 val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
-      inline bool write_val(uint16 val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
+      inline bool write_val(uint8_t val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
+      inline bool write_val(uint16_t val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
       inline bool write_val(uint val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
       inline bool write_val(int val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
-      inline bool write_val(uint64 val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
+      inline bool write_val(uint64_t val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
       inline bool write_val(float val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
       inline bool write_val(double val, void*& pBuf, uint& buf_size, bool buffer_is_little_endian) { return write_obj(val, pBuf, buf_size, buffer_is_little_endian); }
 
@@ -152,16 +152,16 @@ namespace crnlib
          return true;
       }
 
-      static inline uint16 swap16(uint16 x) { return static_cast<uint16>((x << 8U) | (x >> 8U)); }
-      static inline uint32 swap32(uint32 x) { return ((x << 24U) | ((x << 8U) & 0x00FF0000U) | ((x >> 8U) & 0x0000FF00U) | (x >> 24U)); }
+      static inline uint16_t swap16(uint16_t x) { return static_cast<uint16>((x << 8U) | (x >> 8U)); }
+      static inline uint32_t swap32(uint32_t x) { return ((x << 24U) | ((x << 8U) & 0x00FF0000U) | ((x >> 8U) & 0x0000FF00U) | (x >> 24U)); }
 
-      inline uint16 swap_le16_to_native(uint16 x) { return c_crnlib_little_endian_platform ? x : swap16(x); }
-      inline uint32 swap_le32_to_native(uint32 x) { return c_crnlib_little_endian_platform ? x : swap32(x); }
-      inline uint16 swap_be16_to_native(uint16 x) { return c_crnlib_big_endian_platform ? x : swap16(x); }
-      inline uint32 swap_be32_to_native(uint32 x) { return c_crnlib_big_endian_platform ? x : swap32(x); }
+      inline uint16_t swap_le16_to_native(uint16_t x) { return c_crnlib_little_endian_platform ? x : swap16(x); }
+      inline uint32_t swap_le32_to_native(uint32_t x) { return c_crnlib_little_endian_platform ? x : swap32(x); }
+      inline uint16_t swap_be16_to_native(uint16_t x) { return c_crnlib_big_endian_platform ? x : swap16(x); }
+      inline uint32_t swap_be32_to_native(uint32_t x) { return c_crnlib_big_endian_platform ? x : swap32(x); }
 
-      inline uint32 read_le32(const void* p) { return swap_le32_to_native(*static_cast<const uint32*>(p)); }
-      inline void write_le32(void* p, uint32 x) { *static_cast<uint32*>(p) = swap_le32_to_native(x); }
+      inline uint32_t read_le32(const void* p) { return swap_le32_to_native(*static_cast<const uint32*>(p)); }
+      inline void write_le32(void* p, uint32_t x) { *static_cast<uint32*>(p) = swap_le32_to_native(x); }
 
       inline void fast_memset(void* pDst, int val, size_t size)
       {

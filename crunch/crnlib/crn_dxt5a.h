@@ -37,12 +37,12 @@ namespace crnlib
       {
          uint8*   m_pSelectors;
 
-         uint64   m_error;
+         uint64_t   m_error;
 
-         uint8    m_first_endpoint;
-         uint8    m_second_endpoint;
+         uint8_t    m_first_endpoint;
+         uint8_t    m_second_endpoint;
 
-         uint8    m_block_type; // 1 if 6-alpha, otherwise 8-alpha
+         uint8_t    m_block_type; // 1 if 6-alpha, otherwise 8-alpha
       };
 
       bool compute(const params& p, results& r);

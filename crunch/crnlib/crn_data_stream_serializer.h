@@ -56,7 +56,7 @@ namespace crnlib
             return write(&obj, sizeof(obj));
          else
          {
-            uint8 buf[sizeof(T)];
+            uint8_t buf[sizeof(T)];
             uint buf_size = sizeof(T);
             void* pBuf = buf;
             utils::write_obj(obj, pBuf, buf_size, m_little_endian);
@@ -72,7 +72,7 @@ namespace crnlib
             return read(&obj, sizeof(obj));
          else
          {
-            uint8 buf[sizeof(T)];
+            uint8_t buf[sizeof(T)];
             if (!read(buf, sizeof(T)))
                return false;
             
@@ -117,7 +117,7 @@ namespace crnlib
       {
          do
          {
-            uint8 c = static_cast<uint8>(val) & 0x7F;
+            uint8_t c = static_cast<uint8>(val) & 0x7F;
             if (val <= 0x7F)
                c |= 0x80;
                
@@ -141,7 +141,7 @@ namespace crnlib
             if (shift >= 32)
                return false;
                
-            uint8 c;
+            uint8_t c;
             if (!read_object(c))
                return false;
             
@@ -263,19 +263,19 @@ namespace crnlib
             { 
                case '1': 
                { 
-                  const uint8 x = static_cast<uint8>(va_arg(v, uint)); 
+                  const uint8_t x = static_cast<uint8>(va_arg(v, uint)); 
                   if (!write_value(x))
                      return false;
                } 
                case '2': 
                { 
-                  const uint16 x = static_cast<uint16>(va_arg(v, uint)); 
+                  const uint16_t x = static_cast<uint16>(va_arg(v, uint)); 
                   if (!write_value(x))
                      return false;
                } 
                case '4': 
                { 
-                  const uint32 x = static_cast<uint32>(va_arg(v, uint)); 
+                  const uint32_t x = static_cast<uint32>(va_arg(v, uint)); 
                   if (!write_value(x))
                      return false;
                } 
@@ -353,14 +353,14 @@ namespace crnlib
    
    // Write operators
    inline data_stream_serializer& operator<< (data_stream_serializer& serializer, bool val)           { serializer.write_value(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int8 val)           { serializer.write_value(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint8 val)          { serializer.write_value(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int16 val)          { serializer.write_value(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint16 val)         { serializer.write_value(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int32 val)          { serializer.write_value(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint32 val)         { serializer.write_uint_vlc(val); return serializer; }
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int64 val)          { serializer.write_value(val); return serializer; } 
-   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint64 val)         { serializer.write_value(val); return serializer; } 
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int8_t val)           { serializer.write_value(val); return serializer; }
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint8_t val)          { serializer.write_value(val); return serializer; }
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int16_t val)          { serializer.write_value(val); return serializer; }
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint16_t val)         { serializer.write_value(val); return serializer; }
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int32_t val)          { serializer.write_value(val); return serializer; }
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint32_t val)         { serializer.write_uint_vlc(val); return serializer; }
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, int64_t val)          { serializer.write_value(val); return serializer; } 
+   inline data_stream_serializer& operator<< (data_stream_serializer& serializer, uint64_t val)         { serializer.write_value(val); return serializer; } 
    inline data_stream_serializer& operator<< (data_stream_serializer& serializer, long val)           { serializer.write_value(val); return serializer; }
    inline data_stream_serializer& operator<< (data_stream_serializer& serializer, unsigned long val)  { serializer.write_value(val); return serializer; }
    inline data_stream_serializer& operator<< (data_stream_serializer& serializer, float val)          { serializer.write_value(val); return serializer; }

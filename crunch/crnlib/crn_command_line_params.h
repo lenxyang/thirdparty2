@@ -15,7 +15,7 @@ namespace crnlib
                            
          dynamic_wstring_array   m_values;
          uint                    m_index;
-         int8                    m_modifier;
+         int8_t                    m_modifier;
       };
       
       typedef std::multimap<dynamic_wstring, param_value>   param_map;

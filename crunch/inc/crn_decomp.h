@@ -34,16 +34,16 @@ namespace crnd
    typedef unsigned short     uint16;
    typedef signed short       int16;
    typedef unsigned int       uint32;
-   typedef uint32             uint32;
+   typedef uint32_t             uint32;
    typedef unsigned int       uint;
    typedef signed int         int32;
 #ifndef PLATFORM_NACL
-   typedef unsigned __int64   uint64;
-   typedef signed __int64     int64;
+   typedef unsigned __int64_t   uint64;
+   typedef signed __int64_t     int64;
 #endif
 
    // The crnd library assumes all allocation blocks have at least CRND_MIN_ALLOC_ALIGNMENT alignment.
-   const uint32 CRND_MIN_ALLOC_ALIGNMENT = sizeof(uint32) * 2U;
+   const uint32_t CRND_MIN_ALLOC_ALIGNMENT = sizeof(uint32) * 2U;
 
    // realloc callback:
    // Used to allocate, resize, or free memory blocks.
@@ -70,31 +70,31 @@ namespace crnd
    {
       inline crn_file_info() : m_struct_size(sizeof(crn_file_info)) { }
 
-      uint32 m_struct_size;
-      uint32 m_actual_data_size;
-      uint32 m_header_size;
-      uint32 m_total_palette_size;
-      uint32 m_tables_size;
-      uint32 m_levels;
-      uint32 m_level_compressed_size[cCRNMaxLevels];
-      uint32 m_color_endpoint_palette_entries;
-      uint32 m_color_selector_palette_entries;
-      uint32 m_alpha_endpoint_palette_entries;
-      uint32 m_alpha_selector_palette_entries;
+      uint32_t m_struct_size;
+      uint32_t m_actual_data_size;
+      uint32_t m_header_size;
+      uint32_t m_total_palette_size;
+      uint32_t m_tables_size;
+      uint32_t m_levels;
+      uint32_t m_level_compressed_size[cCRNMaxLevels];
+      uint32_t m_color_endpoint_palette_entries;
+      uint32_t m_color_selector_palette_entries;
+      uint32_t m_alpha_endpoint_palette_entries;
+      uint32_t m_alpha_selector_palette_entries;
    };
 
    struct crn_texture_info
    {
       inline crn_texture_info() : m_struct_size(sizeof(crn_texture_info)) { }
 
-      uint32      m_struct_size;
-      uint32      m_width;
-      uint32      m_height;
-      uint32      m_levels;
-      uint32      m_faces;
-      uint32      m_bytes_per_block;
-      uint32      m_userdata0;
-      uint32      m_userdata1;
+      uint32_t      m_struct_size;
+      uint32_t      m_width;
+      uint32_t      m_height;
+      uint32_t      m_levels;
+      uint32_t      m_faces;
+      uint32_t      m_bytes_per_block;
+      uint32_t      m_userdata0;
+      uint32_t      m_userdata1;
       crn_format  m_format;
    };
 
@@ -102,38 +102,38 @@ namespace crnd
    {
       inline crn_level_info() : m_struct_size(sizeof(crn_level_info)) { }
 
-      uint32      m_struct_size;
-      uint32      m_width;
-      uint32      m_height;
-      uint32      m_faces;
-      uint32      m_blocks_x;
-      uint32      m_blocks_y;
-      uint32      m_bytes_per_block;
+      uint32_t      m_struct_size;
+      uint32_t      m_width;
+      uint32_t      m_height;
+      uint32_t      m_faces;
+      uint32_t      m_blocks_x;
+      uint32_t      m_blocks_y;
+      uint32_t      m_bytes_per_block;
       crn_format  m_format;
    };
 
    // Returns the FOURCC format code corresponding to the specified CRN format.
-   uint32 crnd_crn_format_to_fourcc(crn_format fmt);
+   uint32_t crnd_crn_format_to_fourcc(crn_format fmt);
 
    // Returns the fundamental GPU format given a potentially swizzled DXT5 crn_format.
    crn_format crnd_get_fundamental_dxt_format(crn_format fmt);
 
    // Returns the size of the crn_format in bits/texel (either 4 or 8).
-   uint32 crnd_get_crn_format_bits_per_texel(crn_format fmt);
+   uint32_t crnd_get_crn_format_bits_per_texel(crn_format fmt);
 
    // Returns the number of bytes per DXTn block (8 or 16).
-   uint32 crnd_get_bytes_per_dxt_block(crn_format fmt);
+   uint32_t crnd_get_bytes_per_dxt_block(crn_format fmt);
 
    // Validates the entire file by checking the header and data CRC's.
    // This is not something you want to be doing much!
    // The crn_file_info.m_struct_size field must be set before calling this function.
-   bool crnd_validate_file(const void* pData, uint32 data_size, crn_file_info* pFile_info);
+   bool crnd_validate_file(const void* pData, uint32_t data_size, crn_file_info* pFile_info);
 
    // The crn_texture_info.m_struct_size field must be set before calling this function.
-   bool crnd_get_texture_info(const void* pData, uint32 data_size, crn_texture_info* pTexture_info);
+   bool crnd_get_texture_info(const void* pData, uint32_t data_size, crn_texture_info* pTexture_info);
 
    // The crn_level_info.m_struct_size field must be set before calling this function.
-   bool crnd_get_level_info(const void* pData, uint32 data_size, uint32 level_index, crn_level_info* pLevel_info);
+   bool crnd_get_level_info(const void* pData, uint32_t data_size, uint32_t level_index, crn_level_info* pLevel_info);
 
    typedef void* crnd_unpack_context;
 
@@ -145,7 +145,7 @@ namespace crnd
    // pData must point to a buffer holding all of the compressed data.
    // This buffer must be stable until crnd_unpack_end() is called.
    // Returns NULL on out of memory or if any of the input parameters are invalid.
-   crnd_unpack_context crnd_unpack_begin(const void* pData, uint32 data_size);
+   crnd_unpack_context crnd_unpack_begin(const void* pData, uint32_t data_size);
 
    // Returns the compressed data associated with a context.
    // Returns false if any of the input parameters are invalid.
@@ -161,17 +161,17 @@ namespace crnd
    // This function does not allocate any memory.
    bool crnd_unpack_level(
       crnd_unpack_context pContext,
-      void** ppDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
-      uint32 level_index);
+      void** ppDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes,
+      uint32_t level_index);
 
    // crnd_unpack_level_segmented() - Unpacks the specified mipmap level from a "segmented" CRN file.
    // See the crnd_create_segmented_file() API below.
    // Segmented files allow the user to control where the compressed mipmaps are stored.
    bool crnd_unpack_level_segmented(
       crnd_unpack_context pContext,
-      const void* pSrc, uint32 src_size_in_bytes,
-      void** ppDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
-      uint32 level_index);
+      const void* pSrc, uint32_t src_size_in_bytes,
+      void** ppDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes,
+      uint32_t level_index);
 
    // crnd_unpack_end() - Frees the decompress tables and unpacked palettes associated with the specified context.
    // Returns false if the context is NULL, or if it points to an invalid context.
@@ -184,15 +184,15 @@ namespace crnd
    // This allows mipmap levels from multiple CRN files to be tightly packed together into single files.
 
    // Returns a pointer to the level's compressed data, and optionally returns the level's compressed data size if pSize is not NULL.
-   const void* crnd_get_level_data(const void* pData, uint32 data_size, uint32 level_index, uint32* pSize);
+   const void* crnd_get_level_data(const void* pData, uint32_t data_size, uint32_t level_index, uint32* pSize);
 
    // Returns the compressed size of the texture's header and compression tables (but no levels).
-   uint32 crnd_get_segmented_file_size(const void* pData, uint32 data_size);
+   uint32_t crnd_get_segmented_file_size(const void* pData, uint32_t data_size);
 
    // Creates a "segmented" CRN texture. The new texture will be created at pBase_data, and will be crnd_get_base_data_size() bytes long.
    // base_data_size must be >= crnd_get_base_data_size().
    // The base data will contain the CRN header and compression tables, but no mipmap data.
-   bool crnd_create_segmented_file(const void* pData, uint32 data_size, void* pBase_data, uint base_data_size);
+   bool crnd_create_segmented_file(const void* pData, uint32_t data_size, void* pBase_data, uint base_data_size);
 
 } // namespace crnd
 
@@ -352,28 +352,28 @@ namespace crnd
 // File: crnd_types.h
 namespace crnd
 {
-   const crn_uint8 cUINT8_MIN  = 0;
-   const crn_uint8 cUINT8_MAX  = 0xFFU;
-   const uint16 cUINT16_MIN = 0;
-   const uint16 cUINT16_MAX = 0xFFFFU;
-   const uint32 cUINT32_MIN = 0;
-   const uint32 cUINT32_MAX = 0xFFFFFFFFU;
+   const crn_uint8_t cUINT8_MIN  = 0;
+   const crn_uint8_t cUINT8_MAX  = 0xFFU;
+   const uint16_t cUINT16_MIN = 0;
+   const uint16_t cUINT16_MAX = 0xFFFFU;
+   const uint32_t cUINT32_MIN = 0;
+   const uint32_t cUINT32_MAX = 0xFFFFFFFFU;
 
-   const int8  cINT8_MIN  = -128;
-   const int8  cINT8_MAX  = 127;
-   const int16 cINT16_MIN = -32768;
-   const int16 cINT16_MAX = 32767;
-   const int32 cINT32_MIN = (-2147483647 - 1);
-   const int32 cINT32_MAX = 2147483647;
+   const int8_t  cINT8_MIN  = -128;
+   const int8_t  cINT8_MAX  = 127;
+   const int16_t cINT16_MIN = -32768;
+   const int16_t cINT16_MAX = 32767;
+   const int32_t cINT32_MIN = (-2147483647 - 1);
+   const int32_t cINT32_MAX = 2147483647;
 
    enum eClear { cClear };
 
-   const uint32 cIntBits = 32U;
+   const uint32_t cIntBits = 32U;
 
 #ifdef _WIN64
-   typedef uint64 ptr_bits;
+   typedef uint64_t ptr_bits;
 #else
-   typedef uint32 ptr_bits;
+   typedef uint32_t ptr_bits;
 #endif
 
    template<typename T> struct int_traits { enum { cMin = crnd::cINT32_MIN, cMax = crnd::cINT32_MAX, cSigned = true }; };
@@ -456,7 +456,7 @@ namespace crnd
       }
 
       template <typename T>
-      void construct_array(T* p, uint32 n)
+      void construct_array(T* p, uint32_t n)
       {
          T* q = p + n;
          for ( ; p != q; ++p)
@@ -464,7 +464,7 @@ namespace crnd
       }
 
       template <typename T, typename U>
-      void construct_array(T* p, uint32 n, const U& init)
+      void construct_array(T* p, uint32_t n, const U& init)
       {
          T* q = p + n;
          for ( ; p != q; ++p)
@@ -478,7 +478,7 @@ namespace crnd
          p->~T();
       }
 
-      template <typename T> inline void destruct_array(T* p, uint32 n)
+      template <typename T> inline void destruct_array(T* p, uint32_t n)
       {
          T* q = p + n;
          for ( ; p != q; ++p)
@@ -498,9 +498,9 @@ namespace crnd
       enum { cFlag = false };
       static inline void construct(T* p) { helpers::construct(p); }
       static inline void construct(T* p, const T& init) { helpers::construct(p, init); }
-      static inline void construct_array(T* p, uint32 n) { helpers::construct_array(p, n); }
+      static inline void construct_array(T* p, uint32_t n) { helpers::construct_array(p, n); }
       static inline void destruct(T* p) { helpers::destruct(p); }
-      static inline void destruct_array(T* p, uint32 n) { helpers::destruct_array(p, n); }
+      static inline void destruct_array(T* p, uint32_t n) { helpers::destruct_array(p, n); }
    };
 
    template<typename T> struct scalar_type<T*>
@@ -508,9 +508,9 @@ namespace crnd
       enum { cFlag = true };
       static inline void construct(T** p) { memset(p, 0, sizeof(T*)); }
       static inline void construct(T** p, T* init) { *p = init; }
-      static inline void construct_array(T** p, uint32 n) { memset(p, 0, sizeof(T*) * n); }
+      static inline void construct_array(T** p, uint32_t n) { memset(p, 0, sizeof(T*) * n); }
       static inline void destruct(T** p) { p; }
-      static inline void destruct_array(T** p, uint32 n) { p, n; }
+      static inline void destruct_array(T** p, uint32_t n) { p, n; }
    };
 
 #define CRND_DEFINE_BUILT_IN_TYPE(X) \
@@ -518,9 +518,9 @@ namespace crnd
    enum { cFlag = true }; \
    static inline void construct(X* p) { memset(p, 0, sizeof(X)); } \
    static inline void construct(X* p, const X& init) { memcpy(p, &init, sizeof(X)); } \
-   static inline void construct_array(X* p, uint32 n) { memset(p, 0, sizeof(X) * n); } \
+   static inline void construct_array(X* p, uint32_t n) { memset(p, 0, sizeof(X) * n); } \
    static inline void destruct(X* p) { p; } \
-   static inline void destruct_array(X* p, uint32 n) { p, n; } };
+   static inline void destruct_array(X* p, uint32_t n) { p, n; } };
 
    CRND_DEFINE_BUILT_IN_TYPE(bool)
    CRND_DEFINE_BUILT_IN_TYPE(char)
@@ -607,7 +607,7 @@ namespace crnd
    }
 
    template<typename T>
-   inline T* crnd_new_array(uint32 num)
+   inline T* crnd_new_array(uint32_t num)
    {
       if (!num) num = 1;
 
@@ -639,8 +639,8 @@ namespace crnd
    {
       if (p)
       {
-         const uint32 num = reinterpret_cast<uint32*>(p)[-1];
-         const uint32 num_check = reinterpret_cast<uint32*>(p)[-2];
+         const uint32_t num = reinterpret_cast<uint32*>(p)[-1];
+         const uint32_t num_check = reinterpret_cast<uint32*>(p)[-2];
          num_check;
          CRND_ASSERT(num && (num == ~num_check));
 
@@ -662,7 +662,7 @@ namespace crnd
       const float cDegToRad = 0.01745329252f;
       const float cRadToDeg = 57.29577951f;
 
-      extern uint32 g_bitmasks[32];
+      extern uint32_t g_bitmasks[32];
 
       // Yes I know these should probably be pass by ref, not val:
       // http://www.stepanovpapers.com/notes.pdf
@@ -697,13 +697,13 @@ namespace crnd
          return value * value;
       }
 
-      inline bool is_power_of_2(uint32 x)
+      inline bool is_power_of_2(uint32_t x)
       {
          return x && ((x & (x - 1U)) == 0U);
       }
 
       // From "Hackers Delight"
-      inline int next_pow2(uint32 val)
+      inline int next_pow2(uint32_t val)
       {
          val--;
          val |= val >> 16;
@@ -715,9 +715,9 @@ namespace crnd
       }
 
       // Returns the total number of bits needed to encode v.
-      inline uint32 total_bits(uint32 v)
+      inline uint32_t total_bits(uint32_t v)
       {
-         uint32 l = 0;
+         uint32_t l = 0;
          while (v > 0U)
          {
             v >>= 1;
@@ -770,19 +770,19 @@ namespace crnd
          right = temp;
       }
 
-      inline void invert_buf(void* pBuf, uint32 size)
+      inline void invert_buf(void* pBuf, uint32_t size)
       {
          uint8* p = static_cast<uint8*>(pBuf);
 
-         const uint32 half_size = size >> 1;
-         for (uint32 i = 0; i < half_size; i++)
+         const uint32_t half_size = size >> 1;
+         for (uint32_t i = 0; i < half_size; i++)
             swap(p[i], p[size - 1U - i]);
       }
 
-      static inline uint16 swap16(uint16 x) { return static_cast<uint16>((x << 8) | (x >> 8)); }
-      static inline uint32 swap32(uint32 x) { return ((x << 24) | ((x << 8) & 0x00FF0000) | (( x >> 8) & 0x0000FF00) | (x >> 24)); }
+      static inline uint16_t swap16(uint16_t x) { return static_cast<uint16>((x << 8) | (x >> 8)); }
+      static inline uint32_t swap32(uint32_t x) { return ((x << 24) | ((x << 8) & 0x00FF0000) | (( x >> 8) & 0x0000FF00) | (x >> 24)); }
 
-      uint32 compute_max_mips(uint32 width, uint32 height);
+      uint32_t compute_max_mips(uint32_t width, uint32_t height);
 
    }   // namespace utils
 
@@ -794,12 +794,12 @@ namespace crnd
    struct elemental_vector
    {
       void* m_p;
-      uint32 m_size;
-      uint32 m_capacity;
+      uint32_t m_size;
+      uint32_t m_capacity;
 
-      typedef void (*object_mover)(void* pDst, void* pSrc, uint32 num);
+      typedef void (*object_mover)(void* pDst, void* pSrc, uint32_t num);
 
-      bool increase_capacity(uint32 min_new_capacity, bool grow_hint, uint32 element_size, object_mover pRelocate);
+      bool increase_capacity(uint32_t min_new_capacity, bool grow_hint, uint32_t element_size, object_mover pRelocate);
    };
 
 #ifdef _MSC_VER
@@ -836,7 +836,7 @@ namespace crnd
          *this = other;
       }
 
-      inline vector(uint32 size) :
+      inline vector(uint32_t size) :
          m_p(NULL),
          m_size(0),
          m_capacity(0),
@@ -875,7 +875,7 @@ namespace crnd
          {
             T* pDst = m_p;
             const T* pSrc = other.m_p;
-            for (uint32 i = other.m_size; i > 0; i--)
+            for (uint32_t i = other.m_size; i > 0; i--)
                helpers::construct(pDst++, *pSrc++);
          }
 
@@ -897,11 +897,11 @@ namespace crnd
       T* end()        { return m_p + m_size; }
 
       inline bool empty() const { return !m_size; }
-      inline uint32 size() const { return m_size; }
-      inline uint32 capacity() const { return m_capacity; }
+      inline uint32_t size() const { return m_size; }
+      inline uint32_t capacity() const { return m_capacity; }
 
-      inline const T& operator[] (uint32 i) const  { CRND_ASSERT(i < m_size); return m_p[i]; }
-      inline       T& operator[] (uint32 i)        { CRND_ASSERT(i < m_size); return m_p[i]; }
+      inline const T& operator[] (uint32_t i) const  { CRND_ASSERT(i < m_size); return m_p[i]; }
+      inline       T& operator[] (uint32_t i)        { CRND_ASSERT(i < m_size); return m_p[i]; }
 
       inline const T& front() const  { CRND_ASSERT(m_size); return m_p[0]; }
       inline       T& front()        { CRND_ASSERT(m_size); return m_p[0]; }
@@ -923,7 +923,7 @@ namespace crnd
          m_alloc_failed = false;
       }
 
-      inline bool reserve(uint32 new_capacity)
+      inline bool reserve(uint32_t new_capacity)
       {
          if (!increase_capacity(new_capacity, false))
             return false;
@@ -931,7 +931,7 @@ namespace crnd
          return true;
       }
 
-      inline bool resize(uint32 new_size)
+      inline bool resize(uint32_t new_size)
       {
          if (m_size != new_size)
          {
@@ -981,21 +981,21 @@ namespace crnd
          }
       }
 
-      inline void insert(uint32 index, const T* p, uint32 n)
+      inline void insert(uint32_t index, const T* p, uint32_t n)
       {
          CRND_ASSERT(index <= m_size);
          if (!n)
             return;
 
-         const uint32 orig_size = m_size;
+         const uint32_t orig_size = m_size;
          resize(m_size + n);
 
          const T* pSrc = m_p + orig_size - 1;
          T* pDst = const_cast<T*>(pSrc) + n;
 
-         const uint32 num_to_move = orig_size - index;
+         const uint32_t num_to_move = orig_size - index;
 
-         for (uint32 i = 0; i < num_to_move; i++)
+         for (uint32_t i = 0; i < num_to_move; i++)
          {
             CRND_ASSERT((pDst - m_p) < (int)m_size);
             *pDst-- = *pSrc--;
@@ -1004,21 +1004,21 @@ namespace crnd
          pSrc = p;
          pDst = m_p + index;
 
-         for (uint32 i = 0; i < n; i++)
+         for (uint32_t i = 0; i < n; i++)
          {
             CRND_ASSERT((pDst - m_p) < (int)m_size);
             *pDst++ = *p++;
          }
       }
 
-      inline void erase(uint32 start, uint32 n)
+      inline void erase(uint32_t start, uint32_t n)
       {
          CRND_ASSERT((start + n) <= m_size);
 
          if (!n)
             return;
 
-         const uint32 num_to_move = m_size - (start + n);
+         const uint32_t num_to_move = m_size - (start + n);
 
          T* pDst = m_p + start;
          T* pDst_end = pDst + num_to_move;
@@ -1032,7 +1032,7 @@ namespace crnd
          m_size -= n;
       }
 
-      inline void erase(uint32 index)
+      inline void erase(uint32_t index)
       {
          erase(index, 1);
       }
@@ -1055,7 +1055,7 @@ namespace crnd
             {
                const T* pSrc = m_p;
                const T* pDst = rhs.m_p;
-               for (uint32 i = m_size; i; i--)
+               for (uint32_t i = m_size; i; i--)
                   if (!(*pSrc++ == *pDst++))
                      return false;
             }
@@ -1066,7 +1066,7 @@ namespace crnd
 
       inline bool operator< (const vector& rhs) const
       {
-         const uint32 min_size = math::minimum(m_size, rhs.m_size);
+         const uint32_t min_size = math::minimum(m_size, rhs.m_size);
 
          const T* pSrc = m_p;
          const T* pSrc_end = m_p + min_size;
@@ -1093,14 +1093,14 @@ namespace crnd
 
    private:
       T*          m_p;
-      uint32      m_size;
-      uint32      m_capacity;
+      uint32_t      m_size;
+      uint32_t      m_capacity;
       bool        m_alloc_failed;
 
       template<typename Q> struct is_vector { enum { cFlag = false }; };
       template<typename Q> struct is_vector< vector<Q> > { enum { cFlag = true }; };
 
-      static void object_mover(void* pDst_void, void* pSrc_void, uint32 num)
+      static void object_mover(void* pDst_void, void* pSrc_void, uint32_t num)
       {
          T* pSrc = static_cast<T*>(pSrc_void);
          T* const pSrc_end = pSrc + num;
@@ -1115,7 +1115,7 @@ namespace crnd
          }
       }
 
-      inline bool increase_capacity(uint32 min_new_capacity, bool grow_hint)
+      inline bool increase_capacity(uint32_t min_new_capacity, bool grow_hint)
       {
          if (!reinterpret_cast<elemental_vector*>(this)->increase_capacity(
             min_new_capacity, grow_hint, sizeof(T),
@@ -1139,7 +1139,7 @@ namespace crnd
 // File: crnd_private.h
 namespace crnd
 {
-   const crn_header* crnd_get_header(crn_header& header, const void* pData, uint32 data_size);
+   const crn_header* crnd_get_header(crn_header& header, const void* pData, uint32_t data_size);
 
 } // namespace crnd
 
@@ -1147,8 +1147,8 @@ namespace crnd
 namespace crnd
 {
    // crc16() intended for small buffers - doesn't use an acceleration table.
-   const uint16 cInitCRC16 = 0;
-   uint16 crc16(const void* pBuf, uint32 len, uint16 crc = cInitCRC16);
+   const uint16_t cInitCRC16 = 0;
+   uint16_t crc16(const void* pBuf, uint32_t len, uint16_t crc = cInitCRC16);
 
 }  // namespace crnd
 
@@ -1372,10 +1372,10 @@ namespace crnd
       static parameter_type get_max_comp() { return component_traits::cMax; }
       static bool get_comps_are_signed() { return component_traits::cSigned; }
 
-      component_type operator[] (uint32 i) const { CRND_ASSERT(i < cNumComps); return c[i]; }
-      component_type& operator[] (uint32 i) { CRND_ASSERT(i < cNumComps); return c[i]; }
+      component_type operator[] (uint32_t i) const { CRND_ASSERT(i < cNumComps); return c[i]; }
+      component_type& operator[] (uint32_t i) { CRND_ASSERT(i < cNumComps); return c[i]; }
 
-      color_quad& set_component(uint32 i, parameter_type f)
+      color_quad& set_component(uint32_t i, parameter_type f)
       {
          CRND_ASSERT(i < cNumComps);
 
@@ -1386,14 +1386,14 @@ namespace crnd
 
       color_quad& clamp(const color_quad& l, const color_quad& h)
       {
-         for (uint32 i = 0; i < cNumComps; i++)
+         for (uint32_t i = 0; i < cNumComps; i++)
             c[i] = static_cast<component_type>(math::clamp<parameter_type>(c[i], l[i], h[i]));
          return *this;
       }
 
       color_quad& clamp(parameter_type l, parameter_type h)
       {
-         for (uint32 i = 0; i < cNumComps; i++)
+         for (uint32_t i = 0; i < cNumComps; i++)
             c[i] = static_cast<component_type>(math::clamp<parameter_type>(c[i], l, h));
          return *this;
       }
@@ -1410,7 +1410,7 @@ namespace crnd
          return static_cast<parameter_type>((13938U * r + 46869U * g + 4729U * b + 32768U) >> 16U);
       }
       
-      uint32 squared_distance(const color_quad& c, bool alpha = true) const
+      uint32_t squared_distance(const color_quad& c, bool alpha = true) const
       {
          return math::square(r - c.r) + math::square(g - c.g) + math::square(b - c.b) + (alpha ? math::square(a - c.a) : 0);
       }
@@ -1427,7 +1427,7 @@ namespace crnd
 
       bool operator< (const color_quad& rhs) const
       {
-         for (uint32 i = 0; i < cNumComps; i++)
+         for (uint32_t i = 0; i < cNumComps; i++)
          {
             if (c[i] < rhs.c[i])
                return true;
@@ -1439,33 +1439,33 @@ namespace crnd
 
       color_quad& operator+= (const color_quad& other)
       {
-         for (uint32 i = 0; i < 4; i++)
+         for (uint32_t i = 0; i < 4; i++)
             c[i] = static_cast<component_type>(clamp(c[i] + other.c[i]));
          return *this;
       }
 
       color_quad& operator-= (const color_quad& other)
       {
-         for (uint32 i = 0; i < 4; i++)
+         for (uint32_t i = 0; i < 4; i++)
             c[i] = static_cast<component_type>(clamp(c[i] - other.c[i]));
          return *this;
       }
 
       color_quad& operator*= (parameter_type v)
       {
-         for (uint32 i = 0; i < 4; i++)
+         for (uint32_t i = 0; i < 4; i++)
             c[i] = static_cast<component_type>(clamp(c[i] * v));
          return *this;
       }
 
       color_quad& operator/= (parameter_type v)
       {
-         for (uint32 i = 0; i < 4; i++)
+         for (uint32_t i = 0; i < 4; i++)
             c[i] = static_cast<component_type>(c[i] / v);
          return *this;
       }
 
-      color_quad get_swizzled(uint32 x, uint32 y, uint32 z, uint32 w) const
+      color_quad get_swizzled(uint32_t x, uint32_t y, uint32_t z, uint32_t w) const
       {
          CRND_ASSERT((x | y | z | w) < 4);
          return color_quad(c[x], c[y], c[z], c[w]);
@@ -1506,21 +1506,21 @@ namespace crnd
          return result;
       }
 
-      uint32 get_min_component_index(bool alpha = true) const
+      uint32_t get_min_component_index(bool alpha = true) const
       {
-         uint32 index = 0;
-         uint32 limit = alpha ? cNumComps : (cNumComps - 1);
-         for (uint32 i = 1; i < limit; i++)
+         uint32_t index = 0;
+         uint32_t limit = alpha ? cNumComps : (cNumComps - 1);
+         for (uint32_t i = 1; i < limit; i++)
             if (c[i] < c[index])
                index = i;
          return index;
       }
 
-      uint32 get_max_component_index(bool alpha = true) const
+      uint32_t get_max_component_index(bool alpha = true) const
       {
-         uint32 index = 0;
-         uint32 limit = alpha ? cNumComps : (cNumComps - 1);
-         for (uint32 i = 1; i < limit; i++)
+         uint32_t index = 0;
+         uint32_t limit = alpha ? cNumComps : (cNumComps - 1);
+         for (uint32_t i = 1; i < limit; i++)
             if (c[i] > c[index])
                index = i;
          return index;
@@ -1528,13 +1528,13 @@ namespace crnd
 
       void get_float4(float* pDst)
       {
-         for (uint32 i = 0; i < 4; i++)
+         for (uint32_t i = 0; i < 4; i++)
             pDst[i] = ((*this)[i] - component_traits::cMin) / float(component_traits::cMax - component_traits::cMin);
       }
 
       void get_float3(float* pDst)
       {
-         for (uint32 i = 0; i < 3; i++)
+         for (uint32_t i = 0; i < 3; i++)
             pDst[i] = ((*this)[i] - component_traits::cMin) / float(component_traits::cMax - component_traits::cMin);
       }
 
@@ -1559,9 +1559,9 @@ namespace crnd
       enum { cFlag = true };
       static inline void construct(color_quad<c, q>* p) { }
       static inline void construct(color_quad<c, q>* p, const color_quad<c, q>& init) { memcpy(p, &init, sizeof(color_quad<c, q>)); }
-      static inline void construct_array(color_quad<c, q>* p, uint32 n) { p, n; }
+      static inline void construct_array(color_quad<c, q>* p, uint32_t n) { p, n; }
       static inline void destruct(color_quad<c, q>* p) { p; }
-      static inline void destruct_array(color_quad<c, q>* p, uint32 n) { p, n; }
+      static inline void destruct_array(color_quad<c, q>* p, uint32_t n) { p, n; }
    };
 
    typedef color_quad<uint8, int>      color_quad_u8;
@@ -1617,27 +1617,27 @@ namespace crnd
    const float cDXT5InvMaxLinearValue = 1.0f/7.0f;
 
    // Converts DXT1 raw color selector index to a linear value.
-   extern const uint8 g_dxt1_to_linear[cDXT1SelectorValues];
+   extern const uint8_t g_dxt1_to_linear[cDXT1SelectorValues];
 
    // Converts DXT5 raw alpha selector index to a linear value.
-   extern const uint8 g_dxt5_to_linear[cDXT5SelectorValues];
+   extern const uint8_t g_dxt5_to_linear[cDXT5SelectorValues];
 
    // Converts DXT1 linear color selector index to a raw value (inverse of g_dxt1_to_linear).
-   extern const uint8 g_dxt1_from_linear[cDXT1SelectorValues];
+   extern const uint8_t g_dxt1_from_linear[cDXT1SelectorValues];
 
    // Converts DXT5 linear alpha selector index to a raw value (inverse of g_dxt5_to_linear).
-   extern const uint8 g_dxt5_from_linear[cDXT5SelectorValues];
+   extern const uint8_t g_dxt5_from_linear[cDXT5SelectorValues];
 
-   extern const uint8 g_six_alpha_invert_table[cDXT5SelectorValues];
-   extern const uint8 g_eight_alpha_invert_table[cDXT5SelectorValues];
+   extern const uint8_t g_six_alpha_invert_table[cDXT5SelectorValues];
+   extern const uint8_t g_eight_alpha_invert_table[cDXT5SelectorValues];
 
    struct dxt1_block
    {
-      uint8 m_low_color[2];
-      uint8 m_high_color[2];
+      uint8_t m_low_color[2];
+      uint8_t m_high_color[2];
 
       enum { cNumSelectorBytes = 4 };
-      uint8 m_selectors[cNumSelectorBytes];
+      uint8_t m_selectors[cNumSelectorBytes];
 
       inline void clear()
       {
@@ -1645,35 +1645,35 @@ namespace crnd
       }
 
       // These methods assume the in-memory rep is in LE byte order.
-      inline uint32 get_low_color() const
+      inline uint32_t get_low_color() const
       {
          return m_low_color[0] | (m_low_color[1] << 8U);
       }
 
-      inline uint32 get_high_color() const
+      inline uint32_t get_high_color() const
       {
          return m_high_color[0] | (m_high_color[1] << 8U);
       }
 
-      inline void set_low_color(uint16 c)
+      inline void set_low_color(uint16_t c)
       {
          m_low_color[0] = static_cast<uint8>(c & 0xFF);
          m_low_color[1] = static_cast<uint8>((c >> 8) & 0xFF);
       }
 
-      inline void set_high_color(uint16 c)
+      inline void set_high_color(uint16_t c)
       {
          m_high_color[0] = static_cast<uint8>(c & 0xFF);
          m_high_color[1] = static_cast<uint8>((c >> 8) & 0xFF);
       }
 
-      inline uint32 get_selector(uint32 x, uint32 y) const
+      inline uint32_t get_selector(uint32_t x, uint32_t y) const
       {
          CRND_ASSERT((x < 4U) && (y < 4U));
          return (m_selectors[y] >> (x * cDXT1SelectorBits)) & cDXT1SelectorMask;
       }
 
-      inline void set_selector(uint32 x, uint32 y, uint32 val)
+      inline void set_selector(uint32_t x, uint32_t y, uint32_t val)
       {
          CRND_ASSERT((x < 4U) && (y < 4U) && (val < 4U));
 
@@ -1681,19 +1681,19 @@ namespace crnd
          m_selectors[y] |= (val << (x * cDXT1SelectorBits));
       }
 
-      static uint16        pack_color(const color_quad_u8& color, bool scaled, uint32 bias = 127U);
-      static uint16        pack_color(uint32 r, uint32 g, uint32 b, bool scaled, uint32 bias = 127U);
+      static uint16_t        pack_color(const color_quad_u8& color, bool scaled, uint32_t bias = 127U);
+      static uint16_t        pack_color(uint32_t r, uint32_t g, uint32_t b, bool scaled, uint32_t bias = 127U);
 
-      static color_quad_u8 unpack_color(uint16 packed_color, bool scaled, uint32 alpha = 255U);
-      static void          unpack_color(uint32& r, uint32& g, uint32& b, uint16 packed_color, bool scaled);
+      static color_quad_u8 unpack_color(uint16_t packed_color, bool scaled, uint32_t alpha = 255U);
+      static void          unpack_color(uint32& r, uint32& g, uint32& b, uint16_t packed_color, bool scaled);
 
-      static uint32        get_block_colors3(color_quad_u8* pDst, uint16 color0, uint16 color1);
-      static uint32        get_block_colors4(color_quad_u8* pDst, uint16 color0, uint16 color1);
+      static uint32_t        get_block_colors3(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
+      static uint32_t        get_block_colors4(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
       // pDst must point to an array at least cDXT1SelectorValues long.
-      static uint32        get_block_colors(color_quad_u8* pDst, uint16 color0, uint16 color1);
+      static uint32_t        get_block_colors(color_quad_u8* pDst, uint16_t color0, uint16_t color1);
 
-      static color_quad_u8 unpack_endpoint(uint32 endpoints, uint32 index, bool scaled, uint32 alpha = 255U);
-      static uint32        pack_endpoints(uint32 lo, uint32 hi);
+      static color_quad_u8 unpack_endpoint(uint32_t endpoints, uint32_t index, bool scaled, uint32_t alpha = 255U);
+      static uint32_t        pack_endpoints(uint32_t lo, uint32_t hi);
    };
 
    CRND_DEFINE_BITWISE_MOVABLE(dxt1_block);
@@ -1701,80 +1701,80 @@ namespace crnd
    struct dxt3_block
    {
       enum { cNumAlphaBytes = 8 };
-      uint8 m_alpha[cNumAlphaBytes];
+      uint8_t m_alpha[cNumAlphaBytes];
 
-      void set_alpha(uint32 x, uint32 y, uint32 value, bool scaled);
-      uint32 get_alpha(uint32 x, uint32 y, bool scaled) const;
+      void set_alpha(uint32_t x, uint32_t y, uint32_t value, bool scaled);
+      uint32_t get_alpha(uint32_t x, uint32_t y, bool scaled) const;
    };
 
    CRND_DEFINE_BITWISE_MOVABLE(dxt3_block);
 
    struct dxt5_block
    {
-      uint8 m_endpoints[2];
+      uint8_t m_endpoints[2];
 
       enum { cNumSelectorBytes = 6 };
-      uint8 m_selectors[cNumSelectorBytes];
+      uint8_t m_selectors[cNumSelectorBytes];
 
       inline void clear()
       {
          utils::zero_this(this);
       }
 
-      inline uint32 get_low_alpha() const
+      inline uint32_t get_low_alpha() const
       {
          return m_endpoints[0];
       }
 
-      inline uint32 get_high_alpha() const
+      inline uint32_t get_high_alpha() const
       {
          return m_endpoints[1];
       }
 
-      inline void set_low_alpha(uint32 i)
+      inline void set_low_alpha(uint32_t i)
       {
          CRND_ASSERT(i <= cUINT8_MAX);
          m_endpoints[0] = static_cast<uint8>(i);
       }
 
-      inline void set_high_alpha(uint32 i)
+      inline void set_high_alpha(uint32_t i)
       {
          CRND_ASSERT(i <= cUINT8_MAX);
          m_endpoints[1] = static_cast<uint8>(i);
       }
 
-      uint32 get_endpoints_as_word() const { return m_endpoints[0] | (m_endpoints[1] << 8); }
+      uint32_t get_endpoints_as_word() const { return m_endpoints[0] | (m_endpoints[1] << 8); }
 
-      uint32 get_selectors_as_word(uint32 index) { CRND_ASSERT(index < 3); return m_selectors[index * 2] | (m_selectors[index * 2 + 1] << 8); }
+      uint32_t get_selectors_as_word(uint32_t index) { CRND_ASSERT(index < 3); return m_selectors[index * 2] | (m_selectors[index * 2 + 1] << 8); }
 
-      inline uint32 get_selector(uint32 x, uint32 y) const
+      inline uint32_t get_selector(uint32_t x, uint32_t y) const
       {
          CRND_ASSERT((x < 4U) && (y < 4U));
 
-         uint32 selector_index = (y * 4) + x;
-         uint32 bit_index = selector_index * cDXT5SelectorBits;
+         uint32_t selector_index = (y * 4) + x;
+         uint32_t bit_index = selector_index * cDXT5SelectorBits;
 
-         uint32 byte_index = bit_index >> 3;
-         uint32 bit_ofs = bit_index & 7;
+         uint32_t byte_index = bit_index >> 3;
+         uint32_t bit_ofs = bit_index & 7;
 
-         uint32 v = m_selectors[byte_index];
+         uint32_t v = m_selectors[byte_index];
          if (byte_index < (cNumSelectorBytes - 1))
             v |= (m_selectors[byte_index + 1] << 8);
 
          return (v >> bit_ofs) & 7;
       }
 
-      inline void set_selector(uint32 x, uint32 y, uint32 val)
+      inline void set_selector(uint32_t x, uint32_t y, uint32_t val)
       {
          CRND_ASSERT((x < 4U) && (y < 4U) && (val < 8U));
 
-         uint32 selector_index = (y * 4) + x;
-         uint32 bit_index = selector_index * cDXT5SelectorBits;
+         uint32_t selector_index = (y * 4) + x;
+         uint32_t bit_index = selector_index * cDXT5SelectorBits;
 
-         uint32 byte_index = bit_index >> 3;
-         uint32 bit_ofs = bit_index & 7;
+         uint32_t byte_index = bit_index >> 3;
+         uint32_t bit_ofs = bit_index & 7;
 
-         uint32 v = m_selectors[byte_index];
+         uint32_t v = m_selectors[byte_index];
          if (byte_index < (cNumSelectorBytes - 1))
             v |= (m_selectors[byte_index + 1] << 8);
 
@@ -1787,17 +1787,17 @@ namespace crnd
       }
 
       // Results written to alpha channel.
-      static uint32          get_block_values6(color_quad_u8* pDst, uint32 l, uint32 h);
-      static uint32          get_block_values8(color_quad_u8* pDst, uint32 l, uint32 h);
-      static uint32          get_block_values(color_quad_u8* pDst, uint32 l, uint32 h);
+      static uint32_t          get_block_values6(color_quad_u8* pDst, uint32_t l, uint32_t h);
+      static uint32_t          get_block_values8(color_quad_u8* pDst, uint32_t l, uint32_t h);
+      static uint32_t          get_block_values(color_quad_u8* pDst, uint32_t l, uint32_t h);
 
-      static uint32          get_block_values6(uint32* pDst, uint32 l, uint32 h);
-      static uint32          get_block_values8(uint32* pDst, uint32 l, uint32 h);
+      static uint32_t          get_block_values6(uint32* pDst, uint32_t l, uint32_t h);
+      static uint32_t          get_block_values8(uint32* pDst, uint32_t l, uint32_t h);
       // pDst must point to an array at least cDXT5SelectorValues long.
-      static uint32          get_block_values(uint32* pDst, uint32 l, uint32 h);
+      static uint32_t          get_block_values(uint32* pDst, uint32_t l, uint32_t h);
 
-      static uint32          unpack_endpoint(uint32 packed, uint32 index);
-      static uint32          pack_endpoints(uint32 lo, uint32 hi);
+      static uint32_t          unpack_endpoint(uint32_t packed, uint32_t index);
+      static uint32_t          pack_endpoints(uint32_t lo, uint32_t hi);
    };
 
    CRND_DEFINE_BITWISE_MOVABLE(dxt5_block);
@@ -1810,37 +1810,37 @@ namespace crnd
    struct chunk_tile_desc
    {
       // These values are in pixels, and always a multiple of cBlockPixelWidth/cBlockPixelHeight.
-      uint32 m_x_ofs;
-      uint32 m_y_ofs;
-      uint32 m_width;
-      uint32 m_height;
-      uint32 m_layout_index;
+      uint32_t m_x_ofs;
+      uint32_t m_y_ofs;
+      uint32_t m_width;
+      uint32_t m_height;
+      uint32_t m_layout_index;
    };
 
    struct chunk_encoding_desc
    {
-      uint32 m_num_tiles;
+      uint32_t m_num_tiles;
       chunk_tile_desc m_tiles[4];
    };
 
-   const uint32 cChunkPixelWidth = 8;
-   const uint32 cChunkPixelHeight = 8;
-   const uint32 cChunkBlockWidth = 2;
-   const uint32 cChunkBlockHeight = 2;
+   const uint32_t cChunkPixelWidth = 8;
+   const uint32_t cChunkPixelHeight = 8;
+   const uint32_t cChunkBlockWidth = 2;
+   const uint32_t cChunkBlockHeight = 2;
 
-   const uint32 cChunkMaxTiles = 4;
+   const uint32_t cChunkMaxTiles = 4;
 
-   const uint32 cBlockPixelWidthShift = 2;
-   const uint32 cBlockPixelHeightShift = 2;
+   const uint32_t cBlockPixelWidthShift = 2;
+   const uint32_t cBlockPixelHeightShift = 2;
 
-   const uint32 cBlockPixelWidth = 4;
-   const uint32 cBlockPixelHeight = 4;
+   const uint32_t cBlockPixelWidth = 4;
+   const uint32_t cBlockPixelHeight = 4;
 
-   const uint32 cNumChunkEncodings = 8;
+   const uint32_t cNumChunkEncodings = 8;
    extern chunk_encoding_desc g_chunk_encodings[cNumChunkEncodings];
 
-   const uint32 cNumChunkTileLayouts = 9;
-   const uint32 cFirst4x4ChunkTileLayout = 5;
+   const uint32_t cNumChunkTileLayouts = 9;
+   const uint32_t cFirst4x4ChunkTileLayout = 5;
    extern chunk_tile_desc g_chunk_tile_layouts[cNumChunkTileLayouts];
 
 } // namespace crnd
@@ -1856,9 +1856,9 @@ namespace crnd
 {
    namespace prefix_coding
    {
-      const uint32 cMaxExpectedCodeSize = 16;
-      const uint32 cMaxSupportedSyms = 8192;
-      const uint32 cMaxTableBits = 11;
+      const uint32_t cMaxExpectedCodeSize = 16;
+      const uint32_t cMaxSupportedSyms = 8192;
+      const uint32_t cMaxTableBits = 11;
 
       class decoder_tables
       {
@@ -1926,33 +1926,33 @@ namespace crnd
                crnd_delete_array(m_sorted_symbol_order);
          }
 
-         bool init(uint32 num_syms, const uint8* pCodesizes, uint32 table_bits);
+         bool init(uint32_t num_syms, const uint8* pCodesizes, uint32_t table_bits);
 
          // DO NOT use any complex classes here - it is bitwise copied.
 
-         uint32                  m_num_syms;
-         uint32                  m_total_used_syms;
-         uint32                  m_table_bits;
-         uint32                  m_table_shift;
-         uint32                  m_table_max_code;
-         uint32                  m_decode_start_code_size;
+         uint32_t                  m_num_syms;
+         uint32_t                  m_total_used_syms;
+         uint32_t                  m_table_bits;
+         uint32_t                  m_table_shift;
+         uint32_t                  m_table_max_code;
+         uint32_t                  m_decode_start_code_size;
 
-         uint8                   m_min_code_size;
-         uint8                   m_max_code_size;
+         uint8_t                   m_min_code_size;
+         uint8_t                   m_max_code_size;
 
-         uint32                  m_max_codes[cMaxExpectedCodeSize + 1];
-         int32                   m_val_ptrs[cMaxExpectedCodeSize + 1];
+         uint32_t                  m_max_codes[cMaxExpectedCodeSize + 1];
+         int32_t                   m_val_ptrs[cMaxExpectedCodeSize + 1];
 
-         uint32                  m_cur_lookup_size;
+         uint32_t                  m_cur_lookup_size;
          uint32*                 m_lookup;
 
-         uint32                  m_cur_sorted_symbol_order_size;
+         uint32_t                  m_cur_sorted_symbol_order_size;
          uint16*                 m_sorted_symbol_order;
 
-         inline uint32 get_unshifted_max_code(uint32 len) const
+         inline uint32_t get_unshifted_max_code(uint32_t len) const
          {
             CRND_ASSERT( (len >= 1) && (len <= cMaxExpectedCodeSize) );
-            uint32 k = m_max_codes[len - 1];
+            uint32_t k = m_max_codes[len - 1];
             if (!k)
                return crnd::cUINT32_MAX;
             return (k - 1) >> (16 - len);
@@ -1975,19 +1975,19 @@ namespace crnd
 
       static_huffman_data_model& operator= (const static_huffman_data_model& rhs);
 
-      bool init(uint32 total_syms, const uint8* pCode_sizes, uint32 code_size_limit);
+      bool init(uint32_t total_syms, const uint8* pCode_sizes, uint32_t code_size_limit);
       void clear();
 
       inline bool is_valid() const { return m_pDecode_tables != NULL; }
 
-      inline uint32 get_total_syms() const { return m_total_syms; }
+      inline uint32_t get_total_syms() const { return m_total_syms; }
 
-      inline uint32 get_code_size(uint32 sym) const { return m_code_sizes[sym]; }
+      inline uint32_t get_code_size(uint32_t sym) const { return m_code_sizes[sym]; }
 
       inline const uint8* get_code_sizes() const { return m_code_sizes.empty() ? NULL : &m_code_sizes[0]; }
 
    public:
-      uint32                           m_total_syms;
+      uint32_t                           m_total_syms;
       crnd::vector<uint8>               m_code_sizes;
       prefix_coding::decoder_tables*   m_pDecode_tables;
 
@@ -2003,25 +2003,25 @@ namespace crnd
    public:
       symbol_codec();
 
-      bool start_decoding(const uint8* pBuf, uint32 buf_size);
+      bool start_decoding(const uint8* pBuf, uint32_t buf_size);
       bool decode_receive_static_data_model(static_huffman_data_model& model);
 
-      uint32 decode_bits(uint32 num_bits);
-      uint32 decode(const static_huffman_data_model& model);
+      uint32_t decode_bits(uint32_t num_bits);
+      uint32_t decode(const static_huffman_data_model& model);
 
 #ifdef PLATFORM_NACL
-      uint32 stop_decoding();
+      uint32_t stop_decoding();
 #else 
-      uint64 stop_decoding();
+      uint64_t stop_decoding();
 #endif
 
    public:
       const uint8*         m_pDecode_buf;
       const uint8*         m_pDecode_buf_next;
       const uint8*         m_pDecode_buf_end;
-      uint32               m_decode_buf_size;
+      uint32_t               m_decode_buf_size;
 
-      typedef uint32 bit_buf_type;
+      typedef uint32_t bit_buf_type;
       enum { cBitBufSize = 32U };
       bit_buf_type         m_bit_buf;
 
@@ -2029,7 +2029,7 @@ namespace crnd
 
    private:
       void get_bits_init();
-      uint32 get_bits(uint32 num_bits);
+      uint32_t get_bits(uint32_t num_bits);
    };
 
 } // namespace crnd
@@ -2087,17 +2087,17 @@ namespace crnd
 // From the public domain stb.h header.
 namespace crnd
 {
-   uint16 crc16(const void* pBuf, uint32 len, uint16 crc)
+   uint16_t crc16(const void* pBuf, uint32_t len, uint16_t crc)
    {
       crc = ~crc;
 
       const uint8* p = reinterpret_cast<const uint8*>(pBuf);
       while (len)
       {
-         const uint16 q = *p++ ^ (crc >> 8U);
+         const uint16_t q = *p++ ^ (crc >> 8U);
          crc <<= 8U;
 
-         uint16 r = (q >> 4U) ^ q;
+         uint16_t r = (q >> 4U) ^ q;
          crc ^= r;
          r <<= 5U;
          crc ^= r;
@@ -2116,7 +2116,7 @@ namespace crnd
 // File: crnd_vector.cpp
 namespace crnd
 {
-   bool elemental_vector::increase_capacity(uint32 min_new_capacity, bool grow_hint, uint32 element_size, object_mover pMover)
+   bool elemental_vector::increase_capacity(uint32_t min_new_capacity, bool grow_hint, uint32_t element_size, object_mover pMover)
    {
       CRND_ASSERT(m_size <= m_capacity);
       CRND_ASSERT(min_new_capacity < (0x7FFF0000U / element_size));
@@ -2124,13 +2124,13 @@ namespace crnd
       if (m_capacity >= min_new_capacity)
          return true;
 
-      uint32 new_capacity = min_new_capacity;
+      uint32_t new_capacity = min_new_capacity;
       if ((grow_hint) && (!math::is_power_of_2(new_capacity)))
          new_capacity = math::next_pow2(new_capacity);
 
       CRND_ASSERT(new_capacity && (new_capacity > m_capacity));
 
-      const uint32 desired_size = element_size * new_capacity;
+      const uint32_t desired_size = element_size * new_capacity;
       size_t actual_size;
       if (!pMover)
       {
@@ -2168,12 +2168,12 @@ namespace crnd
 {
    namespace utils
    {
-      uint32 compute_max_mips(uint32 width, uint32 height)
+      uint32_t compute_max_mips(uint32_t width, uint32_t height)
       {
          if ((width | height) == 0)
             return 0;
 
-         uint32 num_mips = 1;
+         uint32_t num_mips = 1;
 
          while ((width > 1U) || (height > 1U))
          {
@@ -2194,34 +2194,34 @@ namespace crnd
 {
    namespace prefix_coding
    {
-      bool decoder_tables::init(uint32 num_syms, const uint8* pCodesizes, uint32 table_bits)
+      bool decoder_tables::init(uint32_t num_syms, const uint8* pCodesizes, uint32_t table_bits)
       {
-         uint32 min_codes[cMaxExpectedCodeSize];
+         uint32_t min_codes[cMaxExpectedCodeSize];
          if ((!num_syms) || (table_bits > cMaxTableBits))
             return false;
 
          m_num_syms = num_syms;
 
-         uint32 num_codes[cMaxExpectedCodeSize + 1];
+         uint32_t num_codes[cMaxExpectedCodeSize + 1];
          utils::zero_object(num_codes);
 
-         for (uint32 i = 0; i < num_syms; i++)
+         for (uint32_t i = 0; i < num_syms; i++)
          {
-            uint32 c = pCodesizes[i];
+            uint32_t c = pCodesizes[i];
             if (c)
                num_codes[c]++;
          }
 
-         uint32 sorted_positions[cMaxExpectedCodeSize + 1];
+         uint32_t sorted_positions[cMaxExpectedCodeSize + 1];
 
-         uint32 cur_code = 0;
+         uint32_t cur_code = 0;
 
-         uint32 total_used_syms = 0;
-         uint32 max_code_size = 0;
-         uint32 min_code_size = cUINT32_MAX;
-         for (uint32 i = 1; i <= cMaxExpectedCodeSize; i++)
+         uint32_t total_used_syms = 0;
+         uint32_t max_code_size = 0;
+         uint32_t min_code_size = cUINT32_MAX;
+         for (uint32_t i = 1; i <= cMaxExpectedCodeSize; i++)
          {
-            const uint32 n = num_codes[i];
+            const uint32_t n = num_codes[i];
 
             if (!n)
                m_max_codes[i - 1] = 0;//UINT_MAX;
@@ -2266,14 +2266,14 @@ namespace crnd
          m_min_code_size = static_cast<uint8>(min_code_size);
          m_max_code_size = static_cast<uint8>(max_code_size);
 
-         for (uint32 i = 0; i < num_syms; i++)
+         for (uint32_t i = 0; i < num_syms; i++)
          {
-            uint32 c = pCodesizes[i];
+            uint32_t c = pCodesizes[i];
             if (c)
             {
                CRND_ASSERT(num_codes[c]);
 
-               uint32 sorted_pos = sorted_positions[c]++;
+               uint32_t sorted_pos = sorted_positions[c]++;
 
                CRND_ASSERT(sorted_pos < total_used_syms);
 
@@ -2287,7 +2287,7 @@ namespace crnd
 
          if (table_bits)
          {
-            uint32 table_size = 1 << table_bits;
+            uint32_t table_size = 1 << table_bits;
             if (table_size > m_cur_lookup_size)
             {
                m_cur_lookup_size = table_size;
@@ -2302,26 +2302,26 @@ namespace crnd
 
             memset(m_lookup, 0xFF, (uint)sizeof(m_lookup[0]) * (1UL << table_bits));
 
-            for (uint32 codesize = 1; codesize <= table_bits; codesize++)
+            for (uint32_t codesize = 1; codesize <= table_bits; codesize++)
             {
                if (!num_codes[codesize])
                   continue;
 
-               const uint32 fillsize = table_bits - codesize;
-               const uint32 fillnum = 1 << fillsize;
+               const uint32_t fillsize = table_bits - codesize;
+               const uint32_t fillnum = 1 << fillsize;
 
-               const uint32 min_code = min_codes[codesize - 1];
-               const uint32 max_code = get_unshifted_max_code(codesize);
-               const uint32 val_ptr = m_val_ptrs[codesize - 1];
+               const uint32_t min_code = min_codes[codesize - 1];
+               const uint32_t max_code = get_unshifted_max_code(codesize);
+               const uint32_t val_ptr = m_val_ptrs[codesize - 1];
 
-               for (uint32 code = min_code; code <= max_code; code++)
+               for (uint32_t code = min_code; code <= max_code; code++)
                {
-                  const uint32 sym_index = m_sorted_symbol_order[ val_ptr + code - min_code ];
+                  const uint32_t sym_index = m_sorted_symbol_order[ val_ptr + code - min_code ];
                   CRND_ASSERT( pCodesizes[sym_index] == codesize );
 
-                  for (uint32 j = 0; j < fillnum; j++)
+                  for (uint32_t j = 0; j < fillnum; j++)
                   {
-                     const uint32 t = j + (code << fillsize);
+                     const uint32_t t = j + (code << fillsize);
 
                      CRND_ASSERT(t < (1U << table_bits));
 
@@ -2333,7 +2333,7 @@ namespace crnd
             }
          }
 
-         for (uint32 i = 0; i < cMaxExpectedCodeSize; i++)
+         for (uint32_t i = 0; i < cMaxExpectedCodeSize; i++)
             m_val_ptrs[i] -= min_codes[i];
 
          m_table_max_code = 0;
@@ -2341,7 +2341,7 @@ namespace crnd
 
          if (table_bits)
          {
-            uint32 i;
+            uint32_t i;
             for (i = table_bits; i >= 1; i--)
             {
                if (num_codes[i])
@@ -2353,7 +2353,7 @@ namespace crnd
             if (i >= 1)
             {
                m_decode_start_code_size = table_bits + 1;
-               for (uint32 j = table_bits + 1; j <= max_code_size; j++)
+               for (uint32_t j = table_bits + 1; j <= max_code_size; j++)
                {
                   if (num_codes[j])
                   {
@@ -2408,7 +2408,7 @@ namespace crnd
 // File: crnd_mem.cpp
 namespace crnd
 {
-   const uint32 MAX_POSSIBLE_BLOCK_SIZE = 0x7FFF0000U;
+   const uint32_t MAX_POSSIBLE_BLOCK_SIZE = 0x7FFF0000U;
 
    static void* crnd_default_realloc(void* p, size_t size, size_t* pActual_size, bool movable, void* pUser_data)
    {
@@ -2589,7 +2589,7 @@ namespace crnd
 {
    namespace math
    {
-      uint32 g_bitmasks[32] =
+      uint32_t g_bitmasks[32] =
       {
          1U <<  0U,         1U <<  1U,          1U <<  2U,        1U <<  3U,
          1U <<  4U,         1U <<  5U,          1U <<  6U,        1U <<  7U,
@@ -2609,7 +2609,7 @@ namespace crnd
 {
 #define CRND_FOURCC(a, b, c, d) ((a) | ((b) << 8U) | ((c) << 16U) | ((d) << 24U))
 
-   uint32 crnd_crn_format_to_fourcc(crn_format fmt)
+   uint32_t crnd_crn_format_to_fourcc(crn_format fmt)
    {
       switch (fmt)
       {
@@ -2643,7 +2643,7 @@ namespace crnd
       return fmt;
    }
 
-   uint32 crnd_get_crn_format_bits_per_texel(crn_format fmt)
+   uint32_t crnd_get_crn_format_bits_per_texel(crn_format fmt)
    {
       switch (fmt)
       {
@@ -2665,13 +2665,13 @@ namespace crnd
       return 0;
    }
 
-   uint32 crnd_get_bytes_per_dxt_block(crn_format fmt)
+   uint32_t crnd_get_bytes_per_dxt_block(crn_format fmt)
    {
       return (crnd_get_crn_format_bits_per_texel(fmt) << 4) >> 3;
    }
 
    // TODO: tmp_header isn't used/This function is a helper to support old headers.
-   const crn_header* crnd_get_header(crn_header& tmp_header, const void* pData, uint32 data_size)
+   const crn_header* crnd_get_header(crn_header& tmp_header, const void* pData, uint32_t data_size)
    {
       tmp_header;
 
@@ -2688,7 +2688,7 @@ namespace crnd
       return &file_header;
    }
 
-   bool crnd_validate_file(const void* pData, uint32 data_size, crn_file_info* pFile_info)
+   bool crnd_validate_file(const void* pData, uint32_t data_size, crn_file_info* pFile_info)
    {
       if (pFile_info)
       {
@@ -2706,11 +2706,11 @@ namespace crnd
       if (!pHeader)
          return false;
 
-      const uint32 header_crc = crc16(&pHeader->m_data_size, (uint32)(pHeader->m_header_size - ((const uint8*)&pHeader->m_data_size - (const uint8*)pHeader)));
+      const uint32_t header_crc = crc16(&pHeader->m_data_size, (uint32)(pHeader->m_header_size - ((const uint8*)&pHeader->m_data_size - (const uint8*)pHeader)));
       if (header_crc != pHeader->m_header_crc16)
          return false;
 
-      const uint32 data_crc = crc16((const uint8*)pData + pHeader->m_header_size, pHeader->m_data_size - pHeader->m_header_size);
+      const uint32_t data_crc = crc16((const uint8*)pData + pHeader->m_header_size, pHeader->m_data_size - pHeader->m_header_size);
       if (data_crc != pHeader->m_data_crc16)
          return false;
 
@@ -2734,9 +2734,9 @@ namespace crnd
 
          pFile_info->m_levels = pHeader->m_levels;
 
-         for (uint32 i = 0; i < pHeader->m_levels; i++)
+         for (uint32_t i = 0; i < pHeader->m_levels; i++)
          {
-            uint32 next_ofs = pHeader->m_data_size;
+            uint32_t next_ofs = pHeader->m_data_size;
 
             // assumes the levels are packed together sequentially
             if ((i + 1) < pHeader->m_levels)
@@ -2754,7 +2754,7 @@ namespace crnd
       return true;
    }
 
-   bool crnd_get_texture_info(const void* pData, uint32 data_size, crn_texture_info* pInfo)
+   bool crnd_get_texture_info(const void* pData, uint32_t data_size, crn_texture_info* pInfo)
    {
       if ((!pData) || (data_size < sizeof(crn_header)) || (!pInfo))
          return false;
@@ -2779,7 +2779,7 @@ namespace crnd
       return true;
    }
 
-   bool crnd_get_level_info(const void* pData, uint32 data_size, uint32 level_index, crn_level_info* pLevel_info)
+   bool crnd_get_level_info(const void* pData, uint32_t data_size, uint32_t level_index, crn_level_info* pLevel_info)
    {
       if ((!pData) || (data_size < cCRNHeaderMinSize) || (!pLevel_info))
          return false;
@@ -2795,8 +2795,8 @@ namespace crnd
       if (level_index >= pHeader->m_levels)
          return false;
 
-      uint32 width = math::maximum<uint32>(1U, pHeader->m_width >> level_index);
-      uint32 height = math::maximum<uint32>(1U, pHeader->m_height >> level_index);
+      uint32_t width = math::maximum<uint32>(1U, pHeader->m_width >> level_index);
+      uint32_t height = math::maximum<uint32>(1U, pHeader->m_height >> level_index);
 
       pLevel_info->m_width = width;
       pLevel_info->m_height = height;
@@ -2809,7 +2809,7 @@ namespace crnd
       return true;
    }
 
-   const void* crnd_get_level_data(const void* pData, uint32 data_size, uint32 level_index, uint32* pSize)
+   const void* crnd_get_level_data(const void* pData, uint32_t data_size, uint32_t level_index, uint32* pSize)
    {
       if (pSize)
          *pSize = 0;
@@ -2825,11 +2825,11 @@ namespace crnd
       if (level_index >= pHeader->m_levels)
          return false;
 
-      uint32 cur_level_ofs = pHeader->m_level_ofs[level_index];
+      uint32_t cur_level_ofs = pHeader->m_level_ofs[level_index];
 
       if (pSize)
       {
-         uint32 next_level_ofs = data_size;
+         uint32_t next_level_ofs = data_size;
          if ((level_index + 1) < (pHeader->m_levels))
             next_level_ofs = pHeader->m_level_ofs[level_index + 1];
 
@@ -2839,7 +2839,7 @@ namespace crnd
       return static_cast<const uint8*>(pData) + cur_level_ofs;
    }
 
-   uint32 crnd_get_segmented_file_size(const void* pData, uint32 data_size)
+   uint32_t crnd_get_segmented_file_size(const void* pData, uint32_t data_size)
    {
       if ((!pData) || (data_size < cCRNHeaderMinSize))
          return false;
@@ -2849,7 +2849,7 @@ namespace crnd
       if (!pHeader)
          return false;
 
-      uint32 size = pHeader->m_header_size;
+      uint32_t size = pHeader->m_header_size;
 
       size = math::maximum(size, pHeader->m_color_endpoints.m_ofs + pHeader->m_color_endpoints.m_size);
       size = math::maximum(size, pHeader->m_color_selectors.m_ofs + pHeader->m_color_selectors.m_size);
@@ -2860,7 +2860,7 @@ namespace crnd
       return size;
    }
 
-   bool crnd_create_segmented_file(const void* pData, uint32 data_size, void* pBase_data, uint base_data_size)
+   bool crnd_create_segmented_file(const void* pData, uint32_t data_size, void* pBase_data, uint base_data_size)
    {
       if ((!pData) || (data_size < cCRNHeaderMinSize))
          return false;
@@ -2956,7 +2956,7 @@ void static_huffman_data_model::clear()
    }
 }
 
-bool static_huffman_data_model::init(uint32 total_syms, const uint8* pCode_sizes, uint32 code_size_limit)
+bool static_huffman_data_model::init(uint32_t total_syms, const uint8* pCode_sizes, uint32_t code_size_limit)
 {
    CRND_ASSERT((total_syms >= 1) && (total_syms <= prefix_coding::cMaxSupportedSyms) && (code_size_limit >= 1));
 
@@ -2965,12 +2965,12 @@ bool static_huffman_data_model::init(uint32 total_syms, const uint8* pCode_sizes
    if (!m_code_sizes.resize(total_syms))
       return false;
 
-   uint32 min_code_size = cUINT32_MAX;
-   uint32 max_code_size = 0;
+   uint32_t min_code_size = cUINT32_MAX;
+   uint32_t max_code_size = 0;
 
-   for (uint32 i = 0; i < total_syms; i++)
+   for (uint32_t i = 0; i < total_syms; i++)
    {
-      uint32 s = pCode_sizes[i];
+      uint32_t s = pCode_sizes[i];
       m_code_sizes[i] = static_cast<uint8>(s);
       min_code_size = math::minimum(min_code_size, s);
       max_code_size = math::maximum(max_code_size, s);
@@ -2993,7 +2993,7 @@ bool static_huffman_data_model::init(uint32 total_syms, const uint8* pCode_sizes
 
 bool static_huffman_data_model::prepare_decoder_tables()
 {
-   uint32 total_syms = m_code_sizes.size();
+   uint32_t total_syms = m_code_sizes.size();
 
    CRND_ASSERT((total_syms >= 1) && (total_syms <= prefix_coding::cMaxSupportedSyms));
 
@@ -3010,7 +3010,7 @@ uint static_huffman_data_model::compute_decoder_table_bits() const
 #if CRND_PREFIX_CODING_USE_FIXED_TABLE_SIZE
    return prefix_coding::cMaxTableBits;
 #else
-   uint32 decoder_table_bits = 0;
+   uint32_t decoder_table_bits = 0;
    if (m_total_syms > 16)
       decoder_table_bits = static_cast<uint8>(math::minimum(1 + math::ceil_log2i(m_total_syms), prefix_coding::cMaxTableBits));
    return decoder_table_bits;
@@ -3029,29 +3029,29 @@ symbol_codec::symbol_codec() :
 
 // Code length encoding symbols:
 // 0-16 - actual code lengths
-const uint32 cMaxCodelengthCodes      = 21;
+const uint32_t cMaxCodelengthCodes      = 21;
 
-const uint32 cSmallZeroRunCode        = 17;
-const uint32 cLargeZeroRunCode        = 18;
-const uint32 cSmallRepeatCode         = 19;
-const uint32 cLargeRepeatCode         = 20;
+const uint32_t cSmallZeroRunCode        = 17;
+const uint32_t cLargeZeroRunCode        = 18;
+const uint32_t cSmallRepeatCode         = 19;
+const uint32_t cLargeRepeatCode         = 20;
 
-const uint32 cMinSmallZeroRunSize     = 3;
-const uint32 cMaxSmallZeroRunSize     = 10;
-const uint32 cMinLargeZeroRunSize     = 11;
-const uint32 cMaxLargeZeroRunSize     = 138;
+const uint32_t cMinSmallZeroRunSize     = 3;
+const uint32_t cMaxSmallZeroRunSize     = 10;
+const uint32_t cMinLargeZeroRunSize     = 11;
+const uint32_t cMaxLargeZeroRunSize     = 138;
 
-const uint32 cSmallMinNonZeroRunSize  = 3;
-const uint32 cSmallMaxNonZeroRunSize  = 6;
-const uint32 cLargeMinNonZeroRunSize  = 7;
-const uint32 cLargeMaxNonZeroRunSize  = 70;
+const uint32_t cSmallMinNonZeroRunSize  = 3;
+const uint32_t cSmallMaxNonZeroRunSize  = 6;
+const uint32_t cLargeMinNonZeroRunSize  = 7;
+const uint32_t cLargeMaxNonZeroRunSize  = 70;
 
-const uint32 cSmallZeroRunExtraBits   = 3;
-const uint32 cLargeZeroRunExtraBits   = 7;
-const uint32 cSmallNonZeroRunExtraBits = 2;
-const uint32 cLargeNonZeroRunExtraBits = 6;
+const uint32_t cSmallZeroRunExtraBits   = 3;
+const uint32_t cLargeZeroRunExtraBits   = 7;
+const uint32_t cSmallNonZeroRunExtraBits = 2;
+const uint32_t cLargeNonZeroRunExtraBits = 6;
 
-static const uint8 g_most_probable_codelength_codes[] =
+static const uint8_t g_most_probable_codelength_codes[] =
 {
    cSmallZeroRunCode, cLargeZeroRunCode,
    cSmallRepeatCode,  cLargeRepeatCode,
@@ -3066,11 +3066,11 @@ static const uint8 g_most_probable_codelength_codes[] =
    1, 15,
    16
 };
-const uint32 cNumMostProbableCodelengthCodes = sizeof(g_most_probable_codelength_codes) / sizeof(g_most_probable_codelength_codes[0]);
+const uint32_t cNumMostProbableCodelengthCodes = sizeof(g_most_probable_codelength_codes) / sizeof(g_most_probable_codelength_codes[0]);
 
 bool symbol_codec::decode_receive_static_data_model(static_huffman_data_model& model)
 {
-   const uint32 total_used_syms = decode_bits(math::total_bits(prefix_coding::cMaxSupportedSyms));
+   const uint32_t total_used_syms = decode_bits(math::total_bits(prefix_coding::cMaxSupportedSyms));
 
    if (!total_used_syms)
    {
@@ -3083,7 +3083,7 @@ bool symbol_codec::decode_receive_static_data_model(static_huffman_data_model& m
 
    memset(&model.m_code_sizes[0], 0, sizeof(model.m_code_sizes[0]) * total_used_syms);
 
-   const uint32 num_codelength_codes_to_send = decode_bits(5);
+   const uint32_t num_codelength_codes_to_send = decode_bits(5);
    if ((num_codelength_codes_to_send < 1) || (num_codelength_codes_to_send > cMaxCodelengthCodes))
       return false;
 
@@ -3091,37 +3091,37 @@ bool symbol_codec::decode_receive_static_data_model(static_huffman_data_model& m
    if (!dm.m_code_sizes.resize(cMaxCodelengthCodes))
       return false;
 
-   for (uint32 i = 0; i < num_codelength_codes_to_send; i++)
+   for (uint32_t i = 0; i < num_codelength_codes_to_send; i++)
       dm.m_code_sizes[g_most_probable_codelength_codes[i]] = static_cast<uint8>(decode_bits(3));
 
    if (!dm.prepare_decoder_tables())
       return false;
 
-   uint32 ofs = 0;
+   uint32_t ofs = 0;
    while (ofs < total_used_syms)
    {
-      const uint32 num_remaining = total_used_syms - ofs;
+      const uint32_t num_remaining = total_used_syms - ofs;
 
-      uint32 code = decode(dm);
+      uint32_t code = decode(dm);
       if (code <= 16)
          model.m_code_sizes[ofs++] = static_cast<uint8>(code);
       else if (code == cSmallZeroRunCode)
       {
-         uint32 len = decode_bits(cSmallZeroRunExtraBits) + cMinSmallZeroRunSize;
+         uint32_t len = decode_bits(cSmallZeroRunExtraBits) + cMinSmallZeroRunSize;
          if (len > num_remaining)
             return false;
          ofs += len;
       }
       else if (code == cLargeZeroRunCode)
       {
-         uint32 len = decode_bits(cLargeZeroRunExtraBits) + cMinLargeZeroRunSize;
+         uint32_t len = decode_bits(cLargeZeroRunExtraBits) + cMinLargeZeroRunSize;
          if (len > num_remaining)
             return false;
          ofs += len;
       }
       else if ((code == cSmallRepeatCode) || (code == cLargeRepeatCode))
       {
-         uint32 len;
+         uint32_t len;
          if (code == cSmallRepeatCode)
             len = decode_bits(cSmallNonZeroRunExtraBits) + cSmallMinNonZeroRunSize;
          else
@@ -3129,10 +3129,10 @@ bool symbol_codec::decode_receive_static_data_model(static_huffman_data_model& m
 
          if ((!ofs) || (len > num_remaining))
             return false;
-         const uint32 prev = model.m_code_sizes[ofs - 1];
+         const uint32_t prev = model.m_code_sizes[ofs - 1];
          if (!prev)
             return false;
-         const uint32 end = ofs + len;
+         const uint32_t end = ofs + len;
          while (ofs < end)
             model.m_code_sizes[ofs++] = static_cast<uint8>(prev);
       }
@@ -3149,7 +3149,7 @@ bool symbol_codec::decode_receive_static_data_model(static_huffman_data_model& m
    return model.prepare_decoder_tables();
 }
 
-bool symbol_codec::start_decoding(const uint8* pBuf, uint32 buf_size)
+bool symbol_codec::start_decoding(const uint8* pBuf, uint32_t buf_size)
 {
    if (!buf_size)
       return false;
@@ -3170,15 +3170,15 @@ void symbol_codec::get_bits_init()
    m_bit_count = 0;
 }
 
-uint32 symbol_codec::decode_bits(uint32 num_bits)
+uint32_t symbol_codec::decode_bits(uint32_t num_bits)
 {
    if (!num_bits)
       return 0;
 
    if (num_bits > 16)
    {
-      uint32 a = get_bits(num_bits - 16);
-      uint32 b = get_bits(16);
+      uint32_t a = get_bits(num_bits - 16);
+      uint32_t b = get_bits(16);
 
       return (a << 16) | b;
    }
@@ -3186,7 +3186,7 @@ uint32 symbol_codec::decode_bits(uint32 num_bits)
       return get_bits(num_bits);
 }
 
-uint32 symbol_codec::get_bits(uint32 num_bits)
+uint32_t symbol_codec::get_bits(uint32_t num_bits)
 {
    CRND_ASSERT(num_bits <= 32U);
 
@@ -3202,7 +3202,7 @@ uint32 symbol_codec::get_bits(uint32 num_bits)
       m_bit_buf |= (c << (cBitBufSize - m_bit_count));
    }
 
-   uint32 result = static_cast<uint32>(m_bit_buf >> (cBitBufSize - num_bits));
+   uint32_t result = static_cast<uint32>(m_bit_buf >> (cBitBufSize - num_bits));
 
    m_bit_buf <<= num_bits;
    m_bit_count -= num_bits;
@@ -3210,7 +3210,7 @@ uint32 symbol_codec::get_bits(uint32 num_bits)
    return result;
 }
 
-uint32 symbol_codec::decode(const static_huffman_data_model& model)
+uint32_t symbol_codec::decode(const static_huffman_data_model& model)
 {
    const prefix_coding::decoder_tables* pTables = model.m_pDecode_tables;
 
@@ -3218,29 +3218,29 @@ uint32 symbol_codec::decode(const static_huffman_data_model& model)
    {
       if (m_bit_count < 16)
       {
-         uint32 c0 = 0, c1 = 0;
+         uint32_t c0 = 0, c1 = 0;
          const uint8* p = m_pDecode_buf_next;
          if (p < m_pDecode_buf_end) c0 = *p++;
          if (p < m_pDecode_buf_end) c1 = *p++;
          m_pDecode_buf_next = p;
          m_bit_count += 16;
-         uint32 c = (c0 << 8) | c1;
+         uint32_t c = (c0 << 8) | c1;
          m_bit_buf |= (c << (32 - m_bit_count));
       }
       else
       {
-         uint32 c = (m_pDecode_buf_next < m_pDecode_buf_end) ? *m_pDecode_buf_next++ : 0;
+         uint32_t c = (m_pDecode_buf_next < m_pDecode_buf_end) ? *m_pDecode_buf_next++ : 0;
          m_bit_count += 8;
          m_bit_buf |= (c << (32 - m_bit_count));
       }
    }
 
-   uint32 k = (m_bit_buf >> 16) + 1;
-   uint32 sym, len;
+   uint32_t k = (m_bit_buf >> 16) + 1;
+   uint32_t sym, len;
 
    if (k <= pTables->m_table_max_code)
    {
-      uint32 t = pTables->m_lookup[m_bit_buf >> (32 - pTables->m_table_bits)];
+      uint32_t t = pTables->m_lookup[m_bit_buf >> (32 - pTables->m_table_bits)];
 
       CRND_ASSERT(t != cUINT32_MAX);
       sym = t & cUINT16_MAX;
@@ -3279,32 +3279,32 @@ uint32 symbol_codec::decode(const static_huffman_data_model& model)
 
 #ifdef PLATFORM_NACL
       
-   uint32 symbol_codec::stop_decoding()
+   uint32_t symbol_codec::stop_decoding()
    {
    #if 0
-      uint32 i = get_bits(4);
-      uint32 k = get_bits(3);
+      uint32_t i = get_bits(4);
+      uint32_t k = get_bits(3);
       i, k;
       CRND_ASSERT((i == 15) && (k == 3));
    #endif
 
-      uint32 n = m_pDecode_buf_next - m_pDecode_buf;
+      uint32_t n = m_pDecode_buf_next - m_pDecode_buf;
 
       return n;
    }
 
 #else 
 
-   uint64 symbol_codec::stop_decoding()
+   uint64_t symbol_codec::stop_decoding()
    {
    #if 0
-      uint32 i = get_bits(4);
-      uint32 k = get_bits(3);
+      uint32_t i = get_bits(4);
+      uint32_t k = get_bits(3);
       i, k;
       CRND_ASSERT((i == 15) && (k == 3));
    #endif
 
-      uint64 n = m_pDecode_buf_next - m_pDecode_buf;
+      uint64_t n = m_pDecode_buf_next - m_pDecode_buf;
 
       return n;
    }
@@ -3355,20 +3355,20 @@ namespace crnd
 // File: crnd_dxt.cpp
 namespace crnd
 {
-   const uint8 g_dxt1_to_linear[cDXT1SelectorValues]     = { 0U, 3U, 1U, 2U };
-   const uint8 g_dxt1_from_linear[cDXT1SelectorValues]   = { 0U, 2U, 3U, 1U };
+   const uint8_t g_dxt1_to_linear[cDXT1SelectorValues]     = { 0U, 3U, 1U, 2U };
+   const uint8_t g_dxt1_from_linear[cDXT1SelectorValues]   = { 0U, 2U, 3U, 1U };
 
-   const uint8 g_dxt5_to_linear[cDXT5SelectorValues]     = { 0U, 7U, 1U, 2U, 3U, 4U, 5U, 6U };
-   const uint8 g_dxt5_from_linear[cDXT5SelectorValues]   = { 0U, 2U, 3U, 4U, 5U, 6U, 7U, 1U };
+   const uint8_t g_dxt5_to_linear[cDXT5SelectorValues]     = { 0U, 7U, 1U, 2U, 3U, 4U, 5U, 6U };
+   const uint8_t g_dxt5_from_linear[cDXT5SelectorValues]   = { 0U, 2U, 3U, 4U, 5U, 6U, 7U, 1U };
 
-   const uint8 g_six_alpha_invert_table[cDXT5SelectorValues] = { 1, 0, 5, 4, 3, 2, 6, 7 };
-   const uint8 g_eight_alpha_invert_table[cDXT5SelectorValues] = { 1, 0, 7, 6, 5, 4, 3, 2 };
+   const uint8_t g_six_alpha_invert_table[cDXT5SelectorValues] = { 1, 0, 5, 4, 3, 2, 6, 7 };
+   const uint8_t g_eight_alpha_invert_table[cDXT5SelectorValues] = { 1, 0, 7, 6, 5, 4, 3, 2 };
 
-   uint16 dxt1_block::pack_color(const color_quad_u8& color, bool scaled, uint32 bias)
+   uint16_t dxt1_block::pack_color(const color_quad_u8& color, bool scaled, uint32_t bias)
    {
-      uint32 r = color.r;
-      uint32 g = color.g;
-      uint32 b = color.b;
+      uint32_t r = color.r;
+      uint32_t g = color.g;
+      uint32_t b = color.b;
 
       if (scaled)
       {
@@ -3384,16 +3384,16 @@ namespace crnd
       return static_cast<uint16>(b | (g << 5U) | (r << 11U));
    }
 
-   uint16 dxt1_block::pack_color(uint32 r, uint32 g, uint32 b, bool scaled, uint32 bias)
+   uint16_t dxt1_block::pack_color(uint32_t r, uint32_t g, uint32_t b, bool scaled, uint32_t bias)
    {
       return pack_color(color_quad_u8(r, g, b, 0), scaled, bias);
    }
 
-   color_quad_u8 dxt1_block::unpack_color(uint16 packed_color, bool scaled, uint32 alpha)
+   color_quad_u8 dxt1_block::unpack_color(uint16_t packed_color, bool scaled, uint32_t alpha)
    {
-      uint32 b = packed_color & 31U;
-      uint32 g = (packed_color >> 5U) & 63U;
-      uint32 r = (packed_color >> 11U) & 31U;
+      uint32_t b = packed_color & 31U;
+      uint32_t g = (packed_color >> 5U) & 63U;
+      uint32_t r = (packed_color >> 11U) & 31U;
 
       if (scaled)
       {
@@ -3405,7 +3405,7 @@ namespace crnd
       return color_quad_u8(r, g, b, alpha);
    }
 
-   void dxt1_block::unpack_color(uint32& r, uint32& g, uint32& b, uint16 packed_color, bool scaled)
+   void dxt1_block::unpack_color(uint32& r, uint32& g, uint32& b, uint16_t packed_color, bool scaled)
    {
       color_quad_u8 c(unpack_color(packed_color, scaled, 0));
       r = c.r;
@@ -3413,7 +3413,7 @@ namespace crnd
       b = c.b;
    }
 
-   uint32 dxt1_block::get_block_colors3(color_quad_u8* pDst, uint16 color0, uint16 color1)
+   uint32_t dxt1_block::get_block_colors3(color_quad_u8* pDst, uint16_t color0, uint16_t color1)
    {
       color_quad_u8 c0(unpack_color(color0, true));
       color_quad_u8 c1(unpack_color(color1, true));
@@ -3426,7 +3426,7 @@ namespace crnd
       return 3;
    }
 
-   uint32 dxt1_block::get_block_colors4(color_quad_u8* pDst, uint16 color0, uint16 color1)
+   uint32_t dxt1_block::get_block_colors4(color_quad_u8* pDst, uint16_t color0, uint16_t color1)
    {
       color_quad_u8 c0(unpack_color(color0, true));
       color_quad_u8 c1(unpack_color(color1, true));
@@ -3445,7 +3445,7 @@ namespace crnd
       return 4;
    }
 
-   uint32 dxt1_block::get_block_colors(color_quad_u8* pDst, uint16 color0, uint16 color1)
+   uint32_t dxt1_block::get_block_colors(color_quad_u8* pDst, uint16_t color0, uint16_t color1)
    {
       if (color0 > color1)
          return get_block_colors4(pDst, color0, color1);
@@ -3453,19 +3453,19 @@ namespace crnd
          return get_block_colors3(pDst, color0, color1);
    }
 
-   color_quad_u8 dxt1_block::unpack_endpoint(uint32 endpoints, uint32 index, bool scaled, uint32 alpha)
+   color_quad_u8 dxt1_block::unpack_endpoint(uint32_t endpoints, uint32_t index, bool scaled, uint32_t alpha)
    {
       CRND_ASSERT(index < 2);
       return unpack_color( static_cast<uint16>((endpoints >> (index * 16U)) & 0xFFFFU), scaled, alpha );
    }
 
-   uint32 dxt1_block::pack_endpoints(uint32 lo, uint32 hi)
+   uint32_t dxt1_block::pack_endpoints(uint32_t lo, uint32_t hi)
    {
       CRND_ASSERT((lo <= 0xFFFFU) && (hi <= 0xFFFFU));
       return lo | (hi << 16U);
    }
 
-   void dxt3_block::set_alpha(uint32 x, uint32 y, uint32 value, bool scaled)
+   void dxt3_block::set_alpha(uint32_t x, uint32_t y, uint32_t value, bool scaled)
    {
       CRND_ASSERT((x < cDXTBlockSize) && (y < cDXTBlockSize));
 
@@ -3479,8 +3479,8 @@ namespace crnd
          CRND_ASSERT(value <= 0xF);
       }
 
-      uint32 ofs = (y << 1U) + (x >> 1U);
-      uint32 c = m_alpha[ofs];
+      uint32_t ofs = (y << 1U) + (x >> 1U);
+      uint32_t c = m_alpha[ofs];
 
       c &= ~(0xF << ((x & 1U) << 2U));
       c |= (value << ((x & 1U) << 2U));
@@ -3488,11 +3488,11 @@ namespace crnd
       m_alpha[ofs] = static_cast<uint8>(c);
    }
 
-   uint32 dxt3_block::get_alpha(uint32 x, uint32 y, bool scaled) const
+   uint32_t dxt3_block::get_alpha(uint32_t x, uint32_t y, bool scaled) const
    {
       CRND_ASSERT((x < cDXTBlockSize) && (y < cDXTBlockSize));
 
-      uint32 value = m_alpha[(y << 1U) + (x >> 1U)];
+      uint32_t value = m_alpha[(y << 1U) + (x >> 1U)];
       if (x & 1)
          value >>= 4;
       value &= 0xF;
@@ -3503,7 +3503,7 @@ namespace crnd
       return value;
    }
 
-   uint32 dxt5_block::get_block_values6(color_quad_u8* pDst, uint32 l, uint32 h)
+   uint32_t dxt5_block::get_block_values6(color_quad_u8* pDst, uint32_t l, uint32_t h)
    {
       pDst[0].a = static_cast<uint8>(l);
       pDst[1].a = static_cast<uint8>(h);
@@ -3516,7 +3516,7 @@ namespace crnd
       return 6;
    }
 
-   uint32 dxt5_block::get_block_values8(color_quad_u8* pDst, uint32 l, uint32 h)
+   uint32_t dxt5_block::get_block_values8(color_quad_u8* pDst, uint32_t l, uint32_t h)
    {
       pDst[0].a = static_cast<uint8>(l);
       pDst[1].a = static_cast<uint8>(h);
@@ -3529,7 +3529,7 @@ namespace crnd
       return 8;
    }
 
-   uint32 dxt5_block::get_block_values(color_quad_u8* pDst, uint32 l, uint32 h)
+   uint32_t dxt5_block::get_block_values(color_quad_u8* pDst, uint32_t l, uint32_t h)
    {
       if (l > h)
          return get_block_values8(pDst, l, h);
@@ -3537,7 +3537,7 @@ namespace crnd
          return get_block_values6(pDst, l, h);
    }
 
-   uint32 dxt5_block::get_block_values6(uint32* pDst, uint32 l, uint32 h)
+   uint32_t dxt5_block::get_block_values6(uint32* pDst, uint32_t l, uint32_t h)
    {
       pDst[0] = l;
       pDst[1] = h;
@@ -3550,7 +3550,7 @@ namespace crnd
       return 6;
    }
 
-   uint32 dxt5_block::get_block_values8(uint32* pDst, uint32 l, uint32 h)
+   uint32_t dxt5_block::get_block_values8(uint32* pDst, uint32_t l, uint32_t h)
    {
       pDst[0] = l;
       pDst[1] = h;
@@ -3563,19 +3563,19 @@ namespace crnd
       return 8;
    }
 
-   uint32 dxt5_block::unpack_endpoint(uint32 packed, uint32 index)
+   uint32_t dxt5_block::unpack_endpoint(uint32_t packed, uint32_t index)
    {
       CRND_ASSERT(index < 2);
       return (packed >> (8 * index)) & 0xFF;
    }
 
-   uint32 dxt5_block::pack_endpoints(uint32 lo, uint32 hi)
+   uint32_t dxt5_block::pack_endpoints(uint32_t lo, uint32_t hi)
    {
       CRND_ASSERT((lo <= 0xFF) && (hi <= 0xFF));
       return lo | (hi << 8U);
    }
 
-   uint32 dxt5_block::get_block_values(uint32* pDst, uint32 l, uint32 h)
+   uint32_t dxt5_block::get_block_values(uint32* pDst, uint32_t l, uint32_t h)
    {
       if (l > h)
          return get_block_values8(pDst, l, h);
@@ -3603,15 +3603,15 @@ namespace crnd
    struct crnd_chunk_tile_desc
    {
       // These values are in blocks
-      uint8 m_x_ofs;
-      uint8 m_y_ofs;
-      uint8 m_width;
-      uint8 m_height;
+      uint8_t m_x_ofs;
+      uint8_t m_y_ofs;
+      uint8_t m_width;
+      uint8_t m_height;
    };
 
    struct crnd_chunk_encoding_desc
    {
-      uint32 m_num_tiles;
+      uint32_t m_num_tiles;
       chunk_tile_desc m_tiles[4];
    };
 
@@ -3635,7 +3635,7 @@ namespace crnd
 
    struct crnd_encoding_tile_indices
    {
-      uint8 m_tiles[4];
+      uint8_t m_tiles[4];
    };
 
    static crnd_encoding_tile_indices g_crnd_chunk_encoding_tiles[cNumChunkEncodings] =
@@ -3654,7 +3654,7 @@ namespace crnd
       { { 0, 1, 2, 3 } }
    };
 
-   static uint8 g_crnd_chunk_encoding_num_tiles[cNumChunkEncodings] = { 1, 2, 2, 3, 3, 3, 3, 4 };
+   static uint8_t g_crnd_chunk_encoding_num_tiles[cNumChunkEncodings] = { 1, 2, 2, 3, 3, 3, 3, 4 };
 
    class crn_unpacker
    {
@@ -3674,7 +3674,7 @@ namespace crnd
 
       inline bool is_valid() const { return m_magic == cMagicValue; }
 
-      bool init(const void* pData, uint32 data_size)
+      bool init(const void* pData, uint32_t data_size)
       {
          m_pHeader = crnd_get_header(m_tmp_header, pData, data_size);
          if (!m_pHeader)
@@ -3693,12 +3693,12 @@ namespace crnd
       }
 
       bool unpack_level(
-         void** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
-         uint32 level_index)
+         void** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes,
+         uint32_t level_index)
       {
-         uint32 cur_level_ofs = m_pHeader->m_level_ofs[level_index];
+         uint32_t cur_level_ofs = m_pHeader->m_level_ofs[level_index];
 
-         uint32 next_level_ofs = m_data_size;
+         uint32_t next_level_ofs = m_data_size;
          if ((level_index + 1) < (m_pHeader->m_levels))
             next_level_ofs = m_pHeader->m_level_ofs[level_index + 1];
 
@@ -3708,25 +3708,25 @@ namespace crnd
       }
 
       bool unpack_level(
-         const void* pSrc, uint32 src_size_in_bytes,
-         void** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
-         uint32 level_index)
+         const void* pSrc, uint32_t src_size_in_bytes,
+         void** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes,
+         uint32_t level_index)
       {
          dst_size_in_bytes;
 
 #ifdef CRND_BUILD_DEBUG
-         for (uint32 f = 0; f < m_pHeader->m_faces; f++)
+         for (uint32_t f = 0; f < m_pHeader->m_faces; f++)
             if (!pDst[f])
                return false;
 #endif
 
-         const uint32 width = math::maximum(m_pHeader->m_width >> level_index, 1U);
-         const uint32 height = math::maximum(m_pHeader->m_height >> level_index, 1U);
-         const uint32 blocks_x = (width + 3U) >> 2U;
-         const uint32 blocks_y = (height + 3U) >> 2U;
-         const uint32 block_size = ((m_pHeader->m_format == cCRNFmtDXT1) || (m_pHeader->m_format == cCRNFmtDXT5A)) ? 8 : 16;
+         const uint32_t width = math::maximum(m_pHeader->m_width >> level_index, 1U);
+         const uint32_t height = math::maximum(m_pHeader->m_height >> level_index, 1U);
+         const uint32_t blocks_x = (width + 3U) >> 2U;
+         const uint32_t blocks_y = (height + 3U) >> 2U;
+         const uint32_t block_size = ((m_pHeader->m_format == cCRNFmtDXT1) || (m_pHeader->m_format == cCRNFmtDXT5A)) ? 8 : 16;
 
-         uint32 minimal_row_pitch = block_size * blocks_x;
+         uint32_t minimal_row_pitch = block_size * blocks_x;
          if (!row_pitch_in_bytes)
             row_pitch_in_bytes = minimal_row_pitch;
          else if ((row_pitch_in_bytes < minimal_row_pitch) || (row_pitch_in_bytes & 3))
@@ -3734,8 +3734,8 @@ namespace crnd
          if (dst_size_in_bytes < row_pitch_in_bytes * blocks_y)
             return false;
 
-         const uint32 chunks_x = (blocks_x + 1) >> 1;
-         const uint32 chunks_y = (blocks_y + 1) >> 1;
+         const uint32_t chunks_x = (blocks_x + 1) >> 1;
+         const uint32_t chunks_y = (blocks_y + 1) >> 1;
 
 #if CRND_CREATE_BYTE_STREAMS
          crnd_trace("Index stream: %u bytes\n", src_size_in_bytes);
@@ -3775,14 +3775,14 @@ namespace crnd
       }
 
       inline const void* get_data() const { return m_pData; }
-      inline uint32 get_data_size() const { return m_data_size; }
+      inline uint32_t get_data_size() const { return m_data_size; }
 
    private:
       enum { cMagicValue = 0x1EF9CABD };
-      uint32             m_magic;
+      uint32_t             m_magic;
 
       const uint8*       m_pData;
-      uint32             m_data_size;
+      uint32_t             m_data_size;
       crn_header         m_tmp_header;
       const crn_header*  m_pHeader;
 
@@ -3845,7 +3845,7 @@ namespace crnd
 
       bool decode_color_endpoints()
       {
-         const uint32 num_color_endpoints = m_pHeader->m_color_endpoints.m_num;
+         const uint32_t num_color_endpoints = m_pHeader->m_color_endpoints.m_num;
 
          if (!m_color_endpoints.resize(num_color_endpoints))
             return false;
@@ -3854,12 +3854,12 @@ namespace crnd
             return false;
 
          static_huffman_data_model dm[2];
-         for (uint32 i = 0; i < 2; i++)
+         for (uint32_t i = 0; i < 2; i++)
             if (!m_codec.decode_receive_static_data_model(dm[i]))
                return false;
 
-         uint32 a = 0, b = 0, c = 0;
-         uint32 d = 0, e = 0, f = 0;
+         uint32_t a = 0, b = 0, c = 0;
+         uint32_t d = 0, e = 0, f = 0;
 
          uint32* CRND_RESTRICT pDst = &m_color_endpoints[0];
 
@@ -3869,9 +3869,9 @@ namespace crnd
          vector<uint8> byte_stream;
 #endif
 
-         for (uint32 i = 0; i < num_color_endpoints; i++)
+         for (uint32_t i = 0; i < num_color_endpoints; i++)
          {
-            uint32 da, db, dc, dd, de, df;
+            uint32_t da, db, dc, dd, de, df;
             CRND_HUFF_DECODE(m_codec, dm[0], da); a = (a + da) & 31;
             CRND_HUFF_DECODE(m_codec, dm[1], db); b = (b + db) & 63;
             CRND_HUFF_DECODE(m_codec, dm[0], dc); c = (c + dc) & 31;
@@ -3909,10 +3909,10 @@ namespace crnd
 
       bool decode_color_selectors()
       {
-         const uint32 cMaxSelectorValue = 3U;
-         const uint32 cMaxUniqueSelectorDeltas = cMaxSelectorValue * 2U + 1U;
+         const uint32_t cMaxSelectorValue = 3U;
+         const uint32_t cMaxUniqueSelectorDeltas = cMaxSelectorValue * 2U + 1U;
 
-         const uint32 num_color_selectors = m_pHeader->m_color_selectors.m_num;
+         const uint32_t num_color_selectors = m_pHeader->m_color_selectors.m_num;
 
          if (!m_codec.start_decoding(m_pData + m_pHeader->m_color_selectors.m_ofs, m_pHeader->m_color_selectors.m_size))
             return false;
@@ -3921,10 +3921,10 @@ namespace crnd
          if (!m_codec.decode_receive_static_data_model(dm))
             return false;
 
-         int32 delta0[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
-         int32 delta1[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
-         int32 l = -(int32)cMaxSelectorValue, m = -(int32)cMaxSelectorValue;
-         for (uint32 i = 0; i < (cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas); i++)
+         int32_t delta0[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
+         int32_t delta1[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
+         int32_t l = -(int32)cMaxSelectorValue, m = -(int32)cMaxSelectorValue;
+         for (uint32_t i = 0; i < (cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas); i++)
          {
             delta0[i] = l;
             delta1[i] = m;
@@ -3936,7 +3936,7 @@ namespace crnd
             }
          }
 
-         uint32 cur[16];
+         uint32_t cur[16];
          utils::zero_object(cur);
 
          if (!m_color_selectors.resize(num_color_selectors))
@@ -3952,11 +3952,11 @@ namespace crnd
          vector<uint8> byte_stream;
 #endif
 
-         for (uint32 i = 0; i < num_color_selectors; i++)
+         for (uint32_t i = 0; i < num_color_selectors; i++)
          {
-            for (uint32 j = 0; j < 8; j++)
+            for (uint32_t j = 0; j < 8; j++)
             {
-               int32 sym;
+               int32_t sym;
                CRND_HUFF_DECODE(m_codec, dm, sym);
 
 #if CRND_CREATE_BYTE_STREAMS
@@ -3999,7 +3999,7 @@ namespace crnd
 
       bool decode_alpha_endpoints()
       {
-         const uint32 num_alpha_endpoints = m_pHeader->m_alpha_endpoints.m_num;
+         const uint32_t num_alpha_endpoints = m_pHeader->m_alpha_endpoints.m_num;
 
          if (!m_codec.start_decoding(m_pData + m_pHeader->m_alpha_endpoints.m_ofs, m_pHeader->m_alpha_endpoints.m_size))
             return false;
@@ -4012,11 +4012,11 @@ namespace crnd
             return false;
 
          uint16* CRND_RESTRICT pDst = &m_alpha_endpoints[0];
-         uint32 a = 0, b = 0;
+         uint32_t a = 0, b = 0;
 
          CRND_HUFF_DECODE_BEGIN(m_codec);
 
-         for (uint32 i = 0; i < num_alpha_endpoints; i++)
+         for (uint32_t i = 0; i < num_alpha_endpoints; i++)
          {
             uint sa; CRND_HUFF_DECODE(m_codec, dm, sa);
             uint sb; CRND_HUFF_DECODE(m_codec, dm, sb);
@@ -4036,10 +4036,10 @@ namespace crnd
 
       bool decode_alpha_selectors()
       {
-         const uint32 cMaxSelectorValue = 7U;
-         const uint32 cMaxUniqueSelectorDeltas = cMaxSelectorValue * 2U + 1U;
+         const uint32_t cMaxSelectorValue = 7U;
+         const uint32_t cMaxUniqueSelectorDeltas = cMaxSelectorValue * 2U + 1U;
 
-         const uint32 num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
+         const uint32_t num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
 
          if (!m_codec.start_decoding(m_pData + m_pHeader->m_alpha_selectors.m_ofs, m_pHeader->m_alpha_selectors.m_size))
             return false;
@@ -4048,10 +4048,10 @@ namespace crnd
          if (!m_codec.decode_receive_static_data_model(dm))
             return false;
 
-         int32 delta0[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
-         int32 delta1[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
-         int32 l = -(int32)cMaxSelectorValue, m = -(int32)cMaxSelectorValue;
-         for (uint32 i = 0; i < (cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas); i++)
+         int32_t delta0[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
+         int32_t delta1[cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas];
+         int32_t l = -(int32)cMaxSelectorValue, m = -(int32)cMaxSelectorValue;
+         for (uint32_t i = 0; i < (cMaxUniqueSelectorDeltas * cMaxUniqueSelectorDeltas); i++)
          {
             delta0[i] = l;
             delta1[i] = m;
@@ -4063,7 +4063,7 @@ namespace crnd
             }
          }
 
-         uint32 cur[16];
+         uint32_t cur[16];
          utils::zero_object(cur);
 
          if (!m_alpha_selectors.resize(num_alpha_selectors * 3))
@@ -4075,11 +4075,11 @@ namespace crnd
 
          CRND_HUFF_DECODE_BEGIN(m_codec);
 
-         for (uint32 i = 0; i < num_alpha_selectors; i++)
+         for (uint32_t i = 0; i < num_alpha_selectors; i++)
          {
-            for (uint32 j = 0; j < 8; j++)
+            for (uint32_t j = 0; j < 8; j++)
             {
-               int32 sym;
+               int32_t sym;
                CRND_HUFF_DECODE(m_codec, dm, sym);
 
                cur[j*2+0] = (delta0[sym] + cur[j*2+0]) & 7;
@@ -4090,8 +4090,8 @@ namespace crnd
 
 #if 0
             dxt5_block blk;
-            for (uint32 y = 0; y < 4; y++)
-               for (uint32 x = 0; x < 4; x++)
+            for (uint32_t y = 0; y < 4; y++)
+               for (uint32_t x = 0; x < 4; x++)
                   blk.set_selector(x, y, pFrom_linear[cur[x+y*4]]);
 
             *pDst++ = blk.get_selectors_as_word(0);
@@ -4116,10 +4116,10 @@ namespace crnd
          return true;
       }
 
-      static inline uint32 tiled_offset_2d_outer(uint32 y, uint32 AlignedWidth, uint32 LogBpp)
+      static inline uint32_t tiled_offset_2d_outer(uint32_t y, uint32_t AlignedWidth, uint32_t LogBpp)
       {
-         uint32 Macro        = ((y >> 5) * (AlignedWidth >> 5)) << (LogBpp + 7);
-         uint32 Micro        = ((y & 6) << 2) << LogBpp;
+         uint32_t Macro        = ((y >> 5) * (AlignedWidth >> 5)) << (LogBpp + 7);
+         uint32_t Micro        = ((y & 6) << 2) << LogBpp;
 
          return Macro +
             ((Micro & ~15) << 1) +
@@ -4127,11 +4127,11 @@ namespace crnd
             ((y & 8) << (3 + LogBpp)) + ((y & 1) << 4);
       }
 
-      static inline uint32 tiled_offset_2d_inner(uint32 x, uint32 y, uint32 LogBpp, uint32 BaseOffset)
+      static inline uint32_t tiled_offset_2d_inner(uint32_t x, uint32_t y, uint32_t LogBpp, uint32_t BaseOffset)
       {
-         uint32 Macro = (x >> 5) << (LogBpp + 7);
-         uint32 Micro = (x & 7) << LogBpp;
-         uint32 Offset  = BaseOffset + Macro + ((Micro & ~15) << 1) + (Micro & 15);
+         uint32_t Macro = (x >> 5) << (LogBpp + 7);
+         uint32_t Micro = (x & 7) << LogBpp;
+         uint32_t Offset  = BaseOffset + Macro + ((Micro & ~15) << 1) + (Micro & 15);
 
          return ((Offset & ~511) << 3) + ((Offset & 448) << 2) + (Offset & 63) +
             ((y & 16) << 7) +
@@ -4145,23 +4145,23 @@ namespace crnd
          x = (x & msk) | (v & ~msk);
       }
 
-      bool unpack_dxt1(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
+      bool unpack_dxt1(uint8** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes, uint32_t blocks_x, uint32_t blocks_y, uint32_t chunks_x, uint32_t chunks_y)
       {
          dst_size_in_bytes;
 
-         uint32 chunk_encoding_bits = 1;
+         uint32_t chunk_encoding_bits = 1;
 
-         const uint32 num_color_endpoints = m_color_endpoints.size();
-         const uint32 num_color_selectors = m_color_selectors.size();
+         const uint32_t num_color_endpoints = m_color_endpoints.size();
+         const uint32_t num_color_selectors = m_color_selectors.size();
 
-         uint32 prev_color_endpoint_index = 0;
-         uint32 prev_color_selector_index = 0;
+         uint32_t prev_color_endpoint_index = 0;
+         uint32_t prev_color_selector_index = 0;
 
-         const uint32 num_faces = m_pHeader->m_faces;
+         const uint32_t num_faces = m_pHeader->m_faces;
 
-         const uint32 row_pitch_in_dwords = row_pitch_in_bytes >> 2U;
+         const uint32_t row_pitch_in_dwords = row_pitch_in_bytes >> 2U;
 
-         const int32 cBytesPerBlock = 8;
+         const int32_t cBytesPerBlock = 8;
 
          CRND_HUFF_DECODE_BEGIN(m_codec);
 
@@ -4171,16 +4171,16 @@ namespace crnd
          vector<uint8> selector_indices_stream;
 #endif
 
-         for (uint32 f = 0; f < num_faces; f++)
+         for (uint32_t f = 0; f < num_faces; f++)
          {
             uint8* CRND_RESTRICT pRow = pDst[f];
 
-            for (uint32 y = 0; y < chunks_y; y++)
+            for (uint32_t y = 0; y < chunks_y; y++)
             {
-               int32 start_x = 0;
-               int32 end_x = chunks_x;
-               int32 dir_x = 1;
-               int32 block_delta = cBytesPerBlock*2;
+               int32_t start_x = 0;
+               int32_t end_x = chunks_x;
+               int32_t dir_x = 1;
+               int32_t block_delta = cBytesPerBlock*2;
                uint8* CRND_RESTRICT pBlock = pRow;
 
                if (y & 1)
@@ -4194,9 +4194,9 @@ namespace crnd
 
                const bool skip_bottom_row = (y == (chunks_y - 1)) && (blocks_y & 1);
 
-               for (int32 x = start_x; x != end_x; x += dir_x)
+               for (int32_t x = start_x; x != end_x; x += dir_x)
                {
-                  uint32 color_endpoints[4];
+                  uint32_t color_endpoints[4];
 
                   if (chunk_encoding_bits == 1)
                   {
@@ -4209,14 +4209,14 @@ namespace crnd
                      chunk_encoding_bits |= 512;
                   }
 
-                  const uint32 chunk_encoding_index = chunk_encoding_bits & 7;
+                  const uint32_t chunk_encoding_index = chunk_encoding_bits & 7;
                   chunk_encoding_bits >>= 3;
 
-                  const uint32 num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
+                  const uint32_t num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
 
-                  for (uint32 i = 0; i < num_tiles; i++)
+                  for (uint32_t i = 0; i < num_tiles; i++)
                   {
-                     uint32 delta;
+                     uint32_t delta;
                      CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[0], delta);
 #if CRND_CREATE_BYTE_STREAMS
                      endpoint_indices_stream.push_back(delta);
@@ -4238,7 +4238,7 @@ namespace crnd
 
                      pD[0] = color_endpoints[pTile_indices[0]];
                      CRND_WRITE_BARRIER
-                     uint32 delta0;
+                     uint32_t delta0;
                      CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta0);
 #if CRND_CREATE_BYTE_STREAMS
                      selector_indices_stream.push_back(delta0);
@@ -4250,7 +4250,7 @@ namespace crnd
 
                      pD[2] = color_endpoints[pTile_indices[1]];
                      CRND_WRITE_BARRIER
-                     uint32 delta1;
+                     uint32_t delta1;
                      CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta1);
 #if CRND_CREATE_BYTE_STREAMS
                      selector_indices_stream.push_back(delta1);
@@ -4262,7 +4262,7 @@ namespace crnd
 
                      pD[0 + row_pitch_in_dwords] = color_endpoints[pTile_indices[2]];
                      CRND_WRITE_BARRIER
-                     uint32 delta2;
+                     uint32_t delta2;
                      CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta2);
 #if CRND_CREATE_BYTE_STREAMS
                      selector_indices_stream.push_back(delta2);
@@ -4274,7 +4274,7 @@ namespace crnd
 
                      pD[2 + row_pitch_in_dwords] = color_endpoints[pTile_indices[3]];
                      CRND_WRITE_BARRIER
-                     uint32 delta3;
+                     uint32_t delta3;
                      CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta3);
 #if CRND_CREATE_BYTE_STREAMS
                      selector_indices_stream.push_back(delta3);
@@ -4286,12 +4286,12 @@ namespace crnd
                   }
                   else
                   {
-                     for (uint32 by = 0; by < 2; by++)
+                     for (uint32_t by = 0; by < 2; by++)
                      {
                         pD = (uint32*)((uint8*)pBlock + row_pitch_in_bytes * by);
-                        for (uint32 bx = 0; bx < 2; bx++, pD += 2)
+                        for (uint32_t bx = 0; bx < 2; bx++, pD += 2)
                         {
-                           uint32 delta;
+                           uint32_t delta;
                            CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta);
 #if CRND_CREATE_BYTE_STREAMS
                            selector_indices_stream.push_back(delta);
@@ -4331,40 +4331,40 @@ namespace crnd
          return true;
       }
 
-      bool unpack_dxt5(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
+      bool unpack_dxt5(uint8** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes, uint32_t blocks_x, uint32_t blocks_y, uint32_t chunks_x, uint32_t chunks_y)
       {
          dst_size_in_bytes;
 
-         uint32 chunk_encoding_bits = 1;
+         uint32_t chunk_encoding_bits = 1;
 
-         const uint32 num_color_endpoints = m_color_endpoints.size();
-         const uint32 num_color_selectors = m_color_selectors.size();
-         const uint32 num_alpha_endpoints = m_alpha_endpoints.size();
-         const uint32 num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
+         const uint32_t num_color_endpoints = m_color_endpoints.size();
+         const uint32_t num_color_selectors = m_color_selectors.size();
+         const uint32_t num_alpha_endpoints = m_alpha_endpoints.size();
+         const uint32_t num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
 
-         uint32 prev_color_endpoint_index = 0;
-         uint32 prev_color_selector_index = 0;
-         uint32 prev_alpha_endpoint_index = 0;
-         uint32 prev_alpha_selector_index = 0;
+         uint32_t prev_color_endpoint_index = 0;
+         uint32_t prev_color_selector_index = 0;
+         uint32_t prev_alpha_endpoint_index = 0;
+         uint32_t prev_alpha_selector_index = 0;
 
-         const uint32 num_faces = m_pHeader->m_faces;
+         const uint32_t num_faces = m_pHeader->m_faces;
 
-         //const uint32 row_pitch_in_dwords = row_pitch_in_bytes >> 2U;
+         //const uint32_t row_pitch_in_dwords = row_pitch_in_bytes >> 2U;
 
-         const int32 cBytesPerBlock = 16;
+         const int32_t cBytesPerBlock = 16;
 
          CRND_HUFF_DECODE_BEGIN(m_codec);
 
-         for (uint32 f = 0; f < num_faces; f++)
+         for (uint32_t f = 0; f < num_faces; f++)
          {
             uint8* CRND_RESTRICT pRow = pDst[f];
 
-            for (uint32 y = 0; y < chunks_y; y++)
+            for (uint32_t y = 0; y < chunks_y; y++)
             {
-               int32 start_x = 0;
-               int32 end_x = chunks_x;
-               int32 dir_x = 1;
-               int32 block_delta = cBytesPerBlock*2;
+               int32_t start_x = 0;
+               int32_t end_x = chunks_x;
+               int32_t dir_x = 1;
+               int32_t block_delta = cBytesPerBlock*2;
                uint8* CRND_RESTRICT pBlock = pRow;
 
                if (y & 1)
@@ -4378,10 +4378,10 @@ namespace crnd
 
                const bool skip_bottom_row = (y == (chunks_y - 1)) && (blocks_y & 1);
 
-               for (int32 x = start_x; x != end_x; x += dir_x)
+               for (int32_t x = start_x; x != end_x; x += dir_x)
                {
-                  uint32 color_endpoints[4];
-                  uint32 alpha_endpoints[4];
+                  uint32_t color_endpoints[4];
+                  uint32_t alpha_endpoints[4];
 
                   if (chunk_encoding_bits == 1)
                   {
@@ -4389,10 +4389,10 @@ namespace crnd
                      chunk_encoding_bits |= 512;
                   }
 
-                  const uint32 chunk_encoding_index = chunk_encoding_bits & 7;
+                  const uint32_t chunk_encoding_index = chunk_encoding_bits & 7;
                   chunk_encoding_bits >>= 3;
 
-                  const uint32 num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
+                  const uint32_t num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
 
                   const uint8* pTile_indices = g_crnd_chunk_encoding_tiles[chunk_encoding_index].m_tiles;
 
@@ -4400,38 +4400,38 @@ namespace crnd
 
                   uint32* CRND_RESTRICT pD = (uint32*)pBlock;
 
-                  for (uint32 i = 0; i < num_tiles; i++)
+                  for (uint32_t i = 0; i < num_tiles; i++)
                   {
-                     uint32 delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
+                     uint32_t delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
                      prev_alpha_endpoint_index += delta;
                      limit(prev_alpha_endpoint_index, num_alpha_endpoints);
                      alpha_endpoints[i] = m_alpha_endpoints[prev_alpha_endpoint_index];
                   }
 
-                  for (uint32 i = 0; i < num_tiles; i++)
+                  for (uint32_t i = 0; i < num_tiles; i++)
                   {
-                     uint32 delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[0], delta);
+                     uint32_t delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[0], delta);
                      prev_color_endpoint_index += delta;
                      limit(prev_color_endpoint_index, num_color_endpoints);
                      color_endpoints[i] = m_color_endpoints[prev_color_endpoint_index];
                   }
 
                   pD = (uint32*)pBlock;
-                  for (uint32 by = 0; by < 2; by++)
+                  for (uint32_t by = 0; by < 2; by++)
                   {
-                     for (uint32 bx = 0; bx < 2; bx++, pD += 4)
+                     for (uint32_t bx = 0; bx < 2; bx++, pD += 4)
                      {
-                        uint32 delta0; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta0);
+                        uint32_t delta0; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta0);
                         prev_alpha_selector_index += delta0;
                         limit(prev_alpha_selector_index, num_alpha_selectors);
 
-                        uint32 delta1; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta1);
+                        uint32_t delta1; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[0], delta1);
                         prev_color_selector_index += delta1;
                         limit(prev_color_selector_index, num_color_selectors);
 
                         if (!((bx && skip_right_col) || (by && skip_bottom_row)))
                         {
-                           const uint32 tile_index = pTile_indices[bx + by * 2];
+                           const uint32_t tile_index = pTile_indices[bx + by * 2];
                            const uint16* pAlpha_selectors = &m_alpha_selectors[prev_alpha_selector_index * 3];
 
 #ifdef CRND_BIG_ENDIAN_PLATFORM
@@ -4474,38 +4474,38 @@ namespace crnd
          return true;
       }
 
-      bool unpack_dxn(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
+      bool unpack_dxn(uint8** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes, uint32_t blocks_x, uint32_t blocks_y, uint32_t chunks_x, uint32_t chunks_y)
       {
          dst_size_in_bytes;
 
-         uint32 chunk_encoding_bits = 1;
+         uint32_t chunk_encoding_bits = 1;
 
-         const uint32 num_alpha_endpoints = m_alpha_endpoints.size();
-         const uint32 num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
+         const uint32_t num_alpha_endpoints = m_alpha_endpoints.size();
+         const uint32_t num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
 
-         uint32 prev_alpha0_endpoint_index = 0;
-         uint32 prev_alpha0_selector_index = 0;
-         uint32 prev_alpha1_endpoint_index = 0;
-         uint32 prev_alpha1_selector_index = 0;
+         uint32_t prev_alpha0_endpoint_index = 0;
+         uint32_t prev_alpha0_selector_index = 0;
+         uint32_t prev_alpha1_endpoint_index = 0;
+         uint32_t prev_alpha1_selector_index = 0;
 
-         const uint32 num_faces = m_pHeader->m_faces;
+         const uint32_t num_faces = m_pHeader->m_faces;
 
-         //const uint32 row_pitch_in_dwords = row_pitch_in_bytes >> 2U;
+         //const uint32_t row_pitch_in_dwords = row_pitch_in_bytes >> 2U;
 
-         const int32 cBytesPerBlock = 16;
+         const int32_t cBytesPerBlock = 16;
 
          CRND_HUFF_DECODE_BEGIN(m_codec);
 
-         for (uint32 f = 0; f < num_faces; f++)
+         for (uint32_t f = 0; f < num_faces; f++)
          {
             uint8* CRND_RESTRICT pRow = pDst[f];
 
-            for (uint32 y = 0; y < chunks_y; y++)
+            for (uint32_t y = 0; y < chunks_y; y++)
             {
-               int32 start_x = 0;
-               int32 end_x = chunks_x;
-               int32 dir_x = 1;
-               int32 block_delta = cBytesPerBlock*2;
+               int32_t start_x = 0;
+               int32_t end_x = chunks_x;
+               int32_t dir_x = 1;
+               int32_t block_delta = cBytesPerBlock*2;
                uint8* CRND_RESTRICT pBlock = pRow;
 
                if (y & 1)
@@ -4519,10 +4519,10 @@ namespace crnd
 
                const bool skip_bottom_row = (y == (chunks_y - 1)) && (blocks_y & 1);
 
-               for (int32 x = start_x; x != end_x; x += dir_x)
+               for (int32_t x = start_x; x != end_x; x += dir_x)
                {
-                  uint32 alpha0_endpoints[4];
-                  uint32 alpha1_endpoints[4];
+                  uint32_t alpha0_endpoints[4];
+                  uint32_t alpha1_endpoints[4];
 
                   if (chunk_encoding_bits == 1)
                   {
@@ -4530,10 +4530,10 @@ namespace crnd
                      chunk_encoding_bits |= 512;
                   }
 
-                  const uint32 chunk_encoding_index = chunk_encoding_bits & 7;
+                  const uint32_t chunk_encoding_index = chunk_encoding_bits & 7;
                   chunk_encoding_bits >>= 3;
 
-                  const uint32 num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
+                  const uint32_t num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
 
                   const uint8* pTile_indices = g_crnd_chunk_encoding_tiles[chunk_encoding_index].m_tiles;
 
@@ -4541,38 +4541,38 @@ namespace crnd
 
                   uint32* CRND_RESTRICT pD = (uint32*)pBlock;
 
-                  for (uint32 i = 0; i < num_tiles; i++)
+                  for (uint32_t i = 0; i < num_tiles; i++)
                   {
-                     uint32 delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
+                     uint32_t delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
                      prev_alpha0_endpoint_index += delta;
                      limit(prev_alpha0_endpoint_index, num_alpha_endpoints);
                      alpha0_endpoints[i] = m_alpha_endpoints[prev_alpha0_endpoint_index];
                   }
 
-                  for (uint32 i = 0; i < num_tiles; i++)
+                  for (uint32_t i = 0; i < num_tiles; i++)
                   {
-                     uint32 delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
+                     uint32_t delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
                      prev_alpha1_endpoint_index += delta;
                      limit(prev_alpha1_endpoint_index, num_alpha_endpoints);
                      alpha1_endpoints[i] = m_alpha_endpoints[prev_alpha1_endpoint_index];
                   }
 
                   pD = (uint32*)pBlock;
-                  for (uint32 by = 0; by < 2; by++)
+                  for (uint32_t by = 0; by < 2; by++)
                   {
-                     for (uint32 bx = 0; bx < 2; bx++, pD += 4)
+                     for (uint32_t bx = 0; bx < 2; bx++, pD += 4)
                      {
-                        uint32 delta0; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta0);
+                        uint32_t delta0; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta0);
                         prev_alpha0_selector_index += delta0;
                         limit(prev_alpha0_selector_index, num_alpha_selectors);
 
-                        uint32 delta1; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta1);
+                        uint32_t delta1; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta1);
                         prev_alpha1_selector_index += delta1;
                         limit(prev_alpha1_selector_index, num_alpha_selectors);
 
                         if (!((bx && skip_right_col) || (by && skip_bottom_row)))
                         {
-                           const uint32 tile_index = pTile_indices[bx + by * 2];
+                           const uint32_t tile_index = pTile_indices[bx + by * 2];
                            const uint16* pAlpha0_selectors = &m_alpha_selectors[prev_alpha0_selector_index * 3];
                            const uint16* pAlpha1_selectors = &m_alpha_selectors[prev_alpha1_selector_index * 3];
 
@@ -4616,34 +4616,34 @@ namespace crnd
          return true;
       }
 
-      bool unpack_dxt5a(uint8** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes, uint32 blocks_x, uint32 blocks_y, uint32 chunks_x, uint32 chunks_y)
+      bool unpack_dxt5a(uint8** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes, uint32_t blocks_x, uint32_t blocks_y, uint32_t chunks_x, uint32_t chunks_y)
       {
          dst_size_in_bytes;
 
-         uint32 chunk_encoding_bits = 1;
+         uint32_t chunk_encoding_bits = 1;
 
-         const uint32 num_alpha_endpoints = m_alpha_endpoints.size();
-         const uint32 num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
+         const uint32_t num_alpha_endpoints = m_alpha_endpoints.size();
+         const uint32_t num_alpha_selectors = m_pHeader->m_alpha_selectors.m_num;
 
-         uint32 prev_alpha0_endpoint_index = 0;
-         uint32 prev_alpha0_selector_index = 0;
+         uint32_t prev_alpha0_endpoint_index = 0;
+         uint32_t prev_alpha0_selector_index = 0;
 
-         const uint32 num_faces = m_pHeader->m_faces;
+         const uint32_t num_faces = m_pHeader->m_faces;
 
-         const int32 cBytesPerBlock = 8;
+         const int32_t cBytesPerBlock = 8;
 
          CRND_HUFF_DECODE_BEGIN(m_codec);
 
-         for (uint32 f = 0; f < num_faces; f++)
+         for (uint32_t f = 0; f < num_faces; f++)
          {
             uint8* CRND_RESTRICT pRow = pDst[f];
 
-            for (uint32 y = 0; y < chunks_y; y++)
+            for (uint32_t y = 0; y < chunks_y; y++)
             {
-               int32 start_x = 0;
-               int32 end_x = chunks_x;
-               int32 dir_x = 1;
-               int32 block_delta = cBytesPerBlock*2;
+               int32_t start_x = 0;
+               int32_t end_x = chunks_x;
+               int32_t dir_x = 1;
+               int32_t block_delta = cBytesPerBlock*2;
                uint8* CRND_RESTRICT pBlock = pRow;
 
                if (y & 1)
@@ -4657,9 +4657,9 @@ namespace crnd
 
                const bool skip_bottom_row = (y == (chunks_y - 1)) && (blocks_y & 1);
 
-               for (int32 x = start_x; x != end_x; x += dir_x)
+               for (int32_t x = start_x; x != end_x; x += dir_x)
                {
-                  uint32 alpha0_endpoints[4];
+                  uint32_t alpha0_endpoints[4];
 
                   if (chunk_encoding_bits == 1)
                   {
@@ -4667,10 +4667,10 @@ namespace crnd
                      chunk_encoding_bits |= 512;
                   }
 
-                  const uint32 chunk_encoding_index = chunk_encoding_bits & 7;
+                  const uint32_t chunk_encoding_index = chunk_encoding_bits & 7;
                   chunk_encoding_bits >>= 3;
 
-                  const uint32 num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
+                  const uint32_t num_tiles = g_crnd_chunk_encoding_num_tiles[chunk_encoding_index];
 
                   const uint8* pTile_indices = g_crnd_chunk_encoding_tiles[chunk_encoding_index].m_tiles;
 
@@ -4678,26 +4678,26 @@ namespace crnd
 
                   uint32* CRND_RESTRICT pD = (uint32*)pBlock;
 
-                  for (uint32 i = 0; i < num_tiles; i++)
+                  for (uint32_t i = 0; i < num_tiles; i++)
                   {
-                     uint32 delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
+                     uint32_t delta; CRND_HUFF_DECODE(m_codec, m_endpoint_delta_dm[1], delta);
                      prev_alpha0_endpoint_index += delta;
                      limit(prev_alpha0_endpoint_index, num_alpha_endpoints);
                      alpha0_endpoints[i] = m_alpha_endpoints[prev_alpha0_endpoint_index];
                   }
 
                   pD = (uint32*)pBlock;
-                  for (uint32 by = 0; by < 2; by++)
+                  for (uint32_t by = 0; by < 2; by++)
                   {
-                     for (uint32 bx = 0; bx < 2; bx++, pD += 2)
+                     for (uint32_t bx = 0; bx < 2; bx++, pD += 2)
                      {
-                        uint32 delta; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta);
+                        uint32_t delta; CRND_HUFF_DECODE(m_codec, m_selector_delta_dm[1], delta);
                         prev_alpha0_selector_index += delta;
                         limit(prev_alpha0_selector_index, num_alpha_selectors);
 
                         if (!((bx && skip_right_col) || (by && skip_bottom_row)))
                         {
-                           const uint32 tile_index = pTile_indices[bx + by * 2];
+                           const uint32_t tile_index = pTile_indices[bx + by * 2];
                            const uint16* pAlpha0_selectors = &m_alpha_selectors[prev_alpha0_selector_index * 3];
 
 #if CRND_BIG_ENDIAN_PLATFORM
@@ -4733,7 +4733,7 @@ namespace crnd
       }
    };
 
-   crnd_unpack_context crnd_unpack_begin(const void* pData, uint32 data_size)
+   crnd_unpack_context crnd_unpack_begin(const void* pData, uint32_t data_size)
    {
       if ((!pData) || (data_size < cCRNHeaderMinSize))
          return NULL;
@@ -4772,8 +4772,8 @@ namespace crnd
 
    bool crnd_unpack_level(
       crnd_unpack_context pContext,
-      void** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
-      uint32 level_index)
+      void** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes,
+      uint32_t level_index)
    {
       if ((!pContext) || (!pDst) || (dst_size_in_bytes < 8U) || (level_index >= cCRNMaxLevels))
          return false;
@@ -4788,9 +4788,9 @@ namespace crnd
 
    bool crnd_unpack_level_segmented(
       crnd_unpack_context pContext,
-      const void* pSrc, uint32 src_size_in_bytes,
-      void** pDst, uint32 dst_size_in_bytes, uint32 row_pitch_in_bytes,
-      uint32 level_index)
+      const void* pSrc, uint32_t src_size_in_bytes,
+      void** pDst, uint32_t dst_size_in_bytes, uint32_t row_pitch_in_bytes,
+      uint32_t level_index)
    {
       if ((!pContext) || (!pSrc) || (!pDst) || (dst_size_in_bytes < 8U) || (level_index >= cCRNMaxLevels))
          return false;

@@ -9,9 +9,9 @@
 namespace crnlib
 {
 #if CRNLIB_64BIT_POINTERS
-   const uint64 CRNLIB_MAX_POSSIBLE_BLOCK_SIZE = 0x400000000ULL;
+   const uint64_t CRNLIB_MAX_POSSIBLE_BLOCK_SIZE = 0x400000000ULL;
 #else
-   const uint32 CRNLIB_MAX_POSSIBLE_BLOCK_SIZE = 0x7FFF0000U;
+   const uint32_t CRNLIB_MAX_POSSIBLE_BLOCK_SIZE = 0x7FFF0000U;
 #endif
 
    void*    crnlib_malloc(size_t size, size_t* pActual_size = NULL);
@@ -125,11 +125,11 @@ namespace crnlib
    }
 
    template<typename T>
-   inline T* crnlib_new_array(uint32 num)
+   inline T* crnlib_new_array(uint32_t num)
    {
       if (!num) num = 1;
 
-      uint64 total = CRNLIB_MIN_ALLOC_ALIGNMENT + sizeof(T) * num;
+      uint64_t total = CRNLIB_MIN_ALLOC_ALIGNMENT + sizeof(T) * num;
       if (total > CRNLIB_MAX_POSSIBLE_BLOCK_SIZE)
       {
          crnlib_mem_error("crnlib_new_array: Array too large!");
@@ -167,8 +167,8 @@ namespace crnlib
    {
       if (p)
       {
-         const uint32 num = reinterpret_cast<uint32*>(p)[-1];
-         const uint32 num_check = reinterpret_cast<uint32*>(p)[-2];
+         const uint32_t num = reinterpret_cast<uint32*>(p)[-1];
+         const uint32_t num_check = reinterpret_cast<uint32*>(p)[-2];
          CRNLIB_ASSERT(num && (num == ~num_check));
          if (num == ~num_check)
          {

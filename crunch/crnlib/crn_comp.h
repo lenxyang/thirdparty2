@@ -154,16 +154,16 @@ namespace crnlib
          const crnlib::vector<uint>* pAlpha_endpoint_remap, 
          const crnlib::vector<uint>* pAlpha_selector_remap);
       
-      void optimize_color_endpoint_codebook_task(uint64 data, void* pData_ptr);
+      void optimize_color_endpoint_codebook_task(uint64_t data, void* pData_ptr);
       bool optimize_color_endpoint_codebook(crnlib::vector<uint>& remapping);
       
-      void optimize_color_selector_codebook_task(uint64 data, void* pData_ptr);
+      void optimize_color_selector_codebook_task(uint64_t data, void* pData_ptr);
       bool optimize_color_selector_codebook(crnlib::vector<uint>& remapping);
       
-      void optimize_alpha_endpoint_codebook_task(uint64 data, void* pData_ptr);
+      void optimize_alpha_endpoint_codebook_task(uint64_t data, void* pData_ptr);
       bool optimize_alpha_endpoint_codebook(crnlib::vector<uint>& remapping);
       
-      void optimize_alpha_selector_codebook_task(uint64 data, void* pData_ptr);
+      void optimize_alpha_selector_codebook_task(uint64_t data, void* pData_ptr);
       bool optimize_alpha_selector_codebook(crnlib::vector<uint>& remapping);
       
       bool create_comp_data();

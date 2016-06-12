@@ -4,7 +4,7 @@
 
 namespace crnlib
 {
-   typedef uint64 timer_ticks;
+   typedef uint64_t timer_ticks;
 
    class timer
    {
@@ -18,7 +18,7 @@ namespace crnlib
       void stop();
 
       double get_elapsed_secs() const;
-      uint64 get_elapsed_us() const;
+      uint64_t get_elapsed_us() const;
 
       static void init();
       static timer_ticks get_init_ticks();
@@ -26,12 +26,12 @@ namespace crnlib
       static double ticks_to_secs(timer_ticks ticks);
 
    private:
-      static uint64 g_init_ticks;
-      static uint64 g_freq;
+      static uint64_t g_init_ticks;
+      static uint64_t g_freq;
       static double g_inv_freq;
 
-      uint64 m_start_time;
-      uint64 m_stop_time;
+      uint64_t m_start_time;
+      uint64_t m_stop_time;
 
       bool m_started : 1;
       bool m_stopped : 1;

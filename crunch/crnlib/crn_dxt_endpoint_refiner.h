@@ -35,7 +35,7 @@ namespace crnlib
 
          uint                 m_alpha_comp_index;
 
-         uint64               m_error_to_beat;
+         uint64_t               m_error_to_beat;
 
          bool                 m_dxt1_selectors;
          bool                 m_perceptual;
@@ -44,9 +44,9 @@ namespace crnlib
 
       struct results
       {
-         uint16   m_low_color;
-         uint16   m_high_color;
-         uint64   m_error;
+         uint16_t   m_low_color;
+         uint16_t   m_high_color;
+         uint64_t   m_error;
       };
 
       bool refine(const params& p, results& r);

@@ -159,7 +159,7 @@ namespace crnlib
          const wchar_t* pFilename, 
          texture_file_types::format file_format, 
          crn_comp_params* pCRN_comp_params,
-         uint32 *pActual_quality_level, float *pActual_bitrate);
+         uint32_t *pActual_quality_level, float *pActual_bitrate);
                         
       // Conversion
       bool convert(pixel_format fmt, bool cook, const dxt_image::pack_params& p);
@@ -281,7 +281,7 @@ namespace crnlib
       void print_crn_comp_params(const crn_comp_params& p);
       bool save_regular(const wchar_t* pFilename);
       bool save_dds(const wchar_t* pFilename);
-      bool save_comp_texture(const wchar_t* pFilename, const crn_comp_params &comp_params, uint32 *pActual_quality_level, float *pActual_bitrate);
+      bool save_comp_texture(const wchar_t* pFilename, const crn_comp_params &comp_params, uint32_t *pActual_quality_level, float *pActual_bitrate);
    };
    
    inline void swap(dds_texture& a, dds_texture& b)

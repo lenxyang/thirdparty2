@@ -163,7 +163,7 @@ typedef unsigned short wchar_t;
 #endif
 #if !defined(_PTRDIFF_T_DEFINED) && !defined(_PTRDIFF_T_) && !defined(__MINGW64__)
 #  ifdef _WIN64
-typedef __int64 ptrdiff_t;
+typedef __int64_t ptrdiff_t;
 #  else
 typedef _W64 int ptrdiff_t;
 #  endif
@@ -284,8 +284,8 @@ typedef double GLdouble;
 typedef double GLclampd;
 typedef void GLvoid;
 #if defined(_MSC_VER) && _MSC_VER < 1400
-typedef __int64 GLint64EXT;
-typedef unsigned __int64 GLuint64EXT;
+typedef __int64_t GLint64EXT;
+typedef unsigned __int64_t GLuint64EXT;
 #elif defined(_MSC_VER) || defined(__BORLANDC__)
 typedef signed long long GLint64EXT;
 typedef unsigned long long GLuint64EXT;
@@ -2345,8 +2345,8 @@ typedef void (GLAPIENTRY * PFNGLTEXBUFFERPROC) (GLenum, GLenum, GLuint);
 #define GL_CONTEXT_PROFILE_MASK 0x9126
 
 typedef void (GLAPIENTRY * PFNGLFRAMEBUFFERTEXTUREPROC) (GLenum, GLenum, GLuint, GLint);
-typedef void (GLAPIENTRY * PFNGLGETBUFFERPARAMETERI64VPROC) (GLenum, GLenum, GLint64 *);
-typedef void (GLAPIENTRY * PFNGLGETINTEGER64I_VPROC) (GLenum, GLuint, GLint64 *);
+typedef void (GLAPIENTRY * PFNGLGETBUFFERPARAMETERI64VPROC) (GLenum, GLenum, GLint64_t *);
+typedef void (GLAPIENTRY * PFNGLGETINTEGER64I_VPROC) (GLenum, GLuint, GLint64_t *);
 
 #define glFramebufferTexture GLEW_GET_FUN(__glewFramebufferTexture)
 #define glGetBufferParameteri64v GLEW_GET_FUN(__glewGetBufferParameteri64v)
@@ -3459,19 +3459,19 @@ typedef void (GLAPIENTRY * PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEPROC)
 
 #define GL_UNSIGNED_INT64_ARB 0x140F
 
-typedef GLuint64 (GLAPIENTRY * PFNGLGETIMAGEHANDLEARBPROC) (GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format);
-typedef GLuint64 (GLAPIENTRY * PFNGLGETTEXTUREHANDLEARBPROC) (GLuint texture);
-typedef GLuint64 (GLAPIENTRY * PFNGLGETTEXTURESAMPLERHANDLEARBPROC) (GLuint texture, GLuint sampler);
+typedef GLuint64_t (GLAPIENTRY * PFNGLGETIMAGEHANDLEARBPROC) (GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format);
+typedef GLuint64_t (GLAPIENTRY * PFNGLGETTEXTUREHANDLEARBPROC) (GLuint texture);
+typedef GLuint64_t (GLAPIENTRY * PFNGLGETTEXTURESAMPLERHANDLEARBPROC) (GLuint texture, GLuint sampler);
 typedef void (GLAPIENTRY * PFNGLGETVERTEXATTRIBLUI64VARBPROC) (GLuint index, GLenum pname, GLuint64EXT* params);
-typedef GLboolean (GLAPIENTRY * PFNGLISIMAGEHANDLERESIDENTARBPROC) (GLuint64 handle);
-typedef GLboolean (GLAPIENTRY * PFNGLISTEXTUREHANDLERESIDENTARBPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLENONRESIDENTARBPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLERESIDENTARBPROC) (GLuint64 handle, GLenum access);
-typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLENONRESIDENTARBPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLERESIDENTARBPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC) (GLuint program, GLint location, GLuint64 value);
+typedef GLboolean (GLAPIENTRY * PFNGLISIMAGEHANDLERESIDENTARBPROC) (GLuint64_t handle);
+typedef GLboolean (GLAPIENTRY * PFNGLISTEXTUREHANDLERESIDENTARBPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLENONRESIDENTARBPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLERESIDENTARBPROC) (GLuint64_t handle, GLenum access);
+typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLENONRESIDENTARBPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLERESIDENTARBPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC) (GLuint program, GLint location, GLuint64_t value);
 typedef void (GLAPIENTRY * PFNGLPROGRAMUNIFORMHANDLEUI64VARBPROC) (GLuint program, GLint location, GLsizei count, const GLuint64* values);
-typedef void (GLAPIENTRY * PFNGLUNIFORMHANDLEUI64ARBPROC) (GLint location, GLuint64 value);
+typedef void (GLAPIENTRY * PFNGLUNIFORMHANDLEUI64ARBPROC) (GLint location, GLuint64_t value);
 typedef void (GLAPIENTRY * PFNGLUNIFORMHANDLEUI64VARBPROC) (GLint location, GLsizei count, const GLuint64* value);
 typedef void (GLAPIENTRY * PFNGLVERTEXATTRIBL1UI64ARBPROC) (GLuint index, GLuint64EXT x);
 typedef void (GLAPIENTRY * PFNGLVERTEXATTRIBL1UI64VARBPROC) (GLuint index, const GLuint64EXT* v);
@@ -5935,13 +5935,13 @@ typedef void (GLAPIENTRY * PFNGLTEXTUREPAGECOMMITMENTEXTPROC) (GLuint texture, G
 #define GL_WAIT_FAILED 0x911D
 #define GL_TIMEOUT_IGNORED 0xFFFFFFFFFFFFFFFF
 
-typedef GLenum (GLAPIENTRY * PFNGLCLIENTWAITSYNCPROC) (GLsync GLsync,GLbitfield flags,GLuint64 timeout);
+typedef GLenum (GLAPIENTRY * PFNGLCLIENTWAITSYNCPROC) (GLsync GLsync,GLbitfield flags,GLuint64_t timeout);
 typedef void (GLAPIENTRY * PFNGLDELETESYNCPROC) (GLsync GLsync);
 typedef GLsync (GLAPIENTRY * PFNGLFENCESYNCPROC) (GLenum condition,GLbitfield flags);
 typedef void (GLAPIENTRY * PFNGLGETINTEGER64VPROC) (GLenum pname, GLint64* params);
 typedef void (GLAPIENTRY * PFNGLGETSYNCIVPROC) (GLsync GLsync,GLenum pname,GLsizei bufSize,GLsizei* length, GLint *values);
 typedef GLboolean (GLAPIENTRY * PFNGLISSYNCPROC) (GLsync GLsync);
-typedef void (GLAPIENTRY * PFNGLWAITSYNCPROC) (GLsync GLsync,GLbitfield flags,GLuint64 timeout);
+typedef void (GLAPIENTRY * PFNGLWAITSYNCPROC) (GLsync GLsync,GLbitfield flags,GLuint64_t timeout);
 
 #define glClientWaitSync GLEW_GET_FUN(__glewClientWaitSync)
 #define glDeleteSync GLEW_GET_FUN(__glewDeleteSync)
@@ -11345,18 +11345,18 @@ typedef void (GLAPIENTRY * PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC) (GLenum
 #ifndef GL_NV_bindless_texture
 #define GL_NV_bindless_texture 1
 
-typedef GLuint64 (GLAPIENTRY * PFNGLGETIMAGEHANDLENVPROC) (GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format);
-typedef GLuint64 (GLAPIENTRY * PFNGLGETTEXTUREHANDLENVPROC) (GLuint texture);
-typedef GLuint64 (GLAPIENTRY * PFNGLGETTEXTURESAMPLERHANDLENVPROC) (GLuint texture, GLuint sampler);
-typedef GLboolean (GLAPIENTRY * PFNGLISIMAGEHANDLERESIDENTNVPROC) (GLuint64 handle);
-typedef GLboolean (GLAPIENTRY * PFNGLISTEXTUREHANDLERESIDENTNVPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLENONRESIDENTNVPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLERESIDENTNVPROC) (GLuint64 handle, GLenum access);
-typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLENONRESIDENTNVPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLERESIDENTNVPROC) (GLuint64 handle);
-typedef void (GLAPIENTRY * PFNGLPROGRAMUNIFORMHANDLEUI64NVPROC) (GLuint program, GLint location, GLuint64 value);
+typedef GLuint64_t (GLAPIENTRY * PFNGLGETIMAGEHANDLENVPROC) (GLuint texture, GLint level, GLboolean layered, GLint layer, GLenum format);
+typedef GLuint64_t (GLAPIENTRY * PFNGLGETTEXTUREHANDLENVPROC) (GLuint texture);
+typedef GLuint64_t (GLAPIENTRY * PFNGLGETTEXTURESAMPLERHANDLENVPROC) (GLuint texture, GLuint sampler);
+typedef GLboolean (GLAPIENTRY * PFNGLISIMAGEHANDLERESIDENTNVPROC) (GLuint64_t handle);
+typedef GLboolean (GLAPIENTRY * PFNGLISTEXTUREHANDLERESIDENTNVPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLENONRESIDENTNVPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLMAKEIMAGEHANDLERESIDENTNVPROC) (GLuint64_t handle, GLenum access);
+typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLENONRESIDENTNVPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLMAKETEXTUREHANDLERESIDENTNVPROC) (GLuint64_t handle);
+typedef void (GLAPIENTRY * PFNGLPROGRAMUNIFORMHANDLEUI64NVPROC) (GLuint program, GLint location, GLuint64_t value);
 typedef void (GLAPIENTRY * PFNGLPROGRAMUNIFORMHANDLEUI64VNVPROC) (GLuint program, GLint location, GLsizei count, const GLuint64* values);
-typedef void (GLAPIENTRY * PFNGLUNIFORMHANDLEUI64NVPROC) (GLint location, GLuint64 value);
+typedef void (GLAPIENTRY * PFNGLUNIFORMHANDLEUI64NVPROC) (GLint location, GLuint64_t value);
 typedef void (GLAPIENTRY * PFNGLUNIFORMHANDLEUI64VNVPROC) (GLint location, GLsizei count, const GLuint64* value);
 
 #define glGetImageHandleNV GLEW_GET_FUN(__glewGetImageHandleNV)

@@ -80,8 +80,8 @@ namespace crnlib
       
       void free_contrib_lists();
       
-      void resample_x_task(uint64 data, void* pData_ptr);
-      void resample_y_task(uint64 data, void* pData_ptr);
+      void resample_x_task(uint64_t data, void* pData_ptr);
+      void resample_y_task(uint64_t data, void* pData_ptr);
    };
 
 } // namespace crnlib
