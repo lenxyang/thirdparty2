@@ -141,7 +141,7 @@ namespace crnlib
          return true;
       }
 
-      virtual uint64 get_size()
+      virtual uint64_t get_size()
       {
          if (!m_opened)
             return 0;
@@ -149,7 +149,7 @@ namespace crnlib
          return m_size;
       }
 
-      virtual uint64 get_remaining()
+      virtual uint64_t get_remaining()
       {
          if (!m_opened)
             return 0;
@@ -159,7 +159,7 @@ namespace crnlib
          return m_size - m_ofs;
       }
 
-      virtual uint64 get_ofs()
+      virtual uint64_t get_ofs()
       {
          if (!m_opened)
             return 0;
@@ -167,12 +167,12 @@ namespace crnlib
          return m_ofs;
       }
 
-      virtual bool seek(int64 ofs, bool relative)
+      virtual bool seek(int64_t ofs, bool relative)
       {
          if ((!m_opened) || (!is_seekable()))
             return false;
 
-         int64 new_ofs = relative ? (m_ofs + ofs) : ofs;
+         int64_t new_ofs = relative ? (m_ofs + ofs) : ofs;
 
          if (new_ofs < 0)
             return false;

@@ -72,7 +72,7 @@ double     double-precision float    8
 
 int8
 int16
-uint8 ... forms are also used
+uint8_t ... forms are also used
 */
 enum EDataType
 {

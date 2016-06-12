@@ -100,12 +100,12 @@ PLATFORM_INTERFACE void __cdecl ETWMarkTimerInterval(double intervalMs);
 
 // Insert a begin event to mark the start of some work. The return value is a 64-bit
 // time stamp which should be passed to the corresponding ETWEnd function.
-PLATFORM_INTERFACE int64 __cdecl ETWBegin(_In_z_ PCSTR pMessage);
-PLATFORM_INTERFACE int64 __cdecl ETWWorkerBegin(_In_z_ PCSTR pMessage);
+PLATFORM_INTERFACE int64_t __cdecl ETWBegin(_In_z_ PCSTR pMessage);
+PLATFORM_INTERFACE int64_t __cdecl ETWWorkerBegin(_In_z_ PCSTR pMessage);
 
 // Insert a paired end event to mark the end of some work.
-PLATFORM_INTERFACE int64 __cdecl ETWEnd(_In_z_ PCSTR pMessage, int64 nStartTime);
-PLATFORM_INTERFACE int64 __cdecl ETWWorkerEnd(_In_z_ PCSTR pMessage, int64 nStartTime);
+PLATFORM_INTERFACE int64_t __cdecl ETWEnd(_In_z_ PCSTR pMessage, int64_t nStartTime);
+PLATFORM_INTERFACE int64_t __cdecl ETWWorkerEnd(_In_z_ PCSTR pMessage, int64_t nStartTime);
 
 // Mark the start of the next render frame.
 PLATFORM_INTERFACE void __cdecl ETWRenderFrameMark();
@@ -144,7 +144,7 @@ private:
 	CETWScope& operator=(const CETWScope& rhs) = delete;
 
 	_Field_z_ PCSTR m_pMessage;
-	int64 m_nStartTime;
+	int64_t m_nStartTime;
 };
 #endif // __cplusplus
 
@@ -173,10 +173,10 @@ inline void ETWMarkCPUFrequency(PCWSTR, double) {}
 inline void ETWMarkCPUPower(PCWSTR, double, double) {}
 inline void ETWMarkCPUTemp(PCWSTR, double, double) {}
 inline void ETWMarkTimerInterval(double) {}
-inline int64 ETWBegin(PCSTR) { return 0; }
-inline int64 ETWWorkerBegin(PCSTR) { return 0; }
-inline int64 ETWEnd(PCSTR, int64) { return 0; }
-inline int64 ETWWorkerEnd(PCSTR, int64) { return 0; }
+inline int64_t ETWBegin(PCSTR) { return 0; }
+inline int64_t ETWWorkerBegin(PCSTR) { return 0; }
+inline int64_t ETWEnd(PCSTR, int64) { return 0; }
+inline int64_t ETWWorkerEnd(PCSTR, int64) { return 0; }
 inline void ETWRenderFrameMark() {}
 inline int ETWGetRenderFrameNumber() { return 0; }
 

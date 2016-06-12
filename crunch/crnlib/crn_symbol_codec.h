@@ -45,7 +45,7 @@ namespace crnlib
       uint operator[] (uint i) const   { return m_hist[i]; }
       uint& operator[] (uint i)        { return m_hist[i]; }
 
-      uint64 get_total() const;
+      uint64_t get_total() const;
 
    private:
       crnlib::vector<uint> m_hist;
@@ -85,7 +85,7 @@ namespace crnlib
 
       prefix_coding::decoder_tables*   m_pDecode_tables;
 
-      uint8                            m_decoder_table_bits;
+      uint8_t                            m_decoder_table_bits;
       bool                             m_encoding;
 
       void update();
@@ -146,7 +146,7 @@ namespace crnlib
       float get_cost(uint bit) const;
 
    public:
-      uint16 m_bit_0_prob;
+      uint16_t m_bit_0_prob;
 
       friend class symbol_codec;
       friend class adaptive_arith_data_model;
@@ -220,8 +220,8 @@ namespace crnlib
 
       bool start_decoding(const uint8* pBuf, size_t buf_size, bool eof_flag = true, need_bytes_func_ptr pNeed_bytes_func = NULL, void *pPrivate_data = NULL);
       void decode_set_input_buffer(const uint8* pBuf, size_t buf_size, const uint8* pBuf_next, bool eof_flag = true);
-      inline uint64 decode_get_bytes_consumed() const { return m_pDecode_buf_next - m_pDecode_buf; }
-      inline uint64 decode_get_bits_remaining() const { return ((m_pDecode_buf_end - m_pDecode_buf_next) << 3) + m_bit_count; }
+      inline uint64_t decode_get_bytes_consumed() const { return m_pDecode_buf_next - m_pDecode_buf; }
+      inline uint64_t decode_get_bits_remaining() const { return ((m_pDecode_buf_end - m_pDecode_buf_next) << 3) + m_bit_count; }
       void start_arith_decoding();
       bool decode_receive_static_huffman_data_model(static_huffman_data_model& model, static_huffman_data_model* pDeltaModel);
       uint decode_bits(uint num_bits);
@@ -236,7 +236,7 @@ namespace crnlib
       uint decode_rice(uint m);
       uint decode(adaptive_bit_model& model, bool update_model = true);
       uint decode(adaptive_arith_data_model& model);
-      uint64 stop_decoding();
+      uint64_t stop_decoding();
 
       uint get_total_model_updates() const { return m_total_model_updates; }
 
@@ -251,10 +251,10 @@ namespace crnlib
       void*                   m_pDecode_private_data;
 
 #if CRNLIB_SYMBOL_CODEC_USE_64_BIT_BUFFER
-      typedef uint64 bit_buf_t;
+      typedef uint64_t bit_buf_t;
       enum { cBitBufSize = 64 };
 #else
-      typedef uint32 bit_buf_t;
+      typedef uint32_t bit_buf_t;
       enum { cBitBufSize = 32 };
 #endif
 
@@ -271,9 +271,9 @@ namespace crnlib
          uint m_bits;
 
          enum { cArithSym = -1, cAlignToByteSym = -2 };
-         int16 m_num_bits;
+         int16_t m_num_bits;
 
-         uint16 m_arith_prob0;
+         uint16_t m_arith_prob0;
       };
       crnlib::vector<output_symbol> m_output_syms;
 
@@ -424,7 +424,7 @@ namespace crnlib
       uint len; \
       if (k <= pTables->m_table_max_code) \
       { \
-         uint32 t = pTables->m_lookup[bit_buf >> (symbol_codec::cBitBufSize - pTables->m_table_bits)]; \
+         uint32_t t = pTables->m_lookup[bit_buf >> (symbol_codec::cBitBufSize - pTables->m_table_bits)]; \
          result = t & UINT16_MAX; \
          len = t >> 16; \
       } \
@@ -475,7 +475,7 @@ namespace crnlib
       uint len; \
       if (k <= pTables->m_table_max_code) \
       { \
-         uint32 t = pTables->m_lookup[bit_buf >> (symbol_codec::cBitBufSize - pTables->m_table_bits)]; \
+         uint32_t t = pTables->m_lookup[bit_buf >> (symbol_codec::cBitBufSize - pTables->m_table_bits)]; \
          result = t & UINT16_MAX; \
          len = t >> 16; \
       } \

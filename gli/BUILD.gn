@@ -1,3 +1,4 @@
+import("//testing/test.gni")
 
 config("gli-config") {
   include_dirs = ["src/"]
@@ -66,9 +67,8 @@ static_library("gli") {
     "src/gli/gli.hpp",
   ]
 
-  direct_dependent_configs = [":gli-config"]
-  deps = ["//azer/third_party/glm:glm"]
-  forward_dependent_configs_from = deps
+  public_configs = [":gli-config"]
+  public_deps = ["//azer/third_party/glm:glm"]
 }
 
 test("gli_core_test") {

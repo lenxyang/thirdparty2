@@ -85,7 +85,7 @@ typedef unsigned short wchar_t;
 #endif
 #if !defined(_PTRDIFF_T_DEFINED) && !defined(_PTRDIFF_T_) && !defined(__MINGW64__)
 #  ifdef _WIN64
-typedef __int64 ptrdiff_t;
+typedef __int64_t ptrdiff_t;
 #  else
 typedef _W64 int ptrdiff_t;
 #  endif
@@ -206,8 +206,8 @@ typedef double GLdouble;
 typedef double GLclampd;
 typedef void GLvoid;
 #if defined(_MSC_VER) && _MSC_VER < 1400
-typedef __int64 GLint64EXT;
-typedef unsigned __int64 GLuint64EXT;
+typedef __int64_t GLint64EXT;
+typedef unsigned __int64_t GLuint64EXT;
 #elif defined(_MSC_VER) || defined(__BORLANDC__)
 typedef signed long long GLint64EXT;
 typedef unsigned long long GLuint64EXT;

@@ -9,15 +9,15 @@ namespace crnlib
    public:
       kiss99();
             
-      void seed(uint32 i, uint32 j, uint32 k);
+      void seed(uint32_t i, uint32_t j, uint32_t k);
             
-      inline uint32 next();
+      inline uint32_t next();
       
    private:
-      uint32 x;
-      uint32 y;
-      uint32 z;
-      uint32 c;
+      uint32_t x;
+      uint32_t y;
+      uint32_t z;
+      uint32_t c;
    };
       
    class well512
@@ -26,15 +26,15 @@ namespace crnlib
       well512();
       
       enum { cStateSize = 16 };
-      void seed(uint32 seed[cStateSize]);
-      void seed(uint32 seed);
-      void seed(uint32 seed1, uint32 seed2, uint32 seed3);
+      void seed(uint32_t seed[cStateSize]);
+      void seed(uint32_t seed);
+      void seed(uint32_t seed1, uint32_t seed2, uint32_t seed3);
             
-      inline uint32 next();
+      inline uint32_t next();
    
    private:      
-      uint32 m_state[cStateSize];
-      uint32 m_index;
+      uint32_t m_state[cStateSize];
+      uint32_t m_index;
    };
    
    class ranctx 
@@ -42,32 +42,32 @@ namespace crnlib
    public:
       ranctx() { seed(0xDE149737); }
             
-      void seed(uint32 seed);
+      void seed(uint32_t seed);
       
-      inline uint32 next();
+      inline uint32_t next();
    
    private:
-      uint32 a; 
-      uint32 b; 
-      uint32 c; 
-      uint32 d; 
+      uint32_t a; 
+      uint32_t b; 
+      uint32_t c; 
+      uint32_t d; 
    };
    
    class random
    {
    public:
       random();
-      random(uint32 i);
+      random(uint32_t i);
       
-      void seed(uint32 i);
-      void seed(uint32 i1, uint32 i2, uint32 i3);
+      void seed(uint32_t i);
+      void seed(uint32_t i1, uint32_t i2, uint32_t i3);
             
-      uint32 urand32();
+      uint32_t urand32();
       
       // "Fast" variant uses no multiplies.
-      uint32 fast_urand32();
+      uint32_t fast_urand32();
       
-      uint32 bit();
+      uint32_t bit();
       
       // Returns random between [0, 1)
       double drand(double l, double h);
@@ -92,13 +92,13 @@ namespace crnlib
    {
    public:
       fast_random();
-      fast_random(uint32 i);
+      fast_random(uint32_t i);
       fast_random(const fast_random& other);
       fast_random& operator=(const fast_random& other);
             
-      void seed(uint32 i);
+      void seed(uint32_t i);
       
-      uint32 urand32();
+      uint32_t urand32();
       
       int irand(int l, int h);
       
@@ -107,8 +107,8 @@ namespace crnlib
       float frand(float l, float h);
       
    private:      
-      uint32 jsr;
-      uint32 jcong;
+      uint32_t jsr;
+      uint32_t jcong;
    };
 
 } // namespace crnlib

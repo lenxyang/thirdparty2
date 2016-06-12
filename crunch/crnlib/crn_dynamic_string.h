@@ -131,8 +131,8 @@ namespace crnlib
       void translate_lf_to_crlf();
 
    private:
-      uint16      m_buf_size;
-      uint16      m_len;
+      uint16_t      m_buf_size;
+      uint16_t      m_len;
       char*       m_pStr;
 
 #ifdef CRNLIB_BUILD_DEBUG

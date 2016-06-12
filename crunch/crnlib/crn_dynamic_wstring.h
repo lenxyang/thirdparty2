@@ -128,8 +128,8 @@ namespace crnlib
 
    private:
       // These values are in characters, not bytes!
-      uint16      m_buf_size;
-      uint16      m_len;
+      uint16_t      m_buf_size;
+      uint16_t      m_len;
       wchar_t*    m_pStr;
 
 #ifdef CRNLIB_BUILD_DEBUG

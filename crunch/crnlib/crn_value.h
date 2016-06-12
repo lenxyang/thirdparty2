@@ -813,7 +813,7 @@ namespace crnlib
       {
          uint buf_left = buf_size;
 
-         uint8 t = (uint8)m_type;
+         uint8_t t = (uint8)m_type;
          if (!utils::write_obj(t, pBuf, buf_left, little_endian)) return -1;
 
          switch (m_type)
@@ -862,7 +862,7 @@ namespace crnlib
       {
          uint buf_left = buf_size;
 
-         uint8 t;
+         uint8_t t;
          if (!utils::read_obj(t, pBuf, buf_left, little_endian)) return -1;
 
          if (t >= cDTTotal)

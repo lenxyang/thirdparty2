@@ -52,11 +52,11 @@ namespace crnlib
       element_type get_element_type(uint element_index) const { CRNLIB_ASSERT(element_index < m_num_elements_per_block); return m_element_type[element_index]; }
             
       //Returns -1 for RGB, or [0,3]
-      int8 get_element_component_index(uint element_index) const { CRNLIB_ASSERT(element_index < m_num_elements_per_block); return m_element_component_index[element_index]; }
+      int8_t get_element_component_index(uint element_index) const { CRNLIB_ASSERT(element_index < m_num_elements_per_block); return m_element_component_index[element_index]; }
       
       struct element
       {
-         uint8 m_bytes[8];
+         uint8_t m_bytes[8];
          
          uint get_le_word(uint index) const { CRNLIB_ASSERT(index < 4); return m_bytes[index*2] | (m_bytes[index * 2 + 1] << 8); }
          uint get_be_word(uint index) const { CRNLIB_ASSERT(index < 4); return m_bytes[index*2 + 1] | (m_bytes[index * 2] << 8); }
@@ -202,13 +202,13 @@ namespace crnlib
       uint              m_num_elements_per_block;   // 1 or 2
       uint              m_bytes_per_block;          // 8 or 16
       
-      int8              m_element_component_index[2];            
+      int8_t              m_element_component_index[2];            
       element_type      m_element_type[2];
          
       dxt_format        m_format;             // DXT1, 1A, 3, 5, N/3DC, or A
       
       bool init_internal(dxt_format fmt, uint width, uint height);
-      void init_task(uint64 data, void* pData_ptr);
+      void init_task(uint64_t data, void* pData_ptr);
 
 #if CRNLIB_SUPPORT_ATI_COMPRESS   
       bool init_ati_compress(dxt_format fmt, const image_u8& img, const pack_params& p);

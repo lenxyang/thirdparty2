@@ -1,3 +1,4 @@
+import("//testing/test.gni")
 
 config("glm-config") {
   include_dirs = [
@@ -261,7 +262,7 @@ static_library("glm") {
     "src/glm/virtrev/xstream.hpp",
   ]
 
-  direct_dependent_configs = [
+  public_configs = [
     "//azer/third_party/gli:gli-config",
     ":glm-config",
   ]

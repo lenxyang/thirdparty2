@@ -10,16 +10,16 @@ namespace crnlib
    public:
       inline spinlock() : m_flag(0) { }
             
-      void lock(uint32 max_spins = 4096, bool yielding = true, bool memoryBarrier = true);
+      void lock(uint32_t max_spins = 4096, bool yielding = true, bool memoryBarrier = true);
       
-      inline void lock_no_barrier(uint32 max_spins = 4096, bool yielding = true) { lock(max_spins, yielding, false); }
+      inline void lock_no_barrier(uint32_t max_spins = 4096, bool yielding = true) { lock(max_spins, yielding, false); }
 
       void unlock();
             
       inline void unlock_no_barrier() { m_flag = CRNLIB_FALSE; }
 
    private:
-      volatile int32 m_flag;
+      volatile int32_t m_flag;
    };
 
    class scoped_spinlock

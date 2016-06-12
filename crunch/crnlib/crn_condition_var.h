@@ -24,7 +24,7 @@ namespace crnlib
       
       // Returns TRUE if the thread owning this condition function should stop waiting. 
       // This function will always be called from within the condition_var, but it may be called from several different threads!
-      typedef bool (*pCondition_func)(void* pCallback_data_ptr, uint64 callback_data);
+      typedef bool (*pCondition_func)(void* pCallback_data_ptr, uint64_t callback_data);
             
       // Temporarily leaves the lock and waits for a condition to be satisfied.
       // If pCallback is NULL, this method will return after another thread enters and exits the lock (like a Vista-style condition variable).
@@ -32,25 +32,25 @@ namespace crnlib
       // When this method returns, the calling thread will be inside the lock.
       // Returns -1 on timeout or error, 0 if the wait was satisfied, or 1 or higher if one of the extra wait handles became signaled.
       // It is highly recommended you use a non-null condition callback. If you don't be sure to check for race conditions!
-      int wait(pCondition_func pCallback = NULL, void* pCallback_data_ptr = NULL, uint64 callback_data = 0, 
-               uint num_wait_handles = 0, const void** pWait_handles = NULL, uint32 max_time_to_wait = UINT32_MAX);
+      int wait(pCondition_func pCallback = NULL, void* pCallback_data_ptr = NULL, uint64_t callback_data = 0, 
+               uint num_wait_handles = 0, const void** pWait_handles = NULL, uint32_t max_time_to_wait = UINT32_MAX);
       
       // Unlocks the condition_var. Another thread may be woken up if its condition function has become satisfied.
       void unlock();
       
-      uint32 get_cur_lock_count() const;
+      uint32_t get_cur_lock_count() const;
 
    private:
       enum { cMaxWaitingThreads = 16, cMaxWaitingThreadsMask = cMaxWaitingThreads - 1 };
 
       semaphore      m_condition_var_lock;
       mutex          m_waiters_array_lock;
-      uint32         m_tls;
+      uint32_t         m_tls;
       uint           m_cur_age;
       
       struct waiting_thread
       {
-         uint64            m_callback_data;
+         uint64_t            m_callback_data;
          void*             m_pCallback_ptr;
          pCondition_func   m_callback_func;
          uint              m_age;
@@ -73,7 +73,7 @@ namespace crnlib
 
       int m_max_waiter_array_index;
             
-      void set_cur_lock_count(uint32 newCount);
+      void set_cur_lock_count(uint32_t newCount);
       
       void leave_and_scan(int index_to_ignore = -1);
    };

@@ -277,7 +277,7 @@ namespace crnlib
          vq_node() : m_centroid(cClear), m_total_weight(0), m_left(-1), m_right(-1), m_codebook_index(-1), m_unsplittable(false) { }
 
          VectorType        m_centroid;
-         uint64            m_total_weight;
+         uint64_t            m_total_weight;
 
          float             m_variance;
 
@@ -645,8 +645,8 @@ namespace crnlib
          else
             compute_split_pca(left_child, right_child, parent_node);
 
-         uint64 left_weight = 0;
-         uint64 right_weight = 0;
+         uint64_t left_weight = 0;
+         uint64_t right_weight = 0;
 
          float prev_total_variance = 1e+10f;
 
